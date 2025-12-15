@@ -12,37 +12,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AVI">
         <activity
-            android:name=".Mapa"
+            android:name=".controller.Mapa"
             android:exported="false" />
         <activity
-            android:name=".Resultados"
+            android:name=".controller.Resultados"
             android:exported="false" />
         <activity
             android:name=".ejemplo"
             android:exported="false" />
         <activity
-            android:name=".BienvenidaTest"
+            android:name=".controller.BienvenidaTest"
             android:exported="false" />
         <activity
-            android:name=".Test"
+            android:name=".controller.Test"
             android:exported="false" />
         <activity
-            android:name=".Programas"
+            android:name=".controller.Programas"
             android:exported="false" />
         <activity
-            android:name=".User"
+            android:name=".controller.User"
             android:exported="false" />
         <activity
-            android:name=".Principal"
+            android:name=".controller.Principal"
             android:exported="false" />
         <activity
-            android:name=".IniciarSesion"
+            android:name=".controller.IniciarSesion"
             android:exported="false" />
         <activity
-            android:name=".Registro"
+            android:name=".controller.Registro"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".controller.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

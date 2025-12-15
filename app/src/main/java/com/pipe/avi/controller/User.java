@@ -1,4 +1,4 @@
-package com.pipe.avi;
+package com.pipe.avi.controller;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,11 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.pipe.avi.R;
 
 public class User extends AppCompatActivity {
 

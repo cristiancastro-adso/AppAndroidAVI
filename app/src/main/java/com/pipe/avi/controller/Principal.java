@@ -1,17 +1,14 @@
-package com.pipe.avi;
+package com.pipe.avi.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.pipe.avi.R;
 
 public class Principal extends AppCompatActivity {
 
@@ -63,7 +60,7 @@ public class Principal extends AppCompatActivity {
         lytest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Principal.this, Test.class);
+                Intent intent = new Intent(Principal.this, BienvenidaTest.class);
                 startActivity(intent);
             }
         });

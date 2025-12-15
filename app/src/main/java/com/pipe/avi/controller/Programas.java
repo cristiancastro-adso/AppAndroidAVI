@@ -1,24 +1,22 @@
-package com.pipe.avi;
+package com.pipe.avi.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class BienvenidaTest extends AppCompatActivity {
+import com.pipe.avi.R;
 
-    ImageButton btnhome, btnusuario,btnmap;
+public class Programas extends AppCompatActivity {
+
+ ImageButton btnhome, btnusuario,btnmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bienvenida_test);
+        setContentView(R.layout.activity_programas);
 
         btnhome=findViewById(R.id.btnhome);
         btnusuario=findViewById(R.id.btnusuario);
@@ -27,7 +25,7 @@ public class BienvenidaTest extends AppCompatActivity {
         btnhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, Principal.class);
+                Intent intent = new Intent(Programas.this, Principal.class);
                 startActivity(intent);
             }
         });
@@ -35,14 +33,14 @@ public class BienvenidaTest extends AppCompatActivity {
         btnusuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, User.class);
+                Intent intent = new Intent(Programas.this, User.class);
                 startActivity(intent);
             }
         });
         btnmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, Mapa.class);
+                Intent intent = new Intent(Programas.this, Mapa.class);
                 startActivity(intent);
             }
         });
