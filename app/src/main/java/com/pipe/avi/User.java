@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class User extends AppCompatActivity {
 
     Button btncerrarsesion;
-    ImageButton btnhome;
+    ImageButton btnhome,btnmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class User extends AppCompatActivity {
 
         btncerrarsesion=findViewById(R.id.btncerrarsesion);
         btnhome=findViewById(R.id.btnhome);
+        btnmap=findViewById(R.id.btnmap);
 
 
         btncerrarsesion.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,13 @@ public class User extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(User.this, Principal.class);
+                startActivity(intent);
+            }
+        });
+        btnmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(User.this, Mapa.class);
                 startActivity(intent);
             }
         });

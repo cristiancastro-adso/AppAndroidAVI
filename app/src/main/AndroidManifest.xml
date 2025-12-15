@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AVI">
         <activity
+            android:name=".Mapa"
+            android:exported="false" />
+        <activity
+            android:name=".Resultados"
+            android:exported="false" />
+        <activity
             android:name=".ejemplo"
             android:exported="false" />
         <activity

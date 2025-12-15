@@ -11,23 +11,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Programas extends AppCompatActivity {
+public class Mapa extends AppCompatActivity {
 
- ImageButton btnhome, btnusuario,btnmap;
+    ImageButton btnhome, btnusuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_programas);
+        setContentView(R.layout.activity_mapa);
 
         btnhome=findViewById(R.id.btnhome);
         btnusuario=findViewById(R.id.btnusuario);
-        btnmap=findViewById(R.id.btnmap);
 
         btnhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Programas.this, Principal.class);
+                Intent intent = new Intent(Mapa.this, Principal.class);
                 startActivity(intent);
             }
         });
@@ -35,14 +34,7 @@ public class Programas extends AppCompatActivity {
         btnusuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Programas.this, User.class);
-                startActivity(intent);
-            }
-        });
-        btnmap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Programas.this, Mapa.class);
+                Intent intent = new Intent(Mapa.this, User.class);
                 startActivity(intent);
             }
         });

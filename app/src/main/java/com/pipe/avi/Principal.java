@@ -15,9 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Principal extends AppCompatActivity {
 
-    ImageButton btnusuario;
+    ImageButton btnusuario, btnmap;
 
-    LinearLayout lyprogramas;
+    LinearLayout lyprogramas, lyresultados, lytest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,11 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         btnusuario=findViewById(R.id.btnusuario);
+        btnmap=findViewById(R.id.btnmap);
 
         lyprogramas=findViewById(R.id.lyprogramas);
+        lyresultados=findViewById(R.id.lyresultados);
+        lytest=findViewById(R.id.lytest);
 
         btnusuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,11 +38,32 @@ public class Principal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Principal.this, Mapa.class);
+                startActivity(intent);
+            }
+        });
 
         lyprogramas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Principal.this, Programas.class);
+                startActivity(intent);
+            }
+        });
+        lyresultados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Principal.this, Resultados.class);
+                startActivity(intent);
+            }
+        });
+        lytest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Principal.this, Test.class);
                 startActivity(intent);
             }
         });
