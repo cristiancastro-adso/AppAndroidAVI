@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registro"
+    android:orientation="vertical"
+    android:background="@drawable/nuevofondo">
+
+    <LinearLayout
+        android:layout_width="339dp"
+        android:layout_height="413dp"
+        android:layout_gravity="center"
+        android:background="@drawable/form"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/registro"
+            android:textColor="@color/azuloscurosena"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtID"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="@string/id"
+            android:inputType="textPersonName"
+            android:textColor="@color/azuloscurosena"
+            android:textColorHint="@color/azuloscurosena" />
+
+        <EditText
+            android:id="@+id/edtNombre"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="@string/nombre"
+            android:inputType="textPersonName"
+            android:textColor="@color/azuloscurosena"
+            android:textColorHint="@color/azuloscurosena" />
+
+        <EditText
+            android:id="@+id/edtCorreo"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="@string/correo"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/azuloscurosena"
+            android:textColorHint="@color/azuloscurosena" />
+
+        <EditText
+            android:id="@+id/edtTelefono"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="@string/telefono"
+            android:inputType="number"
+            android:textColor="@color/azuloscurosena"
+            android:textColorHint="@color/azuloscurosena" />
+
+        <EditText
+            android:id="@+id/edtPass"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:hint="@string/contraseña"
+            android:inputType="textPassword"
+            android:textColor="@color/azuloscurosena"
+            android:textColorHint="@color/azuloscurosena" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnregistrado"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/botondegradado"
+            android:text="@string/registrarbtn"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:backgroundTint="@null"
+            app:cornerRadius="40dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
