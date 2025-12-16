@@ -18,9 +18,6 @@
             android:name=".controller.Resultados"
             android:exported="false" />
         <activity
-            android:name=".ejemplo"
-            android:exported="false" />
-        <activity
             android:name=".controller.BienvenidaTest"
             android:exported="false" />
         <activity
