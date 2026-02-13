@@ -13,4 +13,5 @@
     <color name="gris">#646363</color>
     <color name="rojo">#FF0000</color>
     <color name="transparente">#00FFFFFF</color>
+    <color name="violeta">#4A148C</color>
 </resources>

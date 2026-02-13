@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.Mapa"
-    android:background="@drawable/nuevofondo">
+    android:background="@drawable/fondomain">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -128,58 +128,76 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/degradado_header"
+        android:background="@drawable/menu_background"
         android:orientation="horizontal"
+        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <ImageButton
             android:id="@+id/btnusuario"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@color/transparente"
+            android:foregroundGravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_user"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnhome"
+            app:layout_constraintEnd_toStartOf="@+id/lybtnhome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageButton
-            android:id="@+id/btnhome"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_home"
+        <LinearLayout
+            android:id="@+id/lybtnhome"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/btnhome"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_iconact"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_homeact" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:text="@string/home"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnmap"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@color/transparente"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_mapa"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnhome"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/lybtnhome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.52" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

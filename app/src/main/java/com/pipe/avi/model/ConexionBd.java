@@ -22,7 +22,7 @@ public class ConexionBd extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE ASPIRANTE(idASPIRANTE INTEGER PRIMARY KEY, nombre_completo TEXT, email TEXT, telefono TEXT, password TEXT)");
+        db.execSQL("CREATE TABLE ASPIRANTE(idASPIRANTE INTEGER PRIMARY KEY, nombre_completo TEXT, email TEXT,  telefono TEXT, password TEXT)");
 
         db.execSQL("CREATE TABLE ADMIN(idADMIN INTEGER PRIMARY KEY, nombre TEXT, email TEXT, password TEXT)");
 

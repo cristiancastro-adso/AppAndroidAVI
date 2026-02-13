@@ -6,10 +6,10 @@
     <string name="inicio">INICIAR SESION</string>
     <string name="registro">REGISTRO</string>
 
-    <string name="nombre">Nombre</string>
-    <string name="telefono">Telefono</string>
-    <string name="correo">Correo</string>
-    <string name="contraseña">Contraseña</string>
+    <string name="nombre">👤Nombre</string>
+    <string name="telefono">📞Telefono</string>
+    <string name="correo">📧Correo</string>
+    <string name="contraseña">🔐Contraseña</string>
     <string name="registrarbtn">Registrar</string>
 
     <string name="dtv"><u>Descubre tu Vocación</u></string>
@@ -30,7 +30,7 @@
     <string name="ayuda">Centro de Ayuda</string>
     <string name="info">Acerca de</string>
     <string name="programas">Programas</string>
-    <string name="id">Identificacion</string>
+    <string name="id">🪪Identificacion</string>
     <string name="perfil">Perfil</string>
     <string name="test">Test Vocacional</string>
     <string name="mapa">Mapa</string>

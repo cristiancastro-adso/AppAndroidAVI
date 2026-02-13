@@ -5,14 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nuevofondo"
+    android:background="@drawable/fondotest"
     tools:context=".controller.Test">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/degradado_header"
+        android:background="@color/transparente"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
@@ -63,13 +63,13 @@
 
 
     <ScrollView
-        android:layout_width="420dp"
-        android:layout_height="790dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_boton_acceso"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,154 +77,67 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <!-- Contador -->
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/txtContador"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Pregunta 1 de 10"
+                android:textSize="16sp"
+                android:textColor="#555555"
                 android:gravity="center"
-                android:paddingBottom="24dp"
-                android:text="TEST DE CONOCIMIENTOS"
+                android:paddingBottom="12dp"/>
+
+            <!-- Pregunta dinámica -->
+            <TextView
+                android:id="@+id/txtPregunta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cargando pregunta..."
                 android:textColor="#000000"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="24dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="#E3F2FD"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1. ¿Cuál es la capital de Francia?"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <RadioGroup
-                    android:id="@+id/question1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Berlin" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Londres" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Paris" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Roma" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="#FFF3E0"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2. ¿Qué lenguaje de programación se usa principalmente para Android nativo?"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <RadioGroup
-                    android:id="@+id/question2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Swift" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Java/Kotlin" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="D" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Python" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="#FCE4EC"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3. Si el Sol es una estrella, ¿qué es la Luna?"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <RadioGroup
-                    android:id="@+id/question3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Un planeta" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Un asteroide" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Un satélite natural" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Un cometa" />
-                </RadioGroup>
-            </LinearLayout>
+            <!-- Botones RIASEC -->
 
             <Button
-                android:id="@+id/btnnext"
+                android:id="@+id/btn5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#2196F3"
-                android:padding="12dp"
-                android:text="SIGUIENTE"
-                android:textAllCaps="true"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:text="😍 Me encanta"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🙂 Me gusta"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="😐 Neutral"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🙁 No me gusta"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="😡 Odio esto"
+                android:layout_marginBottom="20dp"/>
+
         </LinearLayout>
+
     </ScrollView>
 
 
