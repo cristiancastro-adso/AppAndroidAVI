@@ -14,14 +14,14 @@
 
     <string name="dtv"><u>Descubre tu Vocación</u></string>
     <string name="tv">Test Vocacional</string>
-    <string name="ar"><u>Accesos Rapidos</u></string>
+    <string name="ar">Accesos Rapidos</string>
     <string name="avi">AVI</string>
 
-    <string name="cuenta"><u>Cuenta</u></string>
-    <string name="preferencias"><u>Preferencias</u></string>
-    <string name="soporte"><u>Soporte</u></string>
-    <string name="Csesion"><u>Cerrar Sesion</u></string>
-    <string name="formacion"><u>Formación CTPI Popayán</u></string>
+    <string name="cuenta">Cuenta</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="soporte">Soporte</string>
+    <string name="Csesion">Cerrar Sesion</string>
+    <string name="formacion">Formación CTPI Popayán</string>
 
     <string name="edperfil">Editar Perfil</string>
     <string name="cambiar">Cambiar Contraseña</string>

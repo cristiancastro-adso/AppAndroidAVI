@@ -93,7 +93,7 @@
             android:layout_marginBottom="6dp"
             android:layout_weight="1"
             android:background="@drawable/search_background"
-            android:drawableLeft="@drawable/ic_search"
+            android:drawableLeft="@drawable/ic_search_md"
             android:drawablePadding="9dp"
             android:hint="Buscar programa..."
             android:paddingStart="20dp"
@@ -115,7 +115,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout11"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
@@ -154,7 +154,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout13"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_programa"
         android:elevation="20dp"
@@ -192,7 +192,7 @@
 
 
     <LinearLayout
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_programa"
         android:elevation="5dp"
@@ -244,49 +244,32 @@
 
         <ImageButton
             android:id="@+id/btnusuario"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@color/transparente"
             android:foregroundGravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_user"
+            android:src="@drawable/ic_user_md"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/lybtnhome"
+            app:layout_constraintEnd_toStartOf="@+id/btnhome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
-            android:id="@+id/lybtnhome"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"
+        <ImageButton
+            android:id="@+id/btnhome"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@color/transparente"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/btnhome"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_iconact"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_homeact" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_gravity="center"
-                android:text="@string/home"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnmap"
@@ -295,19 +278,18 @@
             android:layout_gravity="center"
             android:background="@color/transparente"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_mapa"
+            android:src="@drawable/ic_map_md"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/lybtnhome"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintStart_toEndOf="@+id/btnhome"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout12"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_programa"
         android:elevation="20dp"

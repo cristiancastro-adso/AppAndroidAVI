@@ -24,49 +24,32 @@
 
         <ImageButton
             android:id="@+id/btnusuario"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@color/transparente"
             android:foregroundGravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_user"
+            android:src="@drawable/ic_user_md"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/lybtnhome"
+            app:layout_constraintEnd_toStartOf="@+id/btnhome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
-            android:id="@+id/lybtnhome"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical"
+        <ImageButton
+            android:id="@+id/btnhome"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@color/transparente"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/btnhome"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bg_iconact"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_homeact" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_gravity="center"
-                android:text="@string/home"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
-
-        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnmap"
@@ -75,12 +58,11 @@
             android:layout_gravity="center"
             android:background="@color/transparente"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_mapa"
+            android:src="@drawable/ic_map_md"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/lybtnhome"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintStart_toEndOf="@+id/btnhome"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,6 +74,8 @@
         android:text="@string/ar"
         android:textColor="@color/azuloscurosena"
         android:textSize="25dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.062"
@@ -122,7 +106,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp"
-            android:elevation="5dp">
+            android:elevation="3dp">
 
             <ImageView
                 android:layout_width="45dp"
@@ -149,14 +133,14 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp"
-            android:elevation="5dp">
+            android:elevation="3dp">
 
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:background="@color/transparente"
                 android:padding="8dp"
-                android:src="@drawable/ic_resultados" />
+                android:src="@drawable/ic_resultados_new" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -179,49 +163,53 @@
             android:padding="16dp"
             android:clickable="true"
             android:focusable="true"
-            android:elevation="5dp">
+            android:elevation="3dp">
 
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:background="@color/transparente"
                 android:padding="8dp"
-                android:src="@drawable/ic_programa" />
+                android:src="@drawable/ic_programa_new" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="programas"
+                android:text="Programas"
                 android:textSize="20dp" />
         </LinearLayout>
 
     </GridLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/gato"
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/avibg"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridAccesos"
-        app:layout_constraintVertical_bias="0.915" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/avi"
-        android:textColor="@color/azuloscurosena"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/gato"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.961"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridAccesos"
+            app:layout_constraintVertical_bias="0.961" />
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

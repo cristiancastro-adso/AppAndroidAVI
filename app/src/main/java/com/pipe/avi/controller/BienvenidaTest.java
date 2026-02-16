@@ -53,7 +53,7 @@ public class BienvenidaTest extends AppCompatActivity {
         btninittest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BienvenidaTest.this, Test.class);
+                Intent intent = new Intent(BienvenidaTest.this, PretestActivity.class);
                 startActivity(intent);
             }
         });

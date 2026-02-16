@@ -106,35 +106,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😍 Me encanta"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btnfondo"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"/>
 
             <Button
                 android:id="@+id/btn4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🙂 Me gusta"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btnfondo"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"/>
 
             <Button
                 android:id="@+id/btn3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😐 Neutral"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btnfondo"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"/>
 
             <Button
                 android:id="@+id/btn2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🙁 No me gusta"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btnfondo"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"/>
 
             <Button
                 android:id="@+id/btn1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😡 Odio esto"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/btnfondo"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"/>
 
         </LinearLayout>
 
