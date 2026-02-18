@@ -75,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="100dp"
             android:padding="24dp">
 
             <!-- Contador -->
@@ -88,7 +89,6 @@
                 android:gravity="center"
                 android:paddingBottom="12dp"/>
 
-            <!-- Pregunta dinámica -->
             <TextView
                 android:id="@+id/txtPregunta"
                 android:layout_width="match_parent"
@@ -99,57 +99,74 @@
                 android:textStyle="bold"
                 android:paddingBottom="24dp"/>
 
-            <!-- Botones RIASEC -->
+            <ImageView
+                android:id="@+id/imgLoader"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:visibility="visible"/>
+
 
             <Button
                 android:id="@+id/btn5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😍 Me encanta"
+                android:textSize="18dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btnfondo"
+                android:background="@drawable/btn_meencanta"
                 android:backgroundTint="@null"
-                app:backgroundTint="@null"/>
+                app:backgroundTint="@null"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🙂 Me gusta"
+                android:textSize="18dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btnfondo"
+                android:background="@drawable/btn_megusta"
                 android:backgroundTint="@null"
-                app:backgroundTint="@null"/>
+                app:backgroundTint="@null"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😐 Neutral"
+                android:textSize="18dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btnfondo"
+                android:background="@drawable/btn_neutral"
                 android:backgroundTint="@null"
-                app:backgroundTint="@null"/>
+                app:backgroundTint="@null"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🙁 No me gusta"
+                android:textSize="18dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btnfondo"
+                android:background="@drawable/btn_nomegusta"
                 android:backgroundTint="@null"
-                app:backgroundTint="@null"/>
+                app:backgroundTint="@null"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="😡 Odio esto"
+                android:textSize="18dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/btnfondo"
+                android:background="@drawable/btn_odioesto"
                 android:backgroundTint="@null"
-                app:backgroundTint="@null"/>
+                app:backgroundTint="@null"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
