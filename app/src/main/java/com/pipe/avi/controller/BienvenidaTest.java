@@ -2,9 +2,9 @@ package com.pipe.avi.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,51 +12,53 @@ import com.pipe.avi.R;
 
 public class BienvenidaTest extends AppCompatActivity {
 
-
     Button btninittest;
-    ImageButton btnhome, btnusuario,btnmap;
+    ImageButton btnhome, btnusuario, btnmap;
+
+    int aspiranteId; // 🔥 Guardamos el ID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bienvenida_test);
 
-        btnhome=findViewById(R.id.btnhome);
-        btnusuario=findViewById(R.id.btnusuario);
-        btnmap=findViewById(R.id.btnmap);
+        // 🔥 Recibir ID desde Principal
+        aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
 
-        btninittest=findViewById(R.id.btninittest);
+        if (aspiranteId == 0) {
+            Toast.makeText(this, "Error: ID no recibido", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
-        btnhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, Principal.class);
-                startActivity(intent);
-            }
+        btnhome = findViewById(R.id.btnhome);
+        btnusuario = findViewById(R.id.btnusuario);
+        btnmap = findViewById(R.id.btnmap);
+        btninittest = findViewById(R.id.btninittest);
+
+        btnhome.setOnClickListener(v -> {
+            Intent intent = new Intent(BienvenidaTest.this, Principal.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+            finish();
         });
 
-        btnusuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, User.class);
-                startActivity(intent);
-            }
-        });
-        btnmap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BienvenidaTest.this, Mapa.class);
-                startActivity(intent);
-            }
+        btnusuario.setOnClickListener(v -> {
+            Intent intent = new Intent(BienvenidaTest.this, User.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
         });
 
-        btninittest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BienvenidaTest.this, PretestActivity.class);
-                startActivity(intent);
-            }
+        btnmap.setOnClickListener(v -> {
+            Intent intent = new Intent(BienvenidaTest.this, Mapa.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
         });
 
+        btninittest.setOnClickListener(view -> {
+            Intent intent = new Intent(BienvenidaTest.this, PretestActivity.class);
+            intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
+            startActivity(intent);
+        });
     }
 }

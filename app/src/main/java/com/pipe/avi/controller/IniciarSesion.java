@@ -28,7 +28,6 @@ public class IniciarSesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
 
-        // 🔹 Inicializar vistas
         btniniciosesion = findViewById(R.id.btniniciosesion);
         edtId = findViewById(R.id.edtId);
         edtPass = findViewById(R.id.edtPass);
@@ -54,6 +53,7 @@ public class IniciarSesion extends AppCompatActivity {
         }
 
         Integer id;
+
         try {
             id = Integer.parseInt(idTexto);
         } catch (NumberFormatException e) {
@@ -76,11 +76,14 @@ public class IniciarSesion extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
 
                     if (loginResponse.isSuccess()) {
+
                         Toast.makeText(IniciarSesion.this,
                                 loginResponse.getMensaje(),
                                 Toast.LENGTH_SHORT).show();
 
+                        // 🔥 ENVIAMOS EL ID AL PRINCIPAL
                         Intent intent = new Intent(IniciarSesion.this, Principal.class);
+                        intent.putExtra("aspiranteId", id);
                         startActivity(intent);
                         finish();
 

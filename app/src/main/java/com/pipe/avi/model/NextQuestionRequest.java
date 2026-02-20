@@ -2,11 +2,13 @@ package com.pipe.avi.model;
 
 public class NextQuestionRequest {
 
-    public RiasecScores riasec_scores;
-    public String session_id;
+    private int testId;
+    private RiasecScores riasec_scores;
+    private String session_id;
 
-    public NextQuestionRequest(RiasecScores scores, String sessionId) {
-        this.riasec_scores = scores;
-        this.session_id = sessionId;
+    public NextQuestionRequest(int testId, RiasecScores riasec_scores, String session_id) {
+        this.testId = testId;
+        this.riasec_scores = riasec_scores;
+        this.session_id = session_id;
     }
 }
