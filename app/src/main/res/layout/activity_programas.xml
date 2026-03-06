@@ -113,121 +113,6 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout11"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@drawable/bg_programa"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
-        app:layout_constraintVertical_bias="0.037">
-
-        <TextView
-            android:id="@+id/txtVIEWNombrePrograma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del Programa"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtViewNivel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/badge_nivel"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="Técnologo"
-            android:textColor="#009dff"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout13"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_programa"
-        android:elevation="20dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout11"
-        app:layout_constraintVertical_bias="0.044">
-
-        <TextView
-            android:id="@+id/txtviewNombrePrograma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del Programa"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtviewNivel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/badge_nivel"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="Técnico"
-            android:textColor="#009dff"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_programa"
-        android:elevation="5dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout13"
-        app:layout_constraintVertical_bias="0.061">
-
-        <TextView
-            android:id="@+id/txtNombrePrograma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del Programa"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtNivel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/badge_nivel"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="Técnologo"
-            android:textColor="#009dff"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -288,7 +173,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout12"
+        android:id="@+id/LLprograma"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_programa"
@@ -297,9 +182,10 @@
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
-        app:layout_constraintVertical_bias="0.043">
+        app:layout_constraintVertical_bias="0.093">
 
         <TextView
             android:id="@+id/txtvNombrePrograma"
@@ -322,6 +208,13 @@
             android:textColor="#009dff"
             android:textSize="14sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAbrirAR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Ver experiencia AR" />
 
     </LinearLayout>
 

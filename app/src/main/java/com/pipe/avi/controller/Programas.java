@@ -3,6 +3,7 @@ package com.pipe.avi.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.pipe.avi.R;
 public class Programas extends AppCompatActivity {
 
  ImageButton btnhome, btnusuario,btnmap;
+ Button btnAbrirAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,12 @@ public class Programas extends AppCompatActivity {
         btnhome=findViewById(R.id.btnhome);
         btnusuario=findViewById(R.id.btnusuario);
         btnmap=findViewById(R.id.btnmap);
+        btnAbrirAR = findViewById(R.id.btnAbrirAR);
+
+        btnAbrirAR.setOnClickListener(v -> {
+            Intent intent = new Intent(Programas.this, ARActivity.class);
+            startActivity(intent);
+        });
 
         btnhome.setOnClickListener(new View.OnClickListener() {
             @Override
