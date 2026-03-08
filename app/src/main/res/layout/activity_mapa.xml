@@ -17,12 +17,9 @@
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
         android:paddingVertical="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- LOGO IZQUIERDA -->
         <ImageView
@@ -30,7 +27,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="15dp"
-
             android:scaleType="centerInside"
             android:src="@drawable/gato" />
 
@@ -46,7 +42,7 @@
                 android:id="@+id/txtTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Programas del SENA"
+                android:text="Mapa del CTPI"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -56,13 +52,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Formación CTPI Popayán"
+                android:text="Formación SENA Popayán"
                 android:textColor="#e6f7ff"
                 android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/buscador"
@@ -73,12 +68,9 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-        app:layout_constraintVertical_bias="0.013">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
         <ImageView
             android:layout_width="24dp"
@@ -86,6 +78,7 @@
             android:src="@android:drawable/ic_menu_search" />
 
         <EditText
+            android:id="@+id/etBuscarAmbiente"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -94,63 +87,31 @@
             android:paddingStart="8dp" />
     </LinearLayout>
 
-
-
-        <ImageView
-            android:id="@+id/imgEnglish"
-            android:layout_width="290dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bordermap"
-            android:clipToOutline="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:elevation="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/mapa_ctpi_3d"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buscador"
-            app:layout_constraintVertical_bias="0.21" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnCentrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.pipe.avi.controller.CustomMapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_menu_camera"
-        app:maxImageSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
-        app:layout_constraintVertical_bias="0.964" />
+        app:layout_constraintTop_toBottomOf="@+id/buscador" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="center"
         android:background="@drawable/menu_background"
-        android:orientation="horizontal"
-        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
-
 
         <ImageButton
             android:id="@+id/btnusuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
-            android:foregroundGravity="center"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_user_md"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -158,13 +119,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <ImageButton
             android:id="@+id/btnhome"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -172,20 +131,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <ImageButton
             android:id="@+id/btnmap"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_map_md"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnhome"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

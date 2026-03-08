@@ -2,7 +2,6 @@ package com.pipe.avi.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -16,18 +15,22 @@ public class Principal extends AppCompatActivity {
     ImageButton btnusuario, btnmap;
     LinearLayout lyprogramas, lyresultados, lytest;
 
-    int aspiranteId; // 🔥 Guardamos el ID aquí
+    int aspiranteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        // 🔥 Recibimos el ID desde Login
-        aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
+        // 🔹 Recibir ID del login
+        aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
 
-        if (aspiranteId == 0) {
-            Toast.makeText(this, "Error: ID no recibido", Toast.LENGTH_LONG).show();
+        // 🔹 Validar sesión
+        if (aspiranteId == -1) {
+            Toast.makeText(this, "Error: sesión no válida", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(Principal.this, IniciarSesion.class);
+            startActivity(intent);
             finish();
             return;
         }
@@ -39,33 +42,41 @@ public class Principal extends AppCompatActivity {
         lyresultados = findViewById(R.id.lyresultados);
         lytest = findViewById(R.id.lytest);
 
+        // 👤 Usuario
         btnusuario.setOnClickListener(v -> {
             Intent intent = new Intent(Principal.this, User.class);
             intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });
 
+        // 🗺️ Mapa
         btnmap.setOnClickListener(v -> {
             Intent intent = new Intent(Principal.this, Mapa.class);
+
+            // 🔥 AQUÍ SE ENVÍA EL ID AL MAPA
             intent.putExtra("aspiranteId", aspiranteId);
+
             startActivity(intent);
         });
 
+        // 📚 Programas
         lyprogramas.setOnClickListener(v -> {
             Intent intent = new Intent(Principal.this, Programas.class);
             intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });
 
+        // 📊 Resultados
         lyresultados.setOnClickListener(v -> {
             Intent intent = new Intent(Principal.this, Resultados.class);
             intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });
 
+        // 🧠 Test
         lytest.setOnClickListener(v -> {
             Intent intent = new Intent(Principal.this, BienvenidaTest.class);
-            intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
+            intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });
     }
