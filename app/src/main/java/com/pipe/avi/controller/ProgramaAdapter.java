@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,20 +39,39 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Programa programa = programas.get(position);
-        
+
         String nombre = (programa.getNombre() != null) ? programa.getNombre() : "Sin nombre";
         String nivel = (programa.getNivel() != null) ? programa.getNivel() : "Sin nivel";
         String descripcion = (programa.getDescripcion() != null) ? programa.getDescripcion() : "Sin descripción disponible.";
-        
+
         holder.txtNombre.setText(nombre);
         holder.txtNivel.setText(nivel);
         holder.txtDescripcion.setText(descripcion);
 
-        holder.itemView.setOnClickListener(v -> {
+        // BOTÓN AR
+        holder.btnVerAR.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onProgramaClick(programa);
             }
+        });
+
+        // EXPANDIR / CONTRAER TARJETA
+        holder.layoutPrincipal.setOnClickListener(v -> {
+
+            if (holder.layoutExpandible.getVisibility() == View.GONE) {
+
+                holder.layoutExpandible.setVisibility(View.VISIBLE);
+                holder.txtToggle.setText("Ver menos");
+
+            } else {
+
+                holder.layoutExpandible.setVisibility(View.GONE);
+                holder.txtToggle.setText("Ver más");
+
+            }
+
         });
     }
 
@@ -65,13 +86,23 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtNivel, txtDescripcion;
+
+        TextView txtNombre, txtNivel, txtDescripcion, txtToggle;
+        Button btnVerAR;
+        LinearLayout layoutExpandible, layoutPrincipal;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             txtNombre = itemView.findViewById(R.id.txtNombrePrograma);
             txtNivel = itemView.findViewById(R.id.txtNivelFormacion);
             txtDescripcion = itemView.findViewById(R.id.txtDescripcion);
+            txtToggle = itemView.findViewById(R.id.txtToggle);
+
+            btnVerAR = itemView.findViewById(R.id.btnVerAR);
+
+            layoutExpandible = itemView.findViewById(R.id.layoutExpandible);
+            layoutPrincipal = itemView.findViewById(R.id.layoutPrincipal);
         }
     }
 }

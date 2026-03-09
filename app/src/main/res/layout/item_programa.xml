@@ -9,11 +9,14 @@
     app:cardElevation="4dp">
 
     <LinearLayout
+        android:id="@+id/layoutPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
         android:background="@drawable/bg_programa">
+
+        <!-- NOMBRE -->
 
         <TextView
             android:id="@+id/txtNombrePrograma"
@@ -23,6 +26,8 @@
             android:textColor="#333333"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <!-- NIVEL -->
 
         <TextView
             android:id="@+id/txtNivelFormacion"
@@ -37,14 +42,49 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+        <!-- TEXTO VER MAS / VER MENOS -->
+
         <TextView
-            android:id="@+id/txtDescripcion"
+            android:id="@+id/txtToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Ver más"
+            android:layout_gravity="center"
+            android:textColor="#009dff"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- CONTENIDO EXPANDIBLE -->
+
+        <LinearLayout
+            android:id="@+id/layoutExpandible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Descripción del programa..."
-            android:textColor="#666666"
-            android:textSize="14sp" />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Descripción del programa..."
+                android:textColor="#666666"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnVerAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Ver experiencia AR"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#009dff"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
