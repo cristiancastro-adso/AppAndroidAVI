@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomain"
+    android:background="@drawable/fondo_gmn"
     android:id="@+id/main">
 
     <LinearLayout
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Programas del SENA"
-                android:textColor="#ffffff"
+                android:textColor="@color/moradosena"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Formación CTPI Popayán"
-                android:textColor="#e6f7ff"
+                android:textColor="@color/gris"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
@@ -66,7 +66,6 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:background="@drawable/search_background"
-            android:drawableLeft="@drawable/ic_search_md"
             android:drawablePadding="9dp"
             android:hint="Buscar programa..."
             android:paddingStart="20dp"

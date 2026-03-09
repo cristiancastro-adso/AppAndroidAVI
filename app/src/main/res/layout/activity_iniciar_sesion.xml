@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomain">
+    android:background="@drawable/fondo_gmn">
 
     <ScrollView
         android:id="@+id/scrollLogin"
@@ -17,27 +17,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Contenedor que centra el formulario -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center"
             android:padding="24dp">
 
-            <!-- Card del login -->
+            <!-- TEXTO SUPERIOR -->
+
+            <!-- BURBUJA GRANDE + GATO -->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="-80dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/burbuja_circular"/>
+
+                <ImageView
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/gato"
+                    android:scaleType="fitCenter"/>
+
+            </FrameLayout>
+
+            <!-- CARD LOGIN -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/form"
                 android:elevation="12dp"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/inicio"
-                    android:textSize="24sp"
+                    android:text="INICIAR SESIÓN"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
@@ -66,10 +90,10 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btniniciosesion"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:text="@string/inicio"
+                    android:layout_height="50dp"
+                    android:text="Iniciar Sesión"
                     android:textSize="18sp"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="12dp"
                     android:backgroundTint="@color/violeta"/>
 
             </LinearLayout>

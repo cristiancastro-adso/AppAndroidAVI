@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomain"
+    android:background="@drawable/fondo_gmn"
     tools:context=".controller.Registro">
 
     <ScrollView
@@ -19,119 +19,128 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Contenedor que centra el formulario -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
             android:padding="24dp">
 
-            <!-- Card del formulario -->
+            <!-- TARJETA DEL FORMULARIO -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/form"
-                android:elevation="2dp"
-                android:padding="24dp">
+                android:elevation="8dp"
+                android:padding="28dp"
+                android:layout_margin="8dp">
 
+
+                <!-- TITULO -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/registro"
                     android:textColor="@color/azuloscurosena"
-                    android:textSize="24sp"
+                    android:textSize="26sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="20dp"/>
 
                 <EditText
                     android:id="@+id/edtID"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/id"
                     android:inputType="number"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtNombre"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/nombre"
                     android:inputType="textPersonName"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtFechaNacimiento"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="🎂Fecha de Nacimiento"
+                    android:layout_height="48dp"
+                    android:hint="🎂 Fecha de Nacimiento"
                     android:focusable="false"
                     android:clickable="true"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtCorreo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/correo"
                     android:inputType="textEmailAddress"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtTelefono"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/telefono"
                     android:inputType="number"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtBarrio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="📍 Barrio"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
 
                 <EditText
                     android:id="@+id/edtDireccion"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="🏠 Dirección"
+                    android:padding="12dp"
                     android:layout_marginBottom="12dp"/>
-
 
                 <Spinner
                     android:id="@+id/spnEstudios"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"/>
 
                 <EditText
                     android:id="@+id/edtInstitucion"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="Escribe el nombre"
                     android:visibility="gone"
-                    android:layout_marginBottom="20dp"/>
-
-
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"/>
 
                 <EditText
                     android:id="@+id/edtPass"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:hint="@string/contraseña"
                     android:inputType="textPassword"
-                    android:layout_marginBottom="20dp"/>
+                    android:padding="12dp"
+                    android:layout_marginBottom="24dp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnregistrado"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="50dp"
                     android:text="@string/registrarbtn"
                     android:textSize="18sp"
-                    app:cornerRadius="10dp"
+                    app:cornerRadius="14dp"
                     android:backgroundTint="@color/violeta"/>
 
             </LinearLayout>
@@ -141,4 +150,3 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

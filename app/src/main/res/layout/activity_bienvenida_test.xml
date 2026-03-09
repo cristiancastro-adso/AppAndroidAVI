@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomain"
+    android:background="@drawable/fondo_gmn"
     tools:context=".controller.BienvenidaTest">
 
     <LinearLayout
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test"
-                android:textColor="#ffffff"
+                android:textColor="@color/moradosena"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/formacion"
-                android:textColor="#e6f7ff"
+                android:textColor="@color/gris"
                 android:textSize="14sp" />
         </LinearLayout>
 
