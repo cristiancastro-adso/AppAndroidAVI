@@ -48,4 +48,5 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.browser:browser:1.5.0")
     implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
-    implementation("com.google.android.material:material:1.11.0")}
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")}

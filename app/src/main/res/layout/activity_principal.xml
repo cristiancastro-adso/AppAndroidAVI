@@ -182,32 +182,49 @@
 
     </GridLayout>
 
-    <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/avibg"
-        android:gravity="center"
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/txtPD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="Programas Destacados"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976">
+        app:layout_constraintTop_toBottomOf="@+id/gridAccesos"
+        app:layout_constraintVertical_bias="0.059" />
 
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/bg_target_principal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPD">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/gato"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.961"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gridAccesos"
-            app:layout_constraintVertical_bias="0.961" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chartProgramas"
+            android:layout_width="330dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"/>
 
+        <!-- CONTENEDOR DE LEYENDAS -->
+        <LinearLayout
+            android:id="@+id/legendContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"/>
 
     </LinearLayout>
 
