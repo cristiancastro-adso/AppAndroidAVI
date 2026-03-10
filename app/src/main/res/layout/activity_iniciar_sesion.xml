@@ -28,6 +28,7 @@
 
             <!-- BURBUJA GRANDE + GATO -->
             <FrameLayout
+                android:id="@+id/burbujaContainer"
                 android:layout_width="280dp"
                 android:layout_height="280dp"
                 android:layout_gravity="center"
@@ -49,6 +50,7 @@
 
             <!-- CARD LOGIN -->
             <LinearLayout
+                android:id="@+id/cardLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -87,14 +89,27 @@
                     android:textColor="@color/azuloscurosena"
                     android:textColorHint="@color/azuloscurosena"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btniniciosesion"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Iniciar Sesión"
-                    android:textSize="18sp"
-                    app:cornerRadius="12dp"
-                    android:backgroundTint="@color/violeta"/>
+                    android:layout_height="50dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btniniciosesion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Iniciar Sesión"
+                        android:textSize="18sp"
+                        app:cornerRadius="12dp"
+                        android:backgroundTint="@color/violeta"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressLogin"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"/>
+
+                </FrameLayout>
 
             </LinearLayout>
 

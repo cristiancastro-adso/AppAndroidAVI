@@ -18,6 +18,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TEXTO DEL GATO (CHATBOT) -->
+
+    <TextView
+        android:id="@+id/txtBurbuja"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#4A4A6A"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="@id/burbujaGato"
+        app:layout_constraintBottom_toBottomOf="@id/burbujaGato"
+        app:layout_constraintStart_toStartOf="@id/burbujaGato"
+        app:layout_constraintEnd_toEndOf="@id/burbujaGato"/>
+
     <ImageView
         android:id="@+id/imgGato"
         android:layout_width="140dp"

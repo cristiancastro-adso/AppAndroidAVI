@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,10 @@ public class Registro extends AppCompatActivity {
 
     Spinner spnEstudios;
     Button btnregistrado;
+
+    LinearLayout cardFormulario;
+
+    Animation animCard, animBoton;
 
     String ocupacionSeleccionada = "";
 
@@ -64,10 +70,23 @@ public class Registro extends AppCompatActivity {
         spnEstudios = findViewById(R.id.spnEstudios);
         btnregistrado = findViewById(R.id.btnregistrado);
 
+        cardFormulario = findViewById(R.id.cardFormulario);
+
+        // Animaciones
+        animCard = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        animBoton = AnimationUtils.loadAnimation(this, R.anim.boton_press);
+
+        cardFormulario.startAnimation(animCard);
+
         configurarSpinner();
         configurarCalendario();
 
-        btnregistrado.setOnClickListener(v -> registrarAspirante());
+        btnregistrado.setOnClickListener(v -> {
+
+            btnregistrado.startAnimation(animBoton);
+
+            registrarAspirante();
+        });
     }
 
     // =============================
@@ -187,7 +206,6 @@ public class Registro extends AppCompatActivity {
             return;
         }
 
-        // 🔥 Convertir fecha a yyyy-MM-dd
         String fechaFormateada = "";
         try {
             SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -201,7 +219,6 @@ public class Registro extends AppCompatActivity {
             return;
         }
 
-        // 🔥 ORDEN CORRECTO
         Aspirante aspirante = new Aspirante(
                 id,
                 nombre,
@@ -228,7 +245,11 @@ public class Registro extends AppCompatActivity {
                             "Registro exitoso",
                             Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(Registro.this, IniciarSesion.class));
+                    Intent intent = new Intent(Registro.this, IniciarSesion.class);
+                    startActivity(intent);
+
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
                     finish();
 
                 } else {
@@ -247,7 +268,3 @@ public class Registro extends AppCompatActivity {
         });
     }
 }
-
-
-
-

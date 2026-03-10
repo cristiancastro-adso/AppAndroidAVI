@@ -3,6 +3,8 @@ package com.pipe.avi.controller;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
 
     private List<Programa> programas;
     private OnProgramaClickListener listener;
+    private int lastPosition = -1;
 
     public interface OnProgramaClickListener {
         void onProgramaClick(Programa programa);
@@ -33,7 +36,10 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_programa, parent, false);
+
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_programa, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -42,36 +48,70 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
 
         Programa programa = programas.get(position);
 
-        String nombre = (programa.getNombre() != null) ? programa.getNombre() : "Sin nombre";
-        String nivel = (programa.getNivel() != null) ? programa.getNivel() : "Sin nivel";
-        String descripcion = (programa.getDescripcion() != null) ? programa.getDescripcion() : "Sin descripción disponible.";
+        String nombre = programa.getNombre() != null ? programa.getNombre() : "Sin nombre";
+        String nivel = programa.getNivel() != null ? programa.getNivel() : "Sin nivel";
+        String descripcion = programa.getDescripcion() != null ? programa.getDescripcion() : "Sin descripción disponible.";
 
         holder.txtNombre.setText(nombre);
         holder.txtNivel.setText(nivel);
         holder.txtDescripcion.setText(descripcion);
 
+        // Animación al aparecer (usando posición segura)
+        int currentPosition = holder.getAdapterPosition();
+
+        if (currentPosition > lastPosition) {
+
+            Animation animation = AnimationUtils.loadAnimation(
+                    holder.itemView.getContext(),
+                    R.anim.slide_up);
+
+            holder.itemView.startAnimation(animation);
+
+            lastPosition = currentPosition;
+        }
+
         // BOTÓN AR
         holder.btnVerAR.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onProgramaClick(programa);
+
+            int pos = holder.getAdapterPosition();
+
+            if (pos != RecyclerView.NO_POSITION && listener != null) {
+
+                Animation press = AnimationUtils.loadAnimation(
+                        v.getContext(),
+                        R.anim.boton_press);
+
+                v.startAnimation(press);
+
+                listener.onProgramaClick(programas.get(pos));
             }
         });
 
         // EXPANDIR / CONTRAER TARJETA
         holder.layoutPrincipal.setOnClickListener(v -> {
 
+            Animation press = AnimationUtils.loadAnimation(
+                    v.getContext(),
+                    R.anim.boton_press);
+
+            v.startAnimation(press);
+
             if (holder.layoutExpandible.getVisibility() == View.GONE) {
 
                 holder.layoutExpandible.setVisibility(View.VISIBLE);
                 holder.txtToggle.setText("Ver menos");
 
+                Animation slide = AnimationUtils.loadAnimation(
+                        v.getContext(),
+                        R.anim.slide_up);
+
+                holder.layoutExpandible.startAnimation(slide);
+
             } else {
 
                 holder.layoutExpandible.setVisibility(View.GONE);
                 holder.txtToggle.setText("Ver más");
-
             }
-
         });
     }
 
@@ -81,7 +121,10 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public void updateList(List<Programa> newList) {
+
         this.programas = (newList != null) ? newList : new ArrayList<>();
+        lastPosition = -1;
+
         notifyDataSetChanged();
     }
 

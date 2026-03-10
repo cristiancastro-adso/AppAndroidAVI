@@ -49,6 +49,7 @@
                     android:background="@drawable/burbuja_circular"/>
 
                 <ImageView
+                    android:id="@+id/gato"
                     android:layout_width="220dp"
                     android:layout_height="220dp"
                     android:layout_gravity="center"

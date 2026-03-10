@@ -47,4 +47,5 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.browser:browser:1.5.0")
-    implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")}
+    implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
+    implementation("com.google.android.material:material:1.11.0")}
