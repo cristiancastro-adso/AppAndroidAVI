@@ -1,6 +1,8 @@
 package com.pipe.avi.model;
 
-public class RiasecScores {
+import java.io.Serializable;
+
+public class RiasecScores implements Serializable {
 
     private int R;
     private int I;
@@ -9,6 +11,17 @@ public class RiasecScores {
     private int E;
     private int C;
 
+    // Constructor vacío (IMPORTANTE para Retrofit)
+    public RiasecScores() {
+        R = 0;
+        I = 0;
+        A = 0;
+        S = 0;
+        E = 0;
+        C = 0;
+    }
+
+    // Constructor opcional
     public RiasecScores(int r, int i, int a, int s, int e, int c) {
         this.R = r;
         this.I = i;
@@ -50,5 +63,11 @@ public class RiasecScores {
     public int getS() { return S; }
     public int getE() { return E; }
     public int getC() { return C; }
-}
 
+    public void setR(int r) { R = r; }
+    public void setI(int i) { I = i; }
+    public void setA(int a) { A = a; }
+    public void setS(int s) { S = s; }
+    public void setE(int e) { E = e; }
+    public void setC(int c) { C = c; }
+}

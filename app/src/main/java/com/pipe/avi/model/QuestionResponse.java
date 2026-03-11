@@ -1,15 +1,33 @@
 package com.pipe.avi.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class QuestionResponse {
 
-    private int idPREGUNTAS;       // ID de la pregunta en BD
-    private String descripcion;    // Texto de la pregunta
-    private String perfilesRIASEC; // Categoría RIASEC
-    private boolean generadaIA;    // opcional
-    private int testId;            // opcional
+    @SerializedName("idPREGUNTAS")
+    private int id;
 
-    // Getters personalizados para tu Activity
-    public int getId() { return idPREGUNTAS; }
-    public String getQuestion() { return descripcion; }
-    public String getCategory() { return perfilesRIASEC; }
+    @SerializedName("descripcion")
+    private String question;
+
+    @SerializedName("perfilesRIASEC")
+    private String category;
+
+    @SerializedName("generadaIA")
+    private boolean generadaIA;
+
+    @SerializedName("testId")
+    private int testId;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }

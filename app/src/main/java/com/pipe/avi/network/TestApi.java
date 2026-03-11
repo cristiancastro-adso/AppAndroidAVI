@@ -3,7 +3,9 @@ package com.pipe.avi.network;
 import com.pipe.avi.model.NextQuestionRequest;
 import com.pipe.avi.model.QuestionResponse;
 import com.pipe.avi.model.ResultResponse;
+
 import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -22,6 +24,7 @@ public interface TestApi {
     @POST("test/answer")
     Call<Map<String, Object>> saveAnswer(@Body Map<String, Object> body);
 
-    @POST("test/finish")  // ✅ Aquí estaba el error
+    @POST("test/finish") // ✅ CORREGIDO
     Call<ResultResponse> finishTest(@Body Map<String, Object> body);
+
 }

@@ -10,13 +10,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.pipe.avi.R;
 import com.pipe.avi.model.NextQuestionRequest;
 import com.pipe.avi.model.QuestionResponse;
+import com.pipe.avi.model.ResultResponse;
 import com.pipe.avi.model.RiasecScores;
-import com.pipe.avi.network.ApiClient;
+import com.pipe.avi.network.RetrofitClient;
 import com.pipe.avi.network.TestApi;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,154 +28,227 @@ import retrofit2.Response;
 
 public class Test extends AppCompatActivity {
 
-    private TestApi api;
-    private RiasecScores scores;
+    TextView txtPregunta, txtContador;
+    ImageView imgLoader;
 
-    private String sessionId;
-    private int reporteId;
-    private int testId = 1; // ID del test en la BD
+    Button btn5, btn4, btn3, btn2, btn1;
 
-    private QuestionResponse currentQuestion;
+    String sessionId;
+    int reporteId;
+    int aspiranteId;
 
-    private TextView txtPregunta, txtContador;
-    private Button btn1, btn2, btn3, btn4, btn5;
-    private ImageView imgLoader;
+    int preguntaId;
+    int preguntaActual = 1;
+    int totalPreguntas = 10;
 
-    private int questionCount = 0;
-    private final int TOTAL_QUESTIONS = 10;
+    String categoriaActual;
+
+    RiasecScores riasecScores = new RiasecScores();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        api = ApiClient.getClient().create(TestApi.class);
-
-        // 🔥 Recibir datos del Pretest
-        sessionId = getIntent().getStringExtra("session_id");
-        reporteId = getIntent().getIntExtra("reporteId", 0);
-
-        if (sessionId == null || reporteId == 0) {
-            Toast.makeText(this, "Error iniciando test", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-
-        scores = new RiasecScores(0, 0, 0, 0, 0, 0);
-
         txtPregunta = findViewById(R.id.txtPregunta);
         txtContador = findViewById(R.id.txtContador);
         imgLoader = findViewById(R.id.imgLoader);
 
-        btn1 = findViewById(R.id.btn1);
-        btn2 = findViewById(R.id.btn2);
-        btn3 = findViewById(R.id.btn3);
-        btn4 = findViewById(R.id.btn4);
         btn5 = findViewById(R.id.btn5);
+        btn4 = findViewById(R.id.btn4);
+        btn3 = findViewById(R.id.btn3);
+        btn2 = findViewById(R.id.btn2);
+        btn1 = findViewById(R.id.btn1);
 
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.loader)
-                .into(imgLoader);
+        sessionId = getIntent().getStringExtra("session_id");
+        reporteId = getIntent().getIntExtra("reporteId",0);
+        aspiranteId = getIntent().getIntExtra("aspiranteId",0);
 
-        btn1.setOnClickListener(v -> answerQuestion(1));
-        btn2.setOnClickListener(v -> answerQuestion(2));
-        btn3.setOnClickListener(v -> answerQuestion(3));
-        btn4.setOnClickListener(v -> answerQuestion(4));
-        btn5.setOnClickListener(v -> answerQuestion(5));
+        iniciarRIASEC();
+        cargarPregunta();
 
-        getNextQuestion();
+        btn5.setOnClickListener(v -> responder(5));
+        btn4.setOnClickListener(v -> responder(4));
+        btn3.setOnClickListener(v -> responder(3));
+        btn2.setOnClickListener(v -> responder(2));
+        btn1.setOnClickListener(v -> responder(1));
     }
 
-    private void showLoading() {
-        imgLoader.setVisibility(View.VISIBLE);
-        txtPregunta.setVisibility(View.GONE);
+    private void iniciarRIASEC(){
 
-        btn1.setVisibility(View.GONE);
-        btn2.setVisibility(View.GONE);
-        btn3.setVisibility(View.GONE);
-        btn4.setVisibility(View.GONE);
-        btn5.setVisibility(View.GONE);
+        riasecScores.setR(0);
+        riasecScores.setI(0);
+        riasecScores.setA(0);
+        riasecScores.setS(0);
+        riasecScores.setE(0);
+        riasecScores.setC(0);
+
     }
 
-    private void showButtons() {
-        imgLoader.setVisibility(View.GONE);
-        txtPregunta.setVisibility(View.VISIBLE);
+    private void cargarPregunta(){
 
-        btn1.setVisibility(View.VISIBLE);
-        btn2.setVisibility(View.VISIBLE);
-        btn3.setVisibility(View.VISIBLE);
-        btn4.setVisibility(View.VISIBLE);
-        btn5.setVisibility(View.VISIBLE);
-    }
+        mostrarLoader(true);
 
-    private void getNextQuestion() {
+        TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
-        showLoading();
-
-        txtContador.setText("Pregunta " + (questionCount + 1) + " de " + TOTAL_QUESTIONS);
-
-        NextQuestionRequest request = new NextQuestionRequest(testId, scores, sessionId);
+        NextQuestionRequest request =
+                new NextQuestionRequest(1, riasecScores, sessionId);
 
         api.nextQuestion(request).enqueue(new Callback<QuestionResponse>() {
+
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
 
-                if (response.isSuccessful() && response.body() != null) {
+                mostrarLoader(false);
 
-                    currentQuestion = response.body();
-                    txtPregunta.setText(currentQuestion.getQuestion());
-                    showButtons();
+                if(response.isSuccessful() && response.body()!=null){
 
-                } else {
+                    QuestionResponse pregunta = response.body();
 
-                    try {
-                        String error = response.errorBody() != null
-                                ? response.errorBody().string()
-                                : "sin cuerpo";
+                    preguntaId = pregunta.getId();
+                    categoriaActual = pregunta.getCategory();
 
-                        txtPregunta.setText("Error servidor: " + response.code());
-                        System.out.println("ERROR BACKEND: " + error);
+                    txtPregunta.setText(pregunta.getQuestion());
+                    txtContador.setText("Pregunta "+preguntaActual+" de "+totalPreguntas);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                }else{
 
-                    showButtons();
+                    Toast.makeText(Test.this,"No se pudo cargar pregunta",Toast.LENGTH_LONG).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<QuestionResponse> call, Throwable t) {
-                txtPregunta.setText("Fallo conexión: " + t.getMessage());
-                showButtons();
+
+                mostrarLoader(false);
+
+                Toast.makeText(Test.this,
+                        "Error cargando pregunta",
+                        Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
-    private void answerQuestion(int value) {
+    private void responder(int valor){
 
-        if (currentQuestion == null) return;
+        Map<String,Object> body = new HashMap<>();
 
-        showLoading();
+        body.put("aspiranteId",aspiranteId);
+        body.put("preguntaId",preguntaId);
+        body.put("valor",valor);
+        body.put("reporteId",reporteId);
 
-        // Actualizar puntaje localmente
-        scores.updateScore(currentQuestion.getCategory(), value);
+        TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
-        questionCount++;
+        api.saveAnswer(body).enqueue(new Callback<Map<String, Object>>() {
 
-        if (questionCount < TOTAL_QUESTIONS) {
-            getNextQuestion();
-        } else {
-            goToResults();
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+
+                actualizarRIASEC(valor);
+
+                preguntaActual++;
+
+                if(preguntaActual > totalPreguntas){
+
+                    finalizarTest();
+
+                }else{
+
+                    cargarPregunta();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+
+                Toast.makeText(Test.this,
+                        "Error guardando respuesta",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void actualizarRIASEC(int valor){
+
+        if(categoriaActual != null){
+            riasecScores.updateScore(categoriaActual, valor);
         }
+
     }
 
-    private void goToResults() {
-        Intent intent = new Intent(Test.this, Resultados.class);
-        intent.putExtra("reporteId", reporteId);
-        intent.putExtra("session_id", sessionId);
-        startActivity(intent);
-        finish();
+    private void finalizarTest(){
+
+        TestApi api = RetrofitClient.getClient().create(TestApi.class);
+
+        Map<String,Object> body = new HashMap<>();
+
+        body.put("reporteId",reporteId);
+        body.put("riasec_scores",riasecScores);
+
+        api.finishTest(body).enqueue(new Callback<ResultResponse>() {
+
+            @Override
+            public void onResponse(Call<ResultResponse> call, Response<ResultResponse> response) {
+
+                if(response.isSuccessful() && response.body()!=null){
+
+                    ResultResponse resultado = response.body();
+
+                    Intent intent = new Intent(Test.this, Resultados.class);
+                    intent.putExtra("resultadoIA", (Serializable) resultado);
+                    startActivity(intent);
+                    finish();
+
+                }else{
+
+                    Toast.makeText(Test.this,
+                            "Error obteniendo resultados",
+                            Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResultResponse> call, Throwable t) {
+
+                Toast.makeText(Test.this,
+                        "Error finalizando test",
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void mostrarLoader(boolean mostrar){
+
+        if(mostrar){
+
+            imgLoader.setVisibility(View.VISIBLE);
+
+            btn1.setVisibility(View.GONE);
+            btn2.setVisibility(View.GONE);
+            btn3.setVisibility(View.GONE);
+            btn4.setVisibility(View.GONE);
+            btn5.setVisibility(View.GONE);
+
+        }else{
+
+            imgLoader.setVisibility(View.GONE);
+
+            btn1.setVisibility(View.VISIBLE);
+            btn2.setVisibility(View.VISIBLE);
+            btn3.setVisibility(View.VISIBLE);
+            btn4.setVisibility(View.VISIBLE);
+            btn5.setVisibility(View.VISIBLE);
+
+        }
     }
 }

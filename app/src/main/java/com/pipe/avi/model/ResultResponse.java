@@ -1,9 +1,10 @@
 package com.pipe.avi.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 import java.util.List;
 
-public class ResultResponse {
+public class ResultResponse implements Serializable {
 
     @SerializedName("reporte")
     private Reporte reporte;
@@ -19,7 +20,14 @@ public class ResultResponse {
         return resultadoIA;
     }
 
-    public static class Reporte {
+    // ---------------------------
+    // REPORTE
+    // ---------------------------
+    public static class Reporte implements Serializable {
+
+        @SerializedName("idREPORTE")
+        private int idREPORTE;
+
         @SerializedName("puntajeR")
         private int puntajeR;
 
@@ -38,6 +46,7 @@ public class ResultResponse {
         @SerializedName("puntajeC")
         private int puntajeC;
 
+        public int getIdREPORTE() { return idREPORTE; }
         public int getPuntajeR() { return puntajeR; }
         public int getPuntajeI() { return puntajeI; }
         public int getPuntajeA() { return puntajeA; }
@@ -46,7 +55,11 @@ public class ResultResponse {
         public int getPuntajeC() { return puntajeC; }
     }
 
-    public static class ResultadoIA {
+    // ---------------------------
+    // RESULTADO IA
+    // ---------------------------
+    public static class ResultadoIA implements Serializable {
+
         @SerializedName("recommendations")
         private List<Recommendation> recommendations;
 
@@ -55,7 +68,11 @@ public class ResultResponse {
         }
     }
 
-    public static class Recommendation {
+    // ---------------------------
+    // RECOMENDACIONES
+    // ---------------------------
+    public static class Recommendation implements Serializable {
+
         @SerializedName("name")
         private String name;
 

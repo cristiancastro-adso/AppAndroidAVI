@@ -14,42 +14,34 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pipe.avi.R;
-import com.pipe.avi.model.Programa;
 import com.pipe.avi.model.ResultResponse;
-import com.pipe.avi.network.RetrofitClient;
-import com.pipe.avi.network.AspirantesApi;
-import com.pipe.avi.network.TestApi;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Resultados extends AppCompatActivity {
 
     private TextView txtPuntajes;
     private TextView txtBurbuja;
     private LinearLayout layoutRecomendaciones;
+
     private Button btnVerMapa;
+
     private ImageButton btnhome, btnusuario, btnmap;
 
-    private int reporteId;
     private ArrayList<String> programNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
 
         txtPuntajes = findViewById(R.id.txtPuntajes);
         txtBurbuja = findViewById(R.id.txtBurbuja);
         layoutRecomendaciones = findViewById(R.id.layoutRecomendaciones);
+
         btnVerMapa = findViewById(R.id.btnVerMapa);
+
         btnhome = findViewById(R.id.btnhome);
         btnusuario = findViewById(R.id.btnusuario);
         btnmap = findViewById(R.id.btnmap);
@@ -60,99 +52,80 @@ public class Resultados extends AppCompatActivity {
                 startActivity(new Intent(Resultados.this, User.class)));
 
         btnVerMapa.setOnClickListener(v -> {
+
             Intent intent = new Intent(Resultados.this, Mapa.class);
             intent.putStringArrayListExtra("programas", programNames);
             startActivity(intent);
+
         });
 
-        reporteId = getIntent().getIntExtra("reporteId", 0);
+        // -----------------------------
+        // RECIBIR RESULTADOS DEL TEST
+        // -----------------------------
 
-        mostrarMensajeGato("Analizando tus resultados...");
+        ResultResponse resultado =
+                (ResultResponse) getIntent().getSerializableExtra("resultadoIA");
 
-        cargarResultados();
+        if(resultado == null){
+
+            Toast.makeText(this,
+                    "No se recibieron resultados",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        mostrarResultados(resultado);
     }
 
-    private void cargarResultados() {
+    // -----------------------------
+    // MOSTRAR RESULTADOS
+    // -----------------------------
 
-        TestApi testApi = RetrofitClient.getClient().create(TestApi.class);
+    private void mostrarResultados(ResultResponse result){
 
-        Map<String, Object> body = new HashMap<>();
-        body.put("reporteId", reporteId);
-        body.put("riasec_scores", new HashMap<String, Integer>());
+        layoutRecomendaciones.removeAllViews();
+        programNames.clear();
 
-        testApi.finishTest(body).enqueue(new Callback<ResultResponse>() {
+        ResultResponse.Reporte reporte = result.getReporte();
 
-            @Override
-            public void onResponse(Call<ResultResponse> call, Response<ResultResponse> response) {
-                obtenerProgramasReales();
+        txtPuntajes.setText(
+                "R: "+reporte.getPuntajeR()+"\n"+
+                        "I: "+reporte.getPuntajeI()+"\n"+
+                        "A: "+reporte.getPuntajeA()+"\n"+
+                        "S: "+reporte.getPuntajeS()+"\n"+
+                        "E: "+reporte.getPuntajeE()+"\n"+
+                        "C: "+reporte.getPuntajeC()
+        );
+
+        mostrarMensajeGato("Según tu perfil te recomendamos:");
+
+        if(result.getResultadoIA() != null &&
+                result.getResultadoIA().getRecommendations() != null){
+
+            for(ResultResponse.Recommendation rec :
+                    result.getResultadoIA().getRecommendations()){
+
+                programNames.add(rec.getName());
+
+                agregarTarjetaInteractiva(
+                        rec.getName(),
+                        "Programa recomendado",
+                        rec.getReason()
+                );
             }
+        }
 
-            @Override
-            public void onFailure(Call<ResultResponse> call, Throwable t) {
-                obtenerProgramasReales();
-            }
-        });
+        btnVerMapa.setVisibility(View.VISIBLE);
     }
 
-    private void obtenerProgramasReales() {
+    // -----------------------------
+    // TARJETAS DE PROGRAMAS
+    // -----------------------------
 
-        AspirantesApi api = RetrofitClient.getClient().create(AspirantesApi.class);
-
-        api.getProgramas().enqueue(new Callback<List<Programa>>() {
-
-            @Override
-            public void onResponse(Call<List<Programa>> call, Response<List<Programa>> response) {
-
-                if (response.isSuccessful() && response.body() != null) {
-
-                    List<Programa> lista = new ArrayList<>(response.body());
-                    Collections.shuffle(lista);
-
-                    layoutRecomendaciones.removeAllViews();
-                    programNames.clear();
-
-                    int count = 0;
-
-                    for (Programa p : lista) {
-
-                        if (count >= 3) break;
-
-                        programNames.add(p.getNombre());
-
-                        agregarTarjetaInteractiva(
-                                p.getNombre(),
-                                p.getNivel(),
-                                p.getDescripcion()
-                        );
-
-                        count++;
-                    }
-
-                    if (count > 0) {
-
-                        mostrarMensajeGato("Según tu test te recomendamos estos programas:");
-
-                        txtPuntajes.setText(R.string.res_desc);
-
-                        btnVerMapa.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Programa>> call, Throwable t) {
-
-                Toast.makeText(Resultados.this,
-                        "Error al obtener programas",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void agregarTarjetaInteractiva(String nombre, String nivel, String desc) {
+    private void agregarTarjetaInteractiva(String nombre, String nivel, String desc){
 
         View view = LayoutInflater.from(this)
-                .inflate(R.layout.item_recomendacion, layoutRecomendaciones, false);
+                .inflate(R.layout.item_recomendacion, layoutRecomendaciones,false);
 
         TextView txtNombre = view.findViewById(R.id.txtNombre);
         TextView txtNivel = view.findViewById(R.id.txtNivel);
@@ -165,10 +138,10 @@ public class Resultados extends AppCompatActivity {
 
         ratingBar.setOnRatingBarChangeListener((ratingBar1, rating, fromUser) -> {
 
-            if (fromUser) {
+            if(fromUser){
 
                 Toast.makeText(Resultados.this,
-                        "Has calificado " + nombre + " con " + rating + " estrellas",
+                        "Calificaste "+nombre+" con "+rating+" estrellas",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -176,24 +149,29 @@ public class Resultados extends AppCompatActivity {
         layoutRecomendaciones.addView(view);
     }
 
-    private void mostrarMensajeGato(String mensaje) {
+    // -----------------------------
+    // MENSAJE ANIMADO DEL GATO
+    // -----------------------------
+
+    private void mostrarMensajeGato(String mensaje){
 
         txtBurbuja.setText("");
 
         new Thread(() -> {
 
-            for (int i = 0; i <= mensaje.length(); i++) {
+            for(int i=0;i<=mensaje.length();i++){
 
                 int finalI = i;
 
                 runOnUiThread(() ->
                         txtBurbuja.setText(mensaje.substring(0, finalI)));
 
-                try {
+                try{
                     Thread.sleep(40);
-                } catch (InterruptedException e) {
+                }catch (InterruptedException e){
                     e.printStackTrace();
                 }
+
             }
 
         }).start();
