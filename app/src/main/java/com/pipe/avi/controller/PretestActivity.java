@@ -3,8 +3,12 @@ package com.pipe.avi.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -27,6 +31,8 @@ import retrofit2.Response;
 public class PretestActivity extends AppCompatActivity {
 
     Button btnContinuarTest;
+    ProgressBar progressContinuar;
+
     EditText pregunta1, pregunta2;
     RadioGroup pregunta3, pregunta4, pregunta5;
 
@@ -40,13 +46,55 @@ public class PretestActivity extends AppCompatActivity {
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
 
         btnContinuarTest = findViewById(R.id.btnContinuarTest);
+        progressContinuar = findViewById(R.id.progressContinuar);
+
         pregunta1 = findViewById(R.id.pregunta1);
         pregunta2 = findViewById(R.id.pregunta2);
         pregunta3 = findViewById(R.id.pregunta3);
         pregunta4 = findViewById(R.id.pregunta4);
         pregunta5 = findViewById(R.id.pregunta5);
 
-        btnContinuarTest.setOnClickListener(v -> validarYContinuar());
+        // Animación de entrada de pantalla
+        findViewById(R.id.main).startAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        );
+
+        // Animación inputs
+        Animation zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+        pregunta1.startAnimation(zoom);
+        pregunta2.startAnimation(zoom);
+        pregunta3.startAnimation(zoom);
+        pregunta4.startAnimation(zoom);
+        pregunta5.startAnimation(zoom);
+
+        // Animación selección RadioButton
+        animarRadioGroup(pregunta3);
+        animarRadioGroup(pregunta4);
+        animarRadioGroup(pregunta5);
+
+        btnContinuarTest.setOnClickListener(v -> {
+
+            Animation press = AnimationUtils.loadAnimation(this, R.anim.boton_press);
+            v.startAnimation(press);
+
+            validarYContinuar();
+        });
+    }
+
+    private void animarRadioGroup(RadioGroup group){
+
+        group.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+
+            RadioButton seleccionado = findViewById(checkedId);
+
+            if(seleccionado != null){
+
+                Animation zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+                seleccionado.startAnimation(zoom);
+
+            }
+
+        });
     }
 
     private void validarYContinuar() {
@@ -58,24 +106,42 @@ public class PretestActivity extends AppCompatActivity {
 
         boolean valido = true;
 
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+
         if (pregunta1.getText().toString().trim().isEmpty()) {
             pregunta1.setError("Obligatorio");
+            pregunta1.startAnimation(shake);
             valido = false;
         }
 
         if (pregunta2.getText().toString().trim().isEmpty()) {
             pregunta2.setError("Obligatorio");
+            pregunta2.startAnimation(shake);
             valido = false;
         }
 
-        if (pregunta3.getCheckedRadioButtonId() == -1) valido = false;
-        if (pregunta4.getCheckedRadioButtonId() == -1) valido = false;
-        if (pregunta5.getCheckedRadioButtonId() == -1) valido = false;
+        if (pregunta3.getCheckedRadioButtonId() == -1){
+            pregunta3.startAnimation(shake);
+            valido = false;
+        }
+
+        if (pregunta4.getCheckedRadioButtonId() == -1){
+            pregunta4.startAnimation(shake);
+            valido = false;
+        }
+
+        if (pregunta5.getCheckedRadioButtonId() == -1){
+            pregunta5.startAnimation(shake);
+            valido = false;
+        }
 
         if(!valido){
             Toast.makeText(this,"Responde todas las preguntas",Toast.LENGTH_LONG).show();
             return;
         }
+
+        btnContinuarTest.setEnabled(false);
+        progressContinuar.setVisibility(View.VISIBLE);
 
         crearReporte();
     }
@@ -97,7 +163,7 @@ public class PretestActivity extends AppCompatActivity {
                     Number reporteNumber = (Number) response.body().get("reporteId");
 
                     if(reporteNumber == null){
-                        Toast.makeText(PretestActivity.this,"Error reporte",Toast.LENGTH_LONG).show();
+                        errorUI("Error reporte");
                         return;
                     }
 
@@ -107,7 +173,7 @@ public class PretestActivity extends AppCompatActivity {
 
                 }else{
 
-                    Toast.makeText(PretestActivity.this,"Error creando reporte",Toast.LENGTH_LONG).show();
+                    errorUI("Error creando reporte");
                 }
 
             }
@@ -115,8 +181,8 @@ public class PretestActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
 
-                Toast.makeText(PretestActivity.this,"Error conexión",Toast.LENGTH_LONG).show();
                 Log.e("START_TEST",t.getMessage());
+                errorUI("Error conexión");
             }
         });
 
@@ -163,6 +229,9 @@ public class PretestActivity extends AppCompatActivity {
 
                     startActivity(intent);
 
+                    // transición suave
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 }else{
 
                     try {
@@ -176,7 +245,7 @@ public class PretestActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(PretestActivity.this,"Error servidor",Toast.LENGTH_LONG).show();
+                    errorUI("Error servidor");
                 }
 
             }
@@ -186,9 +255,17 @@ public class PretestActivity extends AppCompatActivity {
 
                 Log.e("PRETEST_FAIL",t.getMessage());
 
-                Toast.makeText(PretestActivity.this,"Error conexión",Toast.LENGTH_LONG).show();
+                errorUI("Error conexión");
             }
         });
 
+    }
+
+    private void errorUI(String mensaje){
+
+        Toast.makeText(PretestActivity.this,mensaje,Toast.LENGTH_LONG).show();
+
+        btnContinuarTest.setEnabled(true);
+        progressContinuar.setVisibility(View.GONE);
     }
 }

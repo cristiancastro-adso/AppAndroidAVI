@@ -89,6 +89,17 @@
                 android:gravity="center"
                 android:paddingBottom="12dp"/>
 
+            <ProgressBar
+                android:id="@+id/progressTest"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="20dp"
+                android:max="100"
+                android:progress="10"
+                android:progressTint="@color/violeta"
+                android:progressBackgroundTint="#E0E0E0"/>
+
             <TextView
                 android:id="@+id/txtPregunta"
                 android:layout_width="match_parent"

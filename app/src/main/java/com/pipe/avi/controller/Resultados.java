@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -30,6 +32,10 @@ public class Resultados extends AppCompatActivity {
 
     private ArrayList<String> programNames = new ArrayList<>();
 
+    Animation fadeIn;
+    Animation slideUp;
+    Animation zoomIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,6 +52,10 @@ public class Resultados extends AppCompatActivity {
         btnusuario = findViewById(R.id.btnusuario);
         btnmap = findViewById(R.id.btnmap);
 
+        fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+
         btnhome.setOnClickListener(v -> finish());
 
         btnusuario.setOnClickListener(v ->
@@ -58,10 +68,6 @@ public class Resultados extends AppCompatActivity {
             startActivity(intent);
 
         });
-
-        // -----------------------------
-        // RECIBIR RESULTADOS DEL TEST
-        // -----------------------------
 
         ResultResponse resultado =
                 (ResultResponse) getIntent().getSerializableExtra("resultadoIA");
@@ -77,10 +83,6 @@ public class Resultados extends AppCompatActivity {
         mostrarResultados(resultado);
     }
 
-    // -----------------------------
-    // MOSTRAR RESULTADOS
-    // -----------------------------
-
     private void mostrarResultados(ResultResponse result){
 
         layoutRecomendaciones.removeAllViews();
@@ -89,38 +91,51 @@ public class Resultados extends AppCompatActivity {
         ResultResponse.Reporte reporte = result.getReporte();
 
         txtPuntajes.setText(
-                "R: "+reporte.getPuntajeR()+"\n"+
-                        "I: "+reporte.getPuntajeI()+"\n"+
-                        "A: "+reporte.getPuntajeA()+"\n"+
-                        "S: "+reporte.getPuntajeS()+"\n"+
-                        "E: "+reporte.getPuntajeE()+"\n"+
-                        "C: "+reporte.getPuntajeC()
+                "Realista: "+reporte.getPuntajeR()+"\n"+
+                        "Invertigador: "+reporte.getPuntajeI()+"\n"+
+                        "Artistico: "+reporte.getPuntajeA()+"\n"+
+                        "Social: "+reporte.getPuntajeS()+"\n"+
+                        "Emprendedor: "+reporte.getPuntajeE()+"\n"+
+                        "Convencional: "+reporte.getPuntajeC()
         );
 
-        mostrarMensajeGato("Según tu perfil te recomendamos:");
+        txtPuntajes.startAnimation(fadeIn);
+
+        mostrarMensajeGato("Analizando tu perfil...");
 
         if(result.getResultadoIA() != null &&
                 result.getResultadoIA().getRecommendations() != null){
 
-            for(ResultResponse.Recommendation rec :
-                    result.getResultadoIA().getRecommendations()){
+            new android.os.Handler().postDelayed(() -> {
 
-                programNames.add(rec.getName());
+                mostrarMensajeGato("Según tu perfil te recomendamos:");
 
-                agregarTarjetaInteractiva(
-                        rec.getName(),
-                        "Programa recomendado",
-                        rec.getReason()
-                );
-            }
+                int delay = 0;
+
+                for(ResultResponse.Recommendation rec :
+                        result.getResultadoIA().getRecommendations()){
+
+                    programNames.add(rec.getName());
+
+                    new android.os.Handler().postDelayed(() -> {
+
+                        agregarTarjetaInteractiva(
+                                rec.getName(),
+                                "Programa recomendado",
+                                rec.getReason()
+                        );
+
+                    }, delay);
+
+                    delay += 250;
+                }
+
+            },1200);
         }
 
         btnVerMapa.setVisibility(View.VISIBLE);
+        btnVerMapa.startAnimation(slideUp);
     }
-
-    // -----------------------------
-    // TARJETAS DE PROGRAMAS
-    // -----------------------------
 
     private void agregarTarjetaInteractiva(String nombre, String nivel, String desc){
 
@@ -136,6 +151,8 @@ public class Resultados extends AppCompatActivity {
         txtNivel.setText(nivel);
         txtDesc.setText(desc);
 
+        view.startAnimation(zoomIn);
+
         ratingBar.setOnRatingBarChangeListener((ratingBar1, rating, fromUser) -> {
 
             if(fromUser){
@@ -148,10 +165,6 @@ public class Resultados extends AppCompatActivity {
 
         layoutRecomendaciones.addView(view);
     }
-
-    // -----------------------------
-    // MENSAJE ANIMADO DEL GATO
-    // -----------------------------
 
     private void mostrarMensajeGato(String mensaje){
 
@@ -167,7 +180,7 @@ public class Resultados extends AppCompatActivity {
                         txtBurbuja.setText(mensaje.substring(0, finalI)));
 
                 try{
-                    Thread.sleep(40);
+                    Thread.sleep(35);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }

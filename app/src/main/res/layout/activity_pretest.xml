@@ -206,17 +206,30 @@
 
             <!-- BOTÓN CONTINUAR -->
 
-            <Button
-                android:id="@+id/btnContinuarTest"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginBottom="24dp"
-                android:text="Continuar"
-                android:textSize="20dp"
-                android:background="@drawable/btnfondo"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:textColor="@color/white"/>
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnContinuarTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Continuar"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btnfondo"
+                    android:backgroundTint="@null"
+                    app:cornerRadius="12dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressContinuar"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
+            </FrameLayout>
 
         </LinearLayout>
 

@@ -193,23 +193,34 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btninittest"
+    <FrameLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btnfondo"
-        android:backgroundTint="@null"
-        app:backgroundTint="@null"
-        android:padding="14dp"
-        android:text="Iniciar Test Vocacional"
-        android:textSize="18dp"
-        android:textColor="@android:color/white"
+        android:layout_height="55dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
-        app:layout_constraintVertical_bias="0.651" />
+        app:layout_constraintVertical_bias="0.651">
+
+        <Button
+            android:id="@+id/btninittest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btnfondo"
+            android:backgroundTint="@null"
+            android:text="Iniciar Test Vocacional"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:padding="14dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressTest"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
