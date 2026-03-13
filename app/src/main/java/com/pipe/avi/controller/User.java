@@ -58,21 +58,20 @@ public class User extends AppCompatActivity {
 
     String token;
 
+    Animation fade, slide, zoom, press, shake;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        // Inicializar Cloudinary
         CloudinaryManager.init(this);
 
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
 
-        // Obtener token guardado
         SharedPreferences prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
         token = prefs.getString("TOKEN", "");
 
-        // Vincular vistas
         btncerrarsesion = findViewById(R.id.btncerrarsesion);
         btnhome = findViewById(R.id.btnhome);
         btnmap = findViewById(R.id.btnmap);
@@ -94,20 +93,26 @@ public class User extends AppCompatActivity {
         editTelefono = findViewById(R.id.editTelefono);
 
         // Animaciones
-        Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-        Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_up);
-        Animation zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
-        Animation press = AnimationUtils.loadAnimation(this, R.anim.boton_press);
+        fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        slide = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
+        press = AnimationUtils.loadAnimation(this, R.anim.boton_press);
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
+        // Animaciones iniciales
         txtCuenta.startAnimation(fade);
         txtPreferencias.startAnimation(fade);
         imgPerfil.startAnimation(zoom);
 
         LLeditperfil.postDelayed(() -> LLeditperfil.startAnimation(slide), 100);
-        btncerrarsesion.postDelayed(() -> btncerrarsesion.startAnimation(slide), 300);
+        btncerrarsesion.postDelayed(() -> btncerrarsesion.startAnimation(slide), 200);
+        btnhome.postDelayed(() -> btnhome.startAnimation(slide), 300);
+        btnmap.postDelayed(() -> btnmap.startAnimation(slide), 350);
 
-        // Cambiar foto de perfil
+        // Cambiar foto
         imgPerfil.setOnClickListener(v -> {
+
+            v.startAnimation(press);
 
             Intent intent = new Intent(
                     Intent.ACTION_PICK,
@@ -115,7 +120,6 @@ public class User extends AppCompatActivity {
             );
 
             startActivityForResult(intent, PICK_IMAGE);
-
         });
 
         // Abrir popup editar perfil
@@ -124,22 +128,38 @@ public class User extends AppCompatActivity {
             v.startAnimation(press);
 
             popupEditarPerfil.setVisibility(View.VISIBLE);
+            popupEditarPerfil.startAnimation(fade);
 
         });
 
-        btnCancelarPopup.setOnClickListener(v ->
-                popupEditarPerfil.setVisibility(View.GONE)
-        );
+        btnCancelarPopup.setOnClickListener(v -> {
 
-        // Guardar cambios perfil
+            v.startAnimation(press);
+            popupEditarPerfil.startAnimation(fade);
+            popupEditarPerfil.setVisibility(View.GONE);
+
+        });
+
+        // Guardar cambios
         btnGuardarPopup.setOnClickListener(v -> {
 
-            String nombre = editNombre.getText().toString();
-            String correo = editCorreo.getText().toString();
-            String telefono = editTelefono.getText().toString();
+            v.startAnimation(press);
+
+            String nombre = editNombre.getText().toString().trim();
+            String correo = editCorreo.getText().toString().trim();
+            String telefono = editTelefono.getText().toString().trim();
+
+            if(nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty()){
+
+                editNombre.startAnimation(shake);
+                editCorreo.startAnimation(shake);
+                editTelefono.startAnimation(shake);
+
+                Toast.makeText(this,"Completa todos los campos",Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             actualizarPerfil(nombre, correo, telefono);
-
         });
 
         // Cerrar sesión
@@ -167,7 +187,7 @@ public class User extends AppCompatActivity {
                     .show();
         });
 
-        // Ir al Home
+        // Home
         btnhome.setOnClickListener(v -> {
 
             v.startAnimation(press);
@@ -183,7 +203,7 @@ public class User extends AppCompatActivity {
             );
         });
 
-        // Ir al mapa
+        // Mapa
         btnmap.setOnClickListener(v -> {
 
             v.startAnimation(press);
@@ -228,27 +248,22 @@ public class User extends AppCompatActivity {
                 os.flush();
                 os.close();
 
-                int response = conn.getResponseCode();
-
-                Log.d("API", "Respuesta: " + response);
+                conn.getResponseCode();
 
                 runOnUiThread(() -> {
+
                     popupEditarPerfil.setVisibility(View.GONE);
-                    Toast.makeText(User.this, "Perfil actualizado correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User.this,"Perfil actualizado correctamente",Toast.LENGTH_SHORT).show();
+
                 });
 
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
-
-                runOnUiThread(() ->
-                        Toast.makeText(User.this, "Error al actualizar el perfil", Toast.LENGTH_SHORT).show()
-                );
             }
 
         }).start();
     }
 
-    // Recibir imagen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -266,16 +281,14 @@ public class User extends AppCompatActivity {
         }
     }
 
-    private void subirImagenCloudinary(Uri uri) {
+    private void subirImagenCloudinary(Uri uri){
 
         MediaManager.get().upload(uri)
                 .unsigned("android_upload")
                 .callback(new UploadCallback() {
 
                     @Override
-                    public void onStart(String requestId) {
-                        Log.d("CLOUDINARY", "Iniciando subida...");
-                    }
+                    public void onStart(String requestId) {}
 
                     @Override
                     public void onProgress(String requestId, long bytes, long totalBytes) {}
@@ -285,10 +298,8 @@ public class User extends AppCompatActivity {
 
                         String imageUrl = resultData.get("secure_url").toString();
 
-                        Log.d("CLOUDINARY", "Imagen subida: " + imageUrl);
-
                         runOnUiThread(() ->
-                                Toast.makeText(User.this, "Foto actualizada correctamente", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(User.this,"Foto actualizada",Toast.LENGTH_SHORT).show()
                         );
 
                         enviarFotoBackend(imageUrl);
@@ -297,20 +308,17 @@ public class User extends AppCompatActivity {
                     @Override
                     public void onError(String requestId, ErrorInfo error) {
 
-                        Log.e("CLOUDINARY", "Error: " + error.getDescription());
-
                         runOnUiThread(() ->
-                                Toast.makeText(User.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(User.this,"Error al subir imagen",Toast.LENGTH_SHORT).show()
                         );
                     }
 
                     @Override
                     public void onReschedule(String requestId, ErrorInfo error) {}
-                })
-                .dispatch();
+                }).dispatch();
     }
 
-    private void enviarFotoBackend(String fotoUrl) {
+    private void enviarFotoBackend(String fotoUrl){
 
         new Thread(() -> {
 
@@ -323,12 +331,12 @@ public class User extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("PATCH");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Authorization", "Bearer " + token);
+                conn.setRequestProperty("Content-Type","application/json");
+                conn.setRequestProperty("Authorization","Bearer "+token);
 
                 conn.setDoOutput(true);
 
-                String json = "{ \"foto\":\"" + fotoUrl + "\" }";
+                String json = "{ \"foto\":\""+fotoUrl+"\" }";
 
                 OutputStream os = conn.getOutputStream();
                 os.write(json.getBytes());
@@ -337,7 +345,7 @@ public class User extends AppCompatActivity {
 
                 conn.getResponseCode();
 
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
             }
 
