@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +30,7 @@ import com.cloudinary.android.callback.UploadCallback;
 import com.pipe.avi.R;
 import com.pipe.avi.utils.CloudinaryManager;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -58,6 +61,8 @@ public class User extends AppCompatActivity {
 
     String token;
 
+    SharedPreferences prefs;
+
     Animation fade, slide, zoom, press, shake;
 
     @Override
@@ -69,7 +74,7 @@ public class User extends AppCompatActivity {
 
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
 
-        SharedPreferences prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        prefs = getSharedPreferences("USER_DATA", MODE_PRIVATE);
         token = prefs.getString("TOKEN", "");
 
         btncerrarsesion = findViewById(R.id.btncerrarsesion);
@@ -109,7 +114,26 @@ public class User extends AppCompatActivity {
         btnhome.postDelayed(() -> btnhome.startAnimation(slide), 300);
         btnmap.postDelayed(() -> btnmap.startAnimation(slide), 350);
 
-        // Cambiar foto
+        // 🔹 Cargar foto guardada
+        String fotoGuardada = prefs.getString("FOTO_PERFIL", null);
+
+        if (fotoGuardada != null) {
+
+            new Thread(() -> {
+                try {
+
+                    InputStream input = new URL(fotoGuardada).openStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(input);
+
+                    runOnUiThread(() -> imgPerfil.setImageBitmap(bitmap));
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        // 📸 Cambiar foto
         imgPerfil.setOnClickListener(v -> {
 
             v.startAnimation(press);
@@ -135,7 +159,6 @@ public class User extends AppCompatActivity {
         btnCancelarPopup.setOnClickListener(v -> {
 
             v.startAnimation(press);
-            popupEditarPerfil.startAnimation(fade);
             popupEditarPerfil.setVisibility(View.GONE);
 
         });
@@ -288,7 +311,9 @@ public class User extends AppCompatActivity {
                 .callback(new UploadCallback() {
 
                     @Override
-                    public void onStart(String requestId) {}
+                    public void onStart(String requestId) {
+                        Log.d("CLOUDINARY","Iniciando subida...");
+                    }
 
                     @Override
                     public void onProgress(String requestId, long bytes, long totalBytes) {}
@@ -297,6 +322,12 @@ public class User extends AppCompatActivity {
                     public void onSuccess(String requestId, Map resultData) {
 
                         String imageUrl = resultData.get("secure_url").toString();
+
+                        Log.d("CLOUDINARY","Imagen subida: "+imageUrl);
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("FOTO_PERFIL", imageUrl);
+                        editor.apply();
 
                         runOnUiThread(() ->
                                 Toast.makeText(User.this,"Foto actualizada",Toast.LENGTH_SHORT).show()
@@ -307,6 +338,8 @@ public class User extends AppCompatActivity {
 
                     @Override
                     public void onError(String requestId, ErrorInfo error) {
+
+                        Log.e("CLOUDINARY","Error: "+error.getDescription());
 
                         runOnUiThread(() ->
                                 Toast.makeText(User.this,"Error al subir imagen",Toast.LENGTH_SHORT).show()
