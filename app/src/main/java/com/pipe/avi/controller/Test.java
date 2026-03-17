@@ -1,10 +1,8 @@
 package com.pipe.avi.controller;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -12,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,7 +37,6 @@ public class Test extends AppCompatActivity {
     TextView txtPregunta, txtContador;
     ImageView imgLoader;
     ProgressBar progressTest;
-
     Button btn5, btn4, btn3, btn2, btn1;
 
     String sessionId;
@@ -52,7 +50,6 @@ public class Test extends AppCompatActivity {
     String categoriaActual;
 
     RiasecScores riasecScores = new RiasecScores();
-
     Animation fadeIn;
     Handler handler = new Handler();
 
@@ -77,8 +74,6 @@ public class Test extends AppCompatActivity {
         sessionId = getIntent().getStringExtra("session_id");
         reporteId = getIntent().getIntExtra("reporteId", 0);
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
-
-        System.out.println("ASPIRANTE ID EN TEST: " + aspiranteId);
 
         if (aspiranteId == 0) {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
@@ -117,8 +112,6 @@ public class Test extends AppCompatActivity {
 
                     txtPregunta.setText(pregunta.getQuestion());
                     txtContador.setText("Pregunta " + preguntaActual + " de " + totalPreguntas);
-
-                    actualizarProgreso();
                     mostrarPregunta();
                 } else {
                     Toast.makeText(Test.this, "No se pudo cargar pregunta", Toast.LENGTH_LONG).show();
@@ -170,13 +163,11 @@ public class Test extends AppCompatActivity {
         mostrarLoader(false);
         txtPregunta.setVisibility(View.VISIBLE);
         txtContador.setVisibility(View.VISIBLE);
-
         btn1.setVisibility(View.VISIBLE);
         btn2.setVisibility(View.VISIBLE);
         btn3.setVisibility(View.VISIBLE);
         btn4.setVisibility(View.VISIBLE);
         btn5.setVisibility(View.VISIBLE);
-
         txtPregunta.startAnimation(fadeIn);
     }
 
@@ -196,13 +187,6 @@ public class Test extends AppCompatActivity {
         }
     }
 
-    private void actualizarProgreso() {
-        int progreso = (preguntaActual * 100) / totalPreguntas;
-        ObjectAnimator.ofInt(progressTest, "progress", progreso)
-                .setDuration(400)
-                .start();
-    }
-
     private void mostrarLoader(boolean mostrar) {
         if (mostrar) {
             imgLoader.setVisibility(View.VISIBLE);
@@ -212,9 +196,6 @@ public class Test extends AppCompatActivity {
         }
     }
 
-    // -------------------
-    // FINALIZAR TEST Y ENVIAR RECOMENDACIONES
-    // -------------------
     private void finalizarTest() {
         TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
@@ -228,15 +209,15 @@ public class Test extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     ResultResponse resultado = response.body();
 
-                    // 🔑 Obtener las recomendaciones con idRECOMENDACION
                     List<ResultResponse.Recommendation> recomendaciones =
-                            resultado.getResultadoIA() != null ? resultado.getResultadoIA().getRecommendations() : null;
+                            resultado.getResultadoIA() != null ?
+                                    resultado.getResultadoIA().getRecommendations() : null;
 
                     // Enviar a Resultados
                     Intent intent = new Intent(Test.this, Resultados.class);
                     intent.putExtra("resultadoIA", (Serializable) resultado);
                     intent.putExtra("aspiranteId", aspiranteId);
-                    intent.putExtra("recomendaciones", (Serializable) recomendaciones); // ✅ incluye idRECOMENDACION
+                    intent.putExtra("recomendaciones", (Serializable) recomendaciones); // ✅ incluye idRECOMENDACION e idPROGRAMA
                     startActivity(intent);
                     finish();
                 }

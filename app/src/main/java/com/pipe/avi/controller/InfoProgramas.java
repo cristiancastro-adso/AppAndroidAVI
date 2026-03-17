@@ -82,7 +82,7 @@ public class InfoProgramas extends AppCompatActivity {
 
             // Enviar nombres, IDs de programas y IDs de recomendación
             intent.putStringArrayListExtra("programas", programas);
-            intent.putIntegerArrayListExtra("programIds", programIds);
+            intent.putIntegerArrayListExtra("idPROGRAMA", programIds);
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
             intent.putExtra("aspiranteId", aspiranteId);
 

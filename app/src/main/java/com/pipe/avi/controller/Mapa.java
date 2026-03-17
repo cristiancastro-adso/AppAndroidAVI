@@ -40,8 +40,8 @@ public class Mapa extends AppCompatActivity {
 
     // 🔥 PROGRAMAS Y IDS QUE VIENEN DESDE INFOPROGRAMAS
     private ArrayList<String> programasRecomendados;
-    private ArrayList<Integer> programIds;
-    private ArrayList<Integer> recomendacionIds;
+    private ArrayList<Integer> idPROGRAMA;        // 🔑 IDs de los programas
+    private ArrayList<Integer> recomendacionIds;  // IDs de la recomendación (idRECOMENDACION)
 
     // 🔥 PROGRAMAS DEL BACKEND
     private List<Programa> todosLosProgramas = new ArrayList<>();
@@ -62,7 +62,7 @@ public class Mapa extends AppCompatActivity {
         // 🔥 RECIBIR DATOS (DEL JAVA ANTERIOR)
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
         programasRecomendados = getIntent().getStringArrayListExtra("programas");
-        programIds = getIntent().getIntegerArrayListExtra("programIds");
+        idPROGRAMA = getIntent().getIntegerArrayListExtra("idPROGRAMA"); // 🔑 recibir idPROGRAMA
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds"); // 🔥 recibir idRECOMENDACION
 
         if (aspiranteId == 0) {
@@ -70,7 +70,7 @@ public class Mapa extends AppCompatActivity {
         }
 
         if (programasRecomendados == null) programasRecomendados = new ArrayList<>();
-        if (programIds == null) programIds = new ArrayList<>();
+        if (idPROGRAMA == null) idPROGRAMA = new ArrayList<>();
         if (recomendacionIds == null) recomendacionIds = new ArrayList<>();
 
         // 🔥 ANIMACIONES
@@ -87,7 +87,7 @@ public class Mapa extends AppCompatActivity {
 
             // 🔥 Enviar TODOS los datos a Ranking
             intent.putStringArrayListExtra("programas", programasRecomendados);
-            intent.putIntegerArrayListExtra("programIds", programIds);
+            intent.putIntegerArrayListExtra("idPROGRAMA", idPROGRAMA); // 🔑 enviar idPROGRAMA
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
             intent.putExtra("aspiranteId", aspiranteId);
 
@@ -156,7 +156,8 @@ public class Mapa extends AppCompatActivity {
     private void crearBotones() {
         layoutBotonesRecomendados.removeAllViews();
 
-        for (String nombre : programasRecomendados) {
+        for (int i = 0; i < programasRecomendados.size(); i++) {
+            String nombre = programasRecomendados.get(i);
             Programa programa = buscarPrograma(nombre);
             if (programa == null) continue;
 
@@ -175,15 +176,20 @@ public class Mapa extends AppCompatActivity {
             btn.startAnimation(pulseAnim);
             animarColor(btn);
 
+            int finalI = i; // posición del programa
             btn.setOnClickListener(v -> {
                 v.clearAnimation();
                 v.startAnimation(pressAnim);
+
+                // 🔥 Aquí puedes usar idPROGRAMA.get(finalI) si necesitas el ID
+                int programaIdSeleccionado = idPROGRAMA.get(finalI);
 
                 String urlAR = programa.getAr();
                 if (urlAR != null && !urlAR.isEmpty()) {
                     Intent intent = new Intent(Mapa.this, ARActivity.class);
                     intent.putExtra("url_ar", urlAR);
                     intent.putExtra("programa", programa.getNombre());
+                    intent.putExtra("idPROGRAMA", programaIdSeleccionado); // 🔑 enviar idPROGRAMA
                     intent.putExtra("aspiranteId", aspiranteId);
                     v.postDelayed(() -> startActivity(intent), 200);
                 } else {
@@ -231,9 +237,13 @@ public class Mapa extends AppCompatActivity {
             runOnUiThread(() -> {
                 Programa p = buscarPrograma(nombre);
                 if (p != null && p.getAr() != null && !p.getAr().isEmpty()) {
+                    int index = programasRecomendados.indexOf(nombre);
+                    int programaId = (index >= 0 && index < idPROGRAMA.size()) ? idPROGRAMA.get(index) : 0;
+
                     Intent intent = new Intent(Mapa.this, ARActivity.class);
                     intent.putExtra("url_ar", p.getAr());
                     intent.putExtra("programa", p.getNombre());
+                    intent.putExtra("idPROGRAMA", programaId); // 🔑 enviar idPROGRAMA
                     intent.putExtra("aspiranteId", aspiranteId);
                     startActivity(intent);
                 } else {

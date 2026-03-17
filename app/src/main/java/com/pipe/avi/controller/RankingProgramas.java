@@ -28,10 +28,10 @@ public class RankingProgramas extends AppCompatActivity {
     private Button btnGuardar;
 
     private ArrayList<String> programasOriginal;
-    private ArrayList<Integer> recomendacionIds; // IDs de recomendaciones
-    private ArrayList<Integer> programaIds;      // IDs de programas para el backend
+    private ArrayList<Integer> recomendacionIds;
+    private ArrayList<Integer> idPROGRAMAs; // ⚡ Cambiado a idPROGRAMA
     private int aspiranteId;
-    private int reporteId; // ⚡ necesitas recibirlo desde la pantalla anterior
+    private int reporteId;
 
     private ArrayAdapter<String> adapter1, adapter2, adapter3;
     private boolean isUpdating = false;
@@ -46,20 +46,19 @@ public class RankingProgramas extends AppCompatActivity {
         spinner3 = findViewById(R.id.spinnerTercero);
         btnGuardar = findViewById(R.id.btnGuardarRanking);
 
-        // 🔥 Recibir datos desde Mapa o actividad anterior
         programasOriginal = getIntent().getStringArrayListExtra("programas");
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds");
-        programaIds = getIntent().getIntegerArrayListExtra("programaIds"); // agregar desde backend
+        idPROGRAMAs = getIntent().getIntegerArrayListExtra("idPROGRAMAs"); // ⚡ recibe idPROGRAMA
         aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
-        reporteId = getIntent().getIntExtra("reporteId", -1); // ⚡ necesario para backend
+        reporteId = getIntent().getIntExtra("reporteId", -1);
 
         Log.d("DEBUG", "AspiranteID: " + aspiranteId);
         Log.d("DEBUG", "recomendacionIds: " + recomendacionIds);
-        Log.d("DEBUG", "programaIds: " + programaIds);
+        Log.d("DEBUG", "idPROGRAMAs: " + idPROGRAMAs);
         Log.d("DEBUG", "reporteId: " + reporteId);
 
         if (aspiranteId == -1 || recomendacionIds == null || recomendacionIds.size() < 3
-                || programaIds == null || programaIds.size() < 3 || reporteId == -1) {
+                || idPROGRAMAs == null || idPROGRAMAs.size() < 3 || reporteId == -1) {
             Toast.makeText(this, "Error: Datos incompletos", Toast.LENGTH_LONG).show();
             finish();
             return;
@@ -69,7 +68,6 @@ public class RankingProgramas extends AppCompatActivity {
         if (!programasOriginal.contains("Selecciona un programa")) programasOriginal.add(0, "Selecciona un programa");
 
         configurarSpinners();
-
         btnGuardar.setOnClickListener(v -> guardarRanking());
     }
 
@@ -98,7 +96,6 @@ public class RankingProgramas extends AppCompatActivity {
 
                 isUpdating = true;
 
-                // Evitar duplicados
                 if (parent == spinner1 && (seleccionado.equals(segundo) || seleccionado.equals(tercero)))
                     spinner1.setSelection(0, false);
                 else if (parent == spinner2 && (seleccionado.equals(primero) || seleccionado.equals(tercero)))
@@ -197,26 +194,25 @@ public class RankingProgramas extends AppCompatActivity {
 
                 JSONArray rankings = new JSONArray();
 
-                // 🔥 Crear objetos de ranking con idRecomendacion, programaId y reporteId
                 JSONObject r1 = new JSONObject();
                 r1.put("nombre", primero);
                 r1.put("ranking", 3);
                 r1.put("idRECOMENDACION", recomendacionIds.get(0));
-                r1.put("programaId", programaIds.get(0));
+                r1.put("idPROGRAMA", idPROGRAMAs.get(0));
                 r1.put("reporteId", reporteId);
 
                 JSONObject r2 = new JSONObject();
                 r2.put("nombre", segundo);
                 r2.put("ranking", 2);
                 r2.put("idRECOMENDACION", recomendacionIds.get(1));
-                r2.put("programaId", programaIds.get(1));
+                r2.put("idPROGRAMA", idPROGRAMAs.get(1));
                 r2.put("reporteId", reporteId);
 
                 JSONObject r3 = new JSONObject();
                 r3.put("nombre", tercero);
                 r3.put("ranking", 1);
                 r3.put("idRECOMENDACION", recomendacionIds.get(2));
-                r3.put("programaId", programaIds.get(2));
+                r3.put("idPROGRAMA", idPROGRAMAs.get(2));
                 r3.put("reporteId", reporteId);
 
                 rankings.put(r1);
