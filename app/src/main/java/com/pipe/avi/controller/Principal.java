@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 public class Principal extends AppCompatActivity {
 
-    ImageButton btnusuario, btnmap;
+    ImageButton btnusuario;
     LinearLayout lyprogramas, lyresultados, lytest;
     TextView txtAccesos;
 
@@ -56,7 +56,6 @@ public class Principal extends AppCompatActivity {
         }
 
         btnusuario = findViewById(R.id.btnusuario);
-        btnmap = findViewById(R.id.btnmap);
 
         lyprogramas = findViewById(R.id.lyprogramas);
         lyresultados = findViewById(R.id.lyresultados);
@@ -87,13 +86,6 @@ public class Principal extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
-        btnmap.setOnClickListener(v -> {
-            v.startAnimation(press);
-            Intent intent = new Intent(Principal.this, Mapa.class);
-            intent.putExtra("aspiranteId", aspiranteId);
-            startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
 
         lyprogramas.setOnClickListener(v -> {
             v.startAnimation(press);

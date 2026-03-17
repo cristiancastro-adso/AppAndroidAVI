@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class Programas extends AppCompatActivity {
 
-    private ImageButton btnhome, btnusuario, btnmap;
+    private ImageButton btnhome, btnusuario;
     private RecyclerView rvProgramas;
     private ProgramaAdapter adapter;
 
@@ -59,7 +59,6 @@ public class Programas extends AppCompatActivity {
 
         btnhome = findViewById(R.id.btnhome);
         btnusuario = findViewById(R.id.btnusuario);
-        btnmap = findViewById(R.id.btnmap);
 
         rvProgramas = findViewById(R.id.rvProgramas);
         sbprogramas = findViewById(R.id.sbprogramas);
@@ -128,23 +127,6 @@ public class Programas extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
-        // 🔹 BOTÓN MAPA
-        btnmap.setOnClickListener(v -> {
-
-            v.startAnimation(press);
-
-            Intent intent = new Intent(Programas.this, Mapa.class);
-
-            ArrayList<String> nombres = new ArrayList<>();
-            for (Programa p : listaFiltrada) {
-                if (p.getNombre() != null) nombres.add(p.getNombre());
-            }
-
-            intent.putStringArrayListExtra("programas", nombres);
-            startActivity(intent);
-
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
     }
 
     private void cargarProgramas() {

@@ -41,7 +41,7 @@ public class User extends AppCompatActivity {
     Button btncerrarsesion;
     Button btnCancelarPopup, btnGuardarPopup;
 
-    ImageButton btnhome, btnmap;
+    ImageButton btnhome;
 
     LinearLayout LLeditperfil;
 
@@ -79,7 +79,6 @@ public class User extends AppCompatActivity {
 
         btncerrarsesion = findViewById(R.id.btncerrarsesion);
         btnhome = findViewById(R.id.btnhome);
-        btnmap = findViewById(R.id.btnmap);
 
         LLeditperfil = findViewById(R.id.LLeditperfil);
 
@@ -112,7 +111,6 @@ public class User extends AppCompatActivity {
         LLeditperfil.postDelayed(() -> LLeditperfil.startAnimation(slide), 100);
         btncerrarsesion.postDelayed(() -> btncerrarsesion.startAnimation(slide), 200);
         btnhome.postDelayed(() -> btnhome.startAnimation(slide), 300);
-        btnmap.postDelayed(() -> btnmap.startAnimation(slide), 350);
 
         // 🔹 Cargar foto guardada
         String fotoGuardada = prefs.getString("FOTO_PERFIL", null);
@@ -226,21 +224,6 @@ public class User extends AppCompatActivity {
             );
         });
 
-        // Mapa
-        btnmap.setOnClickListener(v -> {
-
-            v.startAnimation(press);
-
-            Intent intent = new Intent(User.this, Mapa.class);
-            intent.putExtra("aspiranteId", aspiranteId);
-
-            startActivity(intent);
-
-            overridePendingTransition(
-                    R.anim.slide_in_right,
-                    R.anim.slide_out_left
-            );
-        });
     }
 
     private void actualizarPerfil(String nombre, String correo, String telefono) {

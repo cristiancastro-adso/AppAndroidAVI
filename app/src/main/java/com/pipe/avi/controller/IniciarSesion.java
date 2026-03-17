@@ -1,7 +1,9 @@
 package com.pipe.avi.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,7 +38,6 @@ public class IniciarSesion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /* TRANSICIÓN MATERIAL DESIGN */
         getWindow().setEnterTransition(new MaterialFadeThrough());
         getWindow().setExitTransition(new MaterialFadeThrough());
 
@@ -51,31 +52,18 @@ public class IniciarSesion extends AppCompatActivity {
         burbujaContainer = findViewById(R.id.burbujaContainer);
         cardLogin = findViewById(R.id.cardLogin);
 
-        /* CARGAR ANIMACIONES */
-
         Animation zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
         Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         Animation press = AnimationUtils.loadAnimation(this, R.anim.boton_press);
 
-        /* BURBUJA CON GATO */
-        if (burbujaContainer != null) {
-            burbujaContainer.startAnimation(zoom);
-        }
+        if (burbujaContainer != null) burbujaContainer.startAnimation(zoom);
+        if (cardLogin != null) cardLogin.startAnimation(slide);
 
-        /* CARD LOGIN */
-        if (cardLogin != null) {
-            cardLogin.startAnimation(slide);
-        }
-
-        /* CAMPOS */
         edtId.postDelayed(() -> edtId.startAnimation(fade), 200);
         edtPass.postDelayed(() -> edtPass.startAnimation(fade), 350);
-
-        /* BOTÓN */
         btniniciosesion.postDelayed(() -> btniniciosesion.startAnimation(fade), 500);
 
-        /* EFECTO PRESIÓN */
         btniniciosesion.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 v.startAnimation(press);
@@ -87,14 +75,12 @@ public class IniciarSesion extends AppCompatActivity {
     }
 
     private void mostrarLoading() {
-
         btniniciosesion.setEnabled(false);
         btniniciosesion.setText("");
         progressLogin.setVisibility(View.VISIBLE);
     }
 
     private void ocultarLoading() {
-
         btniniciosesion.setEnabled(true);
         btniniciosesion.setText("Iniciar Sesión");
         progressLogin.setVisibility(View.GONE);
@@ -151,6 +137,15 @@ public class IniciarSesion extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
 
                     if (loginResponse.isSuccess()) {
+
+                        String token = loginResponse.getToken();
+
+                        // 🔥 GUARDAR TOKEN
+                        SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
+                        prefs.edit().putString("token", token).apply();
+
+                        // 🔍 DEBUG
+                        Log.d("DEBUG", "TOKEN GUARDADO: " + token);
 
                         Toast.makeText(IniciarSesion.this,
                                 loginResponse.getMensaje(),

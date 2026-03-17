@@ -19,51 +19,72 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AVI"
         android:forceDarkAllowed="false">
+
         <activity
             android:name=".controller.ARActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
+
         <activity
             android:name=".controller.PretestActivity"
             android:exported="false" />
+
         <activity
             android:name=".controller.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".controller.Mapa"
             android:exported="false" />
+
         <activity
             android:name=".controller.Resultados"
             android:exported="false" />
+
+        <!-- 🔥 ESTA ES LA QUE FALTABA -->
+        <activity
+            android:name=".controller.InfoProgramas"
+            android:exported="false" />
+
+        <activity
+            android:name=".controller.RankingProgramas"
+            android:exported="false" />
+
         <activity
             android:name=".controller.BienvenidaTest"
             android:exported="false" />
+
         <activity
             android:name=".controller.Test"
             android:exported="false" />
+
         <activity
             android:name=".controller.Programas"
             android:exported="false" />
+
         <activity
             android:name=".controller.User"
             android:exported="false" />
+
         <activity
             android:name=".controller.Principal"
             android:exported="false" />
+
         <activity
             android:name=".controller.IniciarSesion"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".controller.Registro"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

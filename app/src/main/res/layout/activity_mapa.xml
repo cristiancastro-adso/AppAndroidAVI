@@ -11,26 +11,23 @@
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:background="@drawable/degradado_header"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- LOGO IZQUIERDA -->
         <ImageView
             android:id="@+id/logoAvi"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="15dp"
             android:scaleType="centerInside"
             android:src="@drawable/gato" />
 
-        <!-- CONTENEDOR DEL TEXTO (CENTRADO REAL) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,61 +39,72 @@
                 android:id="@+id/txtTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mapa del CTPI"
+                android:text="Mapa 3D CTPI"
                 android:textColor="@color/moradosena"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Formación SENA Popayán"
+                android:text="Navegación Interactiva"
                 android:textColor="@color/gris"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
 
+    <!-- Layout para los botones de programas recomendados -->
     <LinearLayout
-        android:id="@+id/buscador"
+        android:id="@+id/layoutBotonesRecomendados"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_boton_acceso"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_search" />
-
-        <EditText
-            android:id="@+id/etBuscarAmbiente"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="Buscar Ambiente"
-            android:paddingStart="8dp" />
+        <!-- Los botones se añadirán dinámicamente desde Java -->
     </LinearLayout>
 
-    <com.pipe.avi.controller.CustomMapView
-        android:id="@+id/mapView"
+    <!-- WebView para el Mapa 3D -->
+    <WebView
+        android:id="@+id/mapa3dWebView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buscador" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutBotonesRecomendados" />
 
+    <!-- Botón VER MAS flotando al lado derecho del mapa -->
+    <Button
+        android:id="@+id/btnVerMasProgramas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_azul"
+        android:elevation="10dp"
+        android:paddingHorizontal="24dp"
+        android:text="Rankea los Programas"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/mapa3dWebView"
+        app:layout_constraintEnd_toEndOf="@+id/mapa3dWebView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.pipe.avi.controller.CustomMapView
+        android:id="@+id/mapView"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"

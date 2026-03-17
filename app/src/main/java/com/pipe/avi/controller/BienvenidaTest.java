@@ -15,7 +15,7 @@ import com.pipe.avi.R;
 public class BienvenidaTest extends AppCompatActivity {
 
     Button btninittest;
-    ImageButton btnhome, btnusuario, btnmap;
+    ImageButton btnhome, btnusuario;
     ProgressBar progressTest;
 
     int aspiranteId;
@@ -35,7 +35,6 @@ public class BienvenidaTest extends AppCompatActivity {
 
         btnhome = findViewById(R.id.btnhome);
         btnusuario = findViewById(R.id.btnusuario);
-        btnmap = findViewById(R.id.btnmap);
         btninittest = findViewById(R.id.btninittest);
         progressTest = findViewById(R.id.progressTest);
 
@@ -71,16 +70,6 @@ public class BienvenidaTest extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
-        btnmap.setOnClickListener(v -> {
-
-            v.startAnimation(AnimationUtils.loadAnimation(this, R.anim.boton_press));
-
-            Intent intent = new Intent(BienvenidaTest.this, Mapa.class);
-            intent.putExtra("aspiranteId", aspiranteId);
-            startActivity(intent);
-
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
 
         // -----------------------
         // INICIAR TEST

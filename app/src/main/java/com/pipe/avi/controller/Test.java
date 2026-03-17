@@ -76,11 +76,17 @@ public class Test extends AppCompatActivity {
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
 
         sessionId = getIntent().getStringExtra("session_id");
-        reporteId = getIntent().getIntExtra("reporteId",0);
-        aspiranteId = getIntent().getIntExtra("aspiranteId",0);
+        reporteId = getIntent().getIntExtra("reporteId", 0);
+        aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
+
+        // 🔥 DEBUG
+        System.out.println("ASPIRANTE ID EN TEST: " + aspiranteId);
+
+        if (aspiranteId == 0) {
+            Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
+        }
 
         iniciarRIASEC();
-
         cargarPregunta();
 
         btn5.setOnClickListener(v -> responder(5));
@@ -90,18 +96,16 @@ public class Test extends AppCompatActivity {
         btn1.setOnClickListener(v -> responder(1));
     }
 
-    private void iniciarRIASEC(){
-
+    private void iniciarRIASEC() {
         riasecScores.setR(0);
         riasecScores.setI(0);
         riasecScores.setA(0);
         riasecScores.setS(0);
         riasecScores.setE(0);
         riasecScores.setC(0);
-
     }
 
-    private void cargarPregunta(){
+    private void cargarPregunta() {
 
         TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
@@ -113,7 +117,7 @@ public class Test extends AppCompatActivity {
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
 
-                if(response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
 
                     QuestionResponse pregunta = response.body();
 
@@ -121,14 +125,12 @@ public class Test extends AppCompatActivity {
                     categoriaActual = pregunta.getCategory();
 
                     txtPregunta.setText(pregunta.getQuestion());
-                    txtContador.setText("Pregunta "+preguntaActual+" de "+totalPreguntas);
+                    txtContador.setText("Pregunta " + preguntaActual + " de " + totalPreguntas);
 
                     actualizarProgreso();
-
                     mostrarPregunta();
 
-                }else{
-
+                } else {
                     Toast.makeText(Test.this,
                             "No se pudo cargar pregunta",
                             Toast.LENGTH_LONG).show();
@@ -137,32 +139,29 @@ public class Test extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<QuestionResponse> call, Throwable t) {
-
                 Toast.makeText(Test.this,
                         "Error cargando pregunta",
                         Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
-    private void responder(int valor){
+    private void responder(int valor) {
 
         ocultarPregunta();
-
         mostrarLoader(true);
 
-        handler.postDelayed(() -> guardarRespuesta(valor),150);
+        handler.postDelayed(() -> guardarRespuesta(valor), 150);
     }
 
-    private void guardarRespuesta(int valor){
+    private void guardarRespuesta(int valor) {
 
-        Map<String,Object> body = new HashMap<>();
+        Map<String, Object> body = new HashMap<>();
 
-        body.put("aspiranteId",aspiranteId);
-        body.put("preguntaId",preguntaId);
-        body.put("valor",valor);
-        body.put("reporteId",reporteId);
+        body.put("aspiranteId", aspiranteId);
+        body.put("preguntaId", preguntaId);
+        body.put("valor", valor);
+        body.put("reporteId", reporteId);
 
         TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
@@ -172,33 +171,25 @@ public class Test extends AppCompatActivity {
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
 
                 actualizarRIASEC(valor);
-
                 preguntaActual++;
 
-                if(preguntaActual > totalPreguntas){
-
+                if (preguntaActual > totalPreguntas) {
                     finalizarTest();
-
-                }else{
-
+                } else {
                     cargarPregunta();
-
                 }
-
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
                 Toast.makeText(Test.this,
                         "Error guardando respuesta",
                         Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
-    private void mostrarPregunta(){
+    private void mostrarPregunta() {
 
         mostrarLoader(false);
 
@@ -212,10 +203,9 @@ public class Test extends AppCompatActivity {
         btn5.setVisibility(View.VISIBLE);
 
         txtPregunta.startAnimation(fadeIn);
-
     }
 
-    private void ocultarPregunta(){
+    private void ocultarPregunta() {
 
         txtPregunta.setVisibility(View.INVISIBLE);
         txtContador.setVisibility(View.INVISIBLE);
@@ -225,32 +215,27 @@ public class Test extends AppCompatActivity {
         btn3.setVisibility(View.INVISIBLE);
         btn4.setVisibility(View.INVISIBLE);
         btn5.setVisibility(View.INVISIBLE);
-
     }
 
-    private void actualizarRIASEC(int valor){
+    private void actualizarRIASEC(int valor) {
 
-        if(categoriaActual != null){
-
+        if (categoriaActual != null) {
             riasecScores.updateScore(categoriaActual, valor);
-
         }
-
     }
 
-    private void actualizarProgreso(){
+    private void actualizarProgreso() {
 
         int progreso = (preguntaActual * 100) / totalPreguntas;
 
         ObjectAnimator.ofInt(progressTest, "progress", progreso)
                 .setDuration(400)
                 .start();
-
     }
 
-    private void mostrarLoader(boolean mostrar){
+    private void mostrarLoader(boolean mostrar) {
 
-        if(mostrar){
+        if (mostrar) {
 
             imgLoader.setVisibility(View.VISIBLE);
 
@@ -259,38 +244,35 @@ public class Test extends AppCompatActivity {
                     .load(R.drawable.loader)
                     .into(imgLoader);
 
-        }else{
+        } else {
 
             imgLoader.setVisibility(View.GONE);
-
         }
     }
 
-    private void finalizarTest(){
+    private void finalizarTest() {
 
         TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
-        Map<String,Object> body = new HashMap<>();
-
-        body.put("reporteId",reporteId);
-        body.put("riasec_scores",riasecScores);
+        Map<String, Object> body = new HashMap<>();
+        body.put("reporteId", reporteId);
+        body.put("riasec_scores", riasecScores);
 
         api.finishTest(body).enqueue(new Callback<ResultResponse>() {
 
             @Override
             public void onResponse(Call<ResultResponse> call, Response<ResultResponse> response) {
 
-                if(response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
 
                     ResultResponse resultado = response.body();
 
                     Intent intent = new Intent(Test.this, Resultados.class);
                     intent.putExtra("resultadoIA", (Serializable) resultado);
+                    intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
                     startActivity(intent);
                     finish();
-
                 }
-
             }
 
             @Override
@@ -301,6 +283,5 @@ public class Test extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-
     }
 }

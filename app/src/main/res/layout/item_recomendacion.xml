@@ -32,25 +32,5 @@
             android:textColor="#009dff"
             android:textSize="14sp" />
 
-        <RatingBar
-            android:id="@+id/ratingPrograma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:numStars="5"
-            android:stepSize="1.0"
-            android:rating="0"
-            android:isIndicator="false"
-            android:progressTint="#FFD700" />
-
-        <TextView
-            android:id="@+id/txtDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Descripción detallada..."
-            android:textColor="#666666"
-            android:textSize="14sp" />
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

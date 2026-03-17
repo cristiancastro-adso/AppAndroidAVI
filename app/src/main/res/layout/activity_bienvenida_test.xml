@@ -205,7 +205,7 @@
         <Button
             android:id="@+id/btninittest"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/btnfondo"
             android:backgroundTint="@null"
             android:text="Iniciar Test Vocacional"
@@ -226,23 +226,16 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="center"
         android:background="@drawable/menu_background"
-        android:orientation="horizontal"
-        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
-
 
         <ImageButton
             android:id="@+id/btnusuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
-            android:foregroundGravity="center"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_user_md"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -250,34 +243,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <ImageButton
             android:id="@+id/btnhome"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
+            android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_home"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.699"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageButton
-            android:id="@+id/btnmap"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@color/transparente"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_map_md"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnhome"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.533" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
