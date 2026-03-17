@@ -22,16 +22,17 @@ public class InfoProgramas extends AppCompatActivity {
     Button btnIrMapa;
 
     ArrayList<String> programas;
+    ArrayList<Integer> programIds;        // IDs de los programas
+    ArrayList<Integer> recomendacionIds;  // IDs de la recomendación (idRECOMENDACION)
 
-    // 🔥 NUEVO
     int aspiranteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_programas);
 
+        // Inicializar views
         txtPrograma1 = findViewById(R.id.txtPrograma1);
         txtPrograma2 = findViewById(R.id.txtPrograma2);
         txtPrograma3 = findViewById(R.id.txtPrograma3);
@@ -50,41 +51,42 @@ public class InfoProgramas extends AppCompatActivity {
 
         btnIrMapa = findViewById(R.id.btnIrMapa);
 
+        // Recibir datos desde Resultados
         programas = getIntent().getStringArrayListExtra("programas");
+        programIds = getIntent().getIntegerArrayListExtra("programIds");
+        recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds"); // 🔥 recibir idRECOMENDACION
 
-        // 🔥 RECIBIR ID
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
-
         System.out.println("ASPIRANTE ID EN INFO: " + aspiranteId);
 
         if (aspiranteId == 0) {
-            Toast.makeText(this,
-                    "Error: aspiranteId no recibido",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
         }
 
-        if (programas != null) {
-
+        // Llenar los programas en las vistas
+        if (programas != null && !programas.isEmpty()) {
             if (programas.size() > 0) {
                 llenarPrograma(programas.get(0), txtPrograma1, txtNivel1, txtDuracion1, txtDescripcion1);
             }
-
             if (programas.size() > 1) {
                 llenarPrograma(programas.get(1), txtPrograma2, txtNivel2, txtDuracion2, txtDescripcion2);
             }
-
             if (programas.size() > 2) {
                 llenarPrograma(programas.get(2), txtPrograma3, txtNivel3, txtDuracion3, txtDescripcion3);
             }
         }
 
+        // Botón para ir a Mapa enviando todos los datos
         btnIrMapa.setOnClickListener(v -> {
-
             Intent intent = new Intent(InfoProgramas.this, Mapa.class);
-            intent.putStringArrayListExtra("programas", programas);
-            intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
-            startActivity(intent);
 
+            // Enviar nombres, IDs de programas y IDs de recomendación
+            intent.putStringArrayListExtra("programas", programas);
+            intent.putIntegerArrayListExtra("programIds", programIds);
+            intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
+            intent.putExtra("aspiranteId", aspiranteId);
+
+            startActivity(intent);
         });
     }
 
@@ -100,14 +102,10 @@ public class InfoProgramas extends AppCompatActivity {
         String duracion;
 
         String nombreLower = nombre.toLowerCase();
-
         if (nombreLower.contains("tecnico") || nombreLower.contains("técnico")) {
-
             nivel = "Nivel: Técnico";
             duracion = "Duración: 2 años";
-
         } else {
-
             nivel = "Nivel: Tecnólogo";
             duracion = "Duración: 3 años";
         }

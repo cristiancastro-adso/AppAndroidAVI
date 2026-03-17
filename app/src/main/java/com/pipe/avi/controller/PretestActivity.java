@@ -30,13 +30,13 @@ import retrofit2.Response;
 
 public class PretestActivity extends AppCompatActivity {
 
-    Button btnContinuarTest;
-    ProgressBar progressContinuar;
+    private Button btnContinuarTest;
+    private ProgressBar progressContinuar;
 
-    EditText pregunta1, pregunta2;
-    RadioGroup pregunta3, pregunta4, pregunta5;
+    private EditText pregunta1, pregunta2;
+    private RadioGroup pregunta3, pregunta4, pregunta5;
 
-    int aspiranteId;
+    private int aspiranteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,39 +73,30 @@ public class PretestActivity extends AppCompatActivity {
         animarRadioGroup(pregunta5);
 
         btnContinuarTest.setOnClickListener(v -> {
-
             Animation press = AnimationUtils.loadAnimation(this, R.anim.boton_press);
             v.startAnimation(press);
-
             validarYContinuar();
         });
     }
 
     private void animarRadioGroup(RadioGroup group){
-
         group.setOnCheckedChangeListener((radioGroup, checkedId) -> {
-
             RadioButton seleccionado = findViewById(checkedId);
-
             if(seleccionado != null){
-
                 Animation zoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
                 seleccionado.startAnimation(zoom);
-
             }
-
         });
     }
 
     private void validarYContinuar() {
 
         if (aspiranteId == 0) {
-            Toast.makeText(this,"Error aspiranteId",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Error: aspiranteId no recibido",Toast.LENGTH_LONG).show();
             return;
         }
 
         boolean valido = true;
-
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         if (pregunta1.getText().toString().trim().isEmpty()) {
@@ -120,22 +111,13 @@ public class PretestActivity extends AppCompatActivity {
             valido = false;
         }
 
-        if (pregunta3.getCheckedRadioButtonId() == -1){
-            pregunta3.startAnimation(shake);
-            valido = false;
-        }
+        if (pregunta3.getCheckedRadioButtonId() == -1) pregunta3.startAnimation(shake);
+        if (pregunta4.getCheckedRadioButtonId() == -1) pregunta4.startAnimation(shake);
+        if (pregunta5.getCheckedRadioButtonId() == -1) pregunta5.startAnimation(shake);
 
-        if (pregunta4.getCheckedRadioButtonId() == -1){
-            pregunta4.startAnimation(shake);
-            valido = false;
-        }
-
-        if (pregunta5.getCheckedRadioButtonId() == -1){
-            pregunta5.startAnimation(shake);
-            valido = false;
-        }
-
-        if(!valido){
+        if (!valido || pregunta3.getCheckedRadioButtonId() == -1
+                || pregunta4.getCheckedRadioButtonId() == -1
+                || pregunta5.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this,"Responde todas las preguntas",Toast.LENGTH_LONG).show();
             return;
         }
@@ -147,9 +129,8 @@ public class PretestActivity extends AppCompatActivity {
     }
 
     private void crearReporte(){
-
         Map<String,Object> body = new HashMap<>();
-        body.put("aspiranteId",aspiranteId);
+        body.put("aspiranteId", aspiranteId);
 
         TestApi api = ApiClient.getClient().create(TestApi.class);
 
@@ -159,33 +140,26 @@ public class PretestActivity extends AppCompatActivity {
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
 
                 if(response.isSuccessful() && response.body()!=null){
-
                     Number reporteNumber = (Number) response.body().get("reporteId");
-
                     if(reporteNumber == null){
-                        errorUI("Error reporte");
+                        errorUI("Error: reporteId nulo");
                         return;
                     }
 
                     int reporteId = reporteNumber.intValue();
-
                     enviarPretest(reporteId);
 
-                }else{
-
+                } else {
                     errorUI("Error creando reporte");
                 }
-
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
                 Log.e("START_TEST",t.getMessage());
-                errorUI("Error conexión");
+                errorUI("Error de conexión");
             }
         });
-
     }
 
     private void enviarPretest(int reporteId){
@@ -195,7 +169,6 @@ public class PretestActivity extends AppCompatActivity {
         String r5 = ((RadioButton)findViewById(pregunta5.getCheckedRadioButtonId())).getText().toString();
 
         List<String> answers = new ArrayList<>();
-
         answers.add(pregunta1.getText().toString().trim());
         answers.add(pregunta2.getText().toString().trim());
         answers.add(r3);
@@ -203,12 +176,11 @@ public class PretestActivity extends AppCompatActivity {
         answers.add(r5);
 
         Map<String,Object> body = new HashMap<>();
+        body.put("aspiranteId", aspiranteId);
+        body.put("reporteId", reporteId);
+        body.put("answers", answers);
 
-        body.put("aspiranteId",aspiranteId);
-        body.put("reporteId",reporteId);
-        body.put("answers",answers);
-
-        Log.d("PRETEST_BODY",body.toString());
+        Log.d("PRETEST_BODY", body.toString());
 
         TestApi api = ApiClient.getClient().create(TestApi.class);
 
@@ -216,55 +188,37 @@ public class PretestActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-
                 if(response.isSuccessful() && response.body()!=null){
-
                     String sessionId = (String) response.body().get("session_id");
 
                     Intent intent = new Intent(PretestActivity.this, Test.class);
-
                     intent.putExtra("session_id",sessionId);
                     intent.putExtra("reporteId",reporteId);
                     intent.putExtra("aspiranteId",aspiranteId);
 
                     startActivity(intent);
-
-                    // transición suave
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                }else{
-
+                } else {
                     try {
-
                         String error = response.errorBody()!=null ?
                                 response.errorBody().string() : "error";
-
                         Log.e("PRETEST_ERROR",error);
-
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-
+                    } catch(Exception e) { e.printStackTrace(); }
                     errorUI("Error servidor");
                 }
-
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
                 Log.e("PRETEST_FAIL",t.getMessage());
-
                 errorUI("Error conexión");
             }
         });
-
     }
 
     private void errorUI(String mensaje){
-
         Toast.makeText(PretestActivity.this,mensaje,Toast.LENGTH_LONG).show();
-
         btnContinuarTest.setEnabled(true);
         progressContinuar.setVisibility(View.GONE);
     }

@@ -1,7 +1,5 @@
 package com.pipe.avi.controller;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,10 +28,12 @@ public class RankingProgramas extends AppCompatActivity {
     private Button btnGuardar;
 
     private ArrayList<String> programasOriginal;
+    private ArrayList<Integer> recomendacionIds; // IDs de recomendaciones
+    private ArrayList<Integer> programaIds;      // IDs de programas para el backend
     private int aspiranteId;
+    private int reporteId; // ⚡ necesitas recibirlo desde la pantalla anterior
 
     private ArrayAdapter<String> adapter1, adapter2, adapter3;
-
     private boolean isUpdating = false;
 
     @Override
@@ -46,33 +46,34 @@ public class RankingProgramas extends AppCompatActivity {
         spinner3 = findViewById(R.id.spinnerTercero);
         btnGuardar = findViewById(R.id.btnGuardarRanking);
 
+        // 🔥 Recibir datos desde Mapa o actividad anterior
         programasOriginal = getIntent().getStringArrayListExtra("programas");
+        recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds");
+        programaIds = getIntent().getIntegerArrayListExtra("programaIds"); // agregar desde backend
         aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
+        reporteId = getIntent().getIntExtra("reporteId", -1); // ⚡ necesario para backend
 
-        Log.d("DEBUG", "AspiranteID recibido: " + aspiranteId);
+        Log.d("DEBUG", "AspiranteID: " + aspiranteId);
+        Log.d("DEBUG", "recomendacionIds: " + recomendacionIds);
+        Log.d("DEBUG", "programaIds: " + programaIds);
+        Log.d("DEBUG", "reporteId: " + reporteId);
 
-        if (aspiranteId == -1) {
-            Toast.makeText(this, "Error: No se recibió el ID", Toast.LENGTH_LONG).show();
+        if (aspiranteId == -1 || recomendacionIds == null || recomendacionIds.size() < 3
+                || programaIds == null || programaIds.size() < 3 || reporteId == -1) {
+            Toast.makeText(this, "Error: Datos incompletos", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
-        if (programasOriginal == null) {
-            programasOriginal = new ArrayList<>();
-        }
-
-        if (!programasOriginal.contains("Selecciona un programa")) {
-            programasOriginal.add(0, "Selecciona un programa");
-        }
+        if (programasOriginal == null) programasOriginal = new ArrayList<>();
+        if (!programasOriginal.contains("Selecciona un programa")) programasOriginal.add(0, "Selecciona un programa");
 
         configurarSpinners();
 
-        btnGuardar.setOnClickListener(v -> {
-            Log.d("DEBUG", "CLICK EN GUARDAR");
-            guardarRanking();
-        });
+        btnGuardar.setOnClickListener(v -> guardarRanking());
     }
 
     private void configurarSpinners() {
-
         adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(programasOriginal));
         adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(programasOriginal));
         adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(programasOriginal));
@@ -88,30 +89,22 @@ public class RankingProgramas extends AppCompatActivity {
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 if (isUpdating) return;
 
                 String seleccionado = parent.getItemAtPosition(position).toString();
-
                 String primero = getSeleccion(spinner1);
                 String segundo = getSeleccion(spinner2);
                 String tercero = getSeleccion(spinner3);
 
                 isUpdating = true;
 
-                if (parent == spinner1) {
-                    if (seleccionado.equals(segundo) || seleccionado.equals(tercero)) {
-                        spinner1.setSelection(0, false);
-                    }
-                } else if (parent == spinner2) {
-                    if (seleccionado.equals(primero) || seleccionado.equals(tercero)) {
-                        spinner2.setSelection(0, false);
-                    }
-                } else if (parent == spinner3) {
-                    if (seleccionado.equals(primero) || seleccionado.equals(segundo)) {
-                        spinner3.setSelection(0, false);
-                    }
-                }
+                // Evitar duplicados
+                if (parent == spinner1 && (seleccionado.equals(segundo) || seleccionado.equals(tercero)))
+                    spinner1.setSelection(0, false);
+                else if (parent == spinner2 && (seleccionado.equals(primero) || seleccionado.equals(tercero)))
+                    spinner2.setSelection(0, false);
+                else if (parent == spinner3 && (seleccionado.equals(primero) || seleccionado.equals(segundo)))
+                    spinner3.setSelection(0, false);
 
                 actualizarSpinners();
                 isUpdating = false;
@@ -127,7 +120,6 @@ public class RankingProgramas extends AppCompatActivity {
     }
 
     private void actualizarSpinners() {
-
         if (isUpdating) return;
         isUpdating = true;
 
@@ -154,90 +146,78 @@ public class RankingProgramas extends AppCompatActivity {
                                  Spinner spinner) {
 
         adapter.clear();
-
         for (String item : base) {
-
             if (item.equals("Selecciona un programa")) {
                 adapter.add(item);
                 continue;
             }
-
-            if ((excluir1 != null && item.equals(excluir1)) ||
-                    (excluir2 != null && item.equals(excluir2))) {
-                continue;
-            }
-
+            if ((excluir1 != null && item.equals(excluir1)) || (excluir2 != null && item.equals(excluir2))) continue;
             adapter.add(item);
         }
 
         adapter.notifyDataSetChanged();
-
         if (seleccionActual != null) {
             int pos = adapter.getPosition(seleccionActual);
-            if (pos >= 0) {
-                spinner.setSelection(pos, false);
-            }
+            if (pos >= 0) spinner.setSelection(pos, false);
         }
     }
 
     private void guardarRanking() {
 
-        Log.d("DEBUG", "Entró a guardarRanking");
+        String primero = getSeleccion(spinner1);
+        String segundo = getSeleccion(spinner2);
+        String tercero = getSeleccion(spinner3);
 
-        String primero = spinner1.getSelectedItem().toString();
-        String segundo = spinner2.getSelectedItem().toString();
-        String tercero = spinner3.getSelectedItem().toString();
-
-        if (aspiranteId == -1) {
-            Toast.makeText(this, "ID inválido", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (primero.equals(segundo) || primero.equals(tercero) || segundo.equals(tercero) ||
-                primero.equals("Selecciona un programa") ||
+        if (primero.equals("Selecciona un programa") ||
                 segundo.equals("Selecciona un programa") ||
-                tercero.equals("Selecciona un programa")) {
+                tercero.equals("Selecciona un programa") ||
+                primero.equals(segundo) || primero.equals(tercero) || segundo.equals(tercero)) {
 
-            Toast.makeText(this,
-                    "Selecciona 3 programas diferentes",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Selecciona 3 programas distintos", Toast.LENGTH_LONG).show();
             return;
         }
 
         new Thread(() -> {
-
             try {
-
-                // 🔥 OBTENER TOKEN
                 SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
                 String token = prefs.getString("token", null);
 
-                Log.d("DEBUG", "TOKEN ENVIADO: " + token);
+                if (token == null || token.isEmpty()) {
+                    runOnUiThread(() ->
+                            Toast.makeText(this, "Error: Token no disponible", Toast.LENGTH_LONG).show());
+                    return;
+                }
 
-                URL url = new URL("https://avibackcopia2-production.up.railway.app/api/ranking");
+                URL url = new URL("https://avibackcopia2-production.up.railway.app/api/test/ranking");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-
-                // 🔥 HEADER CON TOKEN (CLAVE)
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                 conn.setRequestProperty("Authorization", "Bearer " + token);
-
                 conn.setDoOutput(true);
 
                 JSONArray rankings = new JSONArray();
 
+                // 🔥 Crear objetos de ranking con idRecomendacion, programaId y reporteId
                 JSONObject r1 = new JSONObject();
                 r1.put("nombre", primero);
                 r1.put("ranking", 3);
+                r1.put("idRECOMENDACION", recomendacionIds.get(0));
+                r1.put("programaId", programaIds.get(0));
+                r1.put("reporteId", reporteId);
 
                 JSONObject r2 = new JSONObject();
                 r2.put("nombre", segundo);
                 r2.put("ranking", 2);
+                r2.put("idRECOMENDACION", recomendacionIds.get(1));
+                r2.put("programaId", programaIds.get(1));
+                r2.put("reporteId", reporteId);
 
                 JSONObject r3 = new JSONObject();
                 r3.put("nombre", tercero);
                 r3.put("ranking", 1);
+                r3.put("idRECOMENDACION", recomendacionIds.get(2));
+                r3.put("programaId", programaIds.get(2));
+                r3.put("reporteId", reporteId);
 
                 rankings.put(r1);
                 rankings.put(r2);
@@ -247,46 +227,28 @@ public class RankingProgramas extends AppCompatActivity {
                 json.put("aspiranteId", aspiranteId);
                 json.put("rankings", rankings);
 
-                Log.d("DEBUG", "JSON enviado: " + json.toString());
-
                 OutputStream os = conn.getOutputStream();
-                os.write(json.toString().getBytes());
+                os.write(json.toString().getBytes("UTF-8"));
                 os.flush();
                 os.close();
 
                 int response = conn.getResponseCode();
-
-                Log.d("DEBUG", "Response: " + response);
+                conn.disconnect();
 
                 runOnUiThread(() -> {
-
                     if (response == 200 || response == 201) {
-
-                        Toast.makeText(RankingProgramas.this,
-                                "Ranking guardado correctamente",
-                                Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(this, "Ranking guardado correctamente", Toast.LENGTH_LONG).show();
                         finish();
-
                     } else {
-
-                        Toast.makeText(RankingProgramas.this,
-                                "Error: " + response,
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Error guardando ranking: " + response, Toast.LENGTH_LONG).show();
                     }
-
                 });
 
             } catch (Exception e) {
-
                 Log.e("ERROR", e.toString());
-
                 runOnUiThread(() ->
-                        Toast.makeText(RankingProgramas.this,
-                                "Error de conexión",
-                                Toast.LENGTH_LONG).show());
+                        Toast.makeText(this, "Error de conexión: " + e.getMessage(), Toast.LENGTH_LONG).show());
             }
-
         }).start();
     }
 }

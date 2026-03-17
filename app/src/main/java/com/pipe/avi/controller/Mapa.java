@@ -38,8 +38,10 @@ public class Mapa extends AppCompatActivity {
 
     private int aspiranteId;
 
-    // 🔥 PROGRAMAS QUE VIENEN DESDE RESULTADOS
+    // 🔥 PROGRAMAS Y IDS QUE VIENEN DESDE INFOPROGRAMAS
     private ArrayList<String> programasRecomendados;
+    private ArrayList<Integer> programIds;
+    private ArrayList<Integer> recomendacionIds;
 
     // 🔥 PROGRAMAS DEL BACKEND
     private List<Programa> todosLosProgramas = new ArrayList<>();
@@ -60,6 +62,16 @@ public class Mapa extends AppCompatActivity {
         // 🔥 RECIBIR DATOS (DEL JAVA ANTERIOR)
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
         programasRecomendados = getIntent().getStringArrayListExtra("programas");
+        programIds = getIntent().getIntegerArrayListExtra("programIds");
+        recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds"); // 🔥 recibir idRECOMENDACION
+
+        if (aspiranteId == 0) {
+            Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
+        }
+
+        if (programasRecomendados == null) programasRecomendados = new ArrayList<>();
+        if (programIds == null) programIds = new ArrayList<>();
+        if (recomendacionIds == null) recomendacionIds = new ArrayList<>();
 
         // 🔥 ANIMACIONES
         pressAnim = AnimationUtils.loadAnimation(this, R.anim.boton_press);
@@ -68,13 +80,15 @@ public class Mapa extends AppCompatActivity {
         configurarWebView();
         cargarProgramas();
 
-        // 🔥 BOTÓN VER MÁS
+        // 🔥 BOTÓN VER MÁS -> RankingProgramas
         btnVerMasProgramas.setOnClickListener(v -> {
             v.startAnimation(pressAnim);
             Intent intent = new Intent(Mapa.this, RankingProgramas.class);
 
-            // 🔥 enviar programas recomendados
+            // 🔥 Enviar TODOS los datos a Ranking
             intent.putStringArrayListExtra("programas", programasRecomendados);
+            intent.putIntegerArrayListExtra("programIds", programIds);
+            intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
             intent.putExtra("aspiranteId", aspiranteId);
 
             startActivity(intent);
@@ -99,7 +113,6 @@ public class Mapa extends AppCompatActivity {
     // =========================
     @SuppressLint("SetJavaScriptEnabled")
     private void configurarWebView() {
-
         WebSettings webSettings = mapa3dWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -109,7 +122,7 @@ public class Mapa extends AppCompatActivity {
         mapa3dWebView.setWebViewClient(new WebViewClient());
         mapa3dWebView.addJavascriptInterface(new WebAppInterface(), "Android");
 
-        // 🔥 TU HTML 3D
+        // 🔥 HTML 3D local
         mapa3dWebView.loadUrl("file:///android_asset/viewer3d.html");
     }
 
@@ -117,20 +130,16 @@ public class Mapa extends AppCompatActivity {
     // 🔗 API
     // =========================
     private void cargarProgramas() {
-
         AspirantesApi api = ApiClient.getClient().create(AspirantesApi.class);
 
         api.getProgramas().enqueue(new Callback<List<Programa>>() {
             @Override
             public void onResponse(Call<List<Programa>> call, Response<List<Programa>> response) {
-
                 if (response.isSuccessful() && response.body() != null) {
-
                     todosLosProgramas = response.body();
-
-                    if (programasRecomendados != null) {
-                        crearBotones();
-                    }
+                    crearBotones();
+                } else {
+                    Toast.makeText(Mapa.this, "No se pudieron cargar programas", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -145,20 +154,15 @@ public class Mapa extends AppCompatActivity {
     // 🎯 BOTONES DINÁMICOS
     // =========================
     private void crearBotones() {
-
         layoutBotonesRecomendados.removeAllViews();
 
         for (String nombre : programasRecomendados) {
-
             Programa programa = buscarPrograma(nombre);
-
             if (programa == null) continue;
 
             Button btn = new Button(this);
-
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
-
             params.setMargins(20, 10, 20, 10);
             btn.setLayoutParams(params);
 
@@ -172,21 +176,16 @@ public class Mapa extends AppCompatActivity {
             animarColor(btn);
 
             btn.setOnClickListener(v -> {
-
                 v.clearAnimation();
                 v.startAnimation(pressAnim);
 
                 String urlAR = programa.getAr();
-
                 if (urlAR != null && !urlAR.isEmpty()) {
-
                     Intent intent = new Intent(Mapa.this, ARActivity.class);
                     intent.putExtra("url_ar", urlAR);
                     intent.putExtra("programa", programa.getNombre());
                     intent.putExtra("aspiranteId", aspiranteId);
-
                     v.postDelayed(() -> startActivity(intent), 200);
-
                 } else {
                     Toast.makeText(this, "Sin experiencia AR", Toast.LENGTH_SHORT).show();
                     v.startAnimation(pulseAnim);
@@ -198,31 +197,25 @@ public class Mapa extends AppCompatActivity {
     }
 
     private void animarColor(Button btn) {
-
         ValueAnimator anim = ValueAnimator.ofObject(
                 new ArgbEvaluator(),
                 Color.WHITE,
                 Color.parseColor("#90EE90")
         );
-
         anim.setDuration(2000);
         anim.setRepeatCount(ValueAnimator.INFINITE);
         anim.setRepeatMode(ValueAnimator.REVERSE);
-
         anim.addUpdateListener(a -> {
             if (btn.getBackground() != null) {
                 btn.getBackground().setTint((int) a.getAnimatedValue());
             }
         });
-
         anim.start();
     }
 
     private Programa buscarPrograma(String nombre) {
-
         for (Programa p : todosLosProgramas) {
-            if (p.getNombre() != null &&
-                    p.getNombre().equalsIgnoreCase(nombre)) {
+            if (p.getNombre() != null && p.getNombre().equalsIgnoreCase(nombre)) {
                 return p;
             }
         }
@@ -233,26 +226,18 @@ public class Mapa extends AppCompatActivity {
     // 🔗 COMUNICACIÓN JS (3D)
     // =========================
     public class WebAppInterface {
-
         @JavascriptInterface
         public void onProgramClicked(String nombre) {
-
             runOnUiThread(() -> {
-
                 Programa p = buscarPrograma(nombre);
-
-                if (p != null && p.getAr() != null) {
-
+                if (p != null && p.getAr() != null && !p.getAr().isEmpty()) {
                     Intent intent = new Intent(Mapa.this, ARActivity.class);
                     intent.putExtra("url_ar", p.getAr());
+                    intent.putExtra("programa", p.getNombre());
                     intent.putExtra("aspiranteId", aspiranteId);
-
                     startActivity(intent);
-
                 } else {
-                    Toast.makeText(Mapa.this,
-                            "Sin experiencia AR disponible",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Mapa.this, "Sin experiencia AR disponible", Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -24,7 +24,6 @@ public class ResultResponse implements Serializable {
     // REPORTE
     // ---------------------------
     public static class Reporte implements Serializable {
-
         @SerializedName("idREPORTE")
         private int idREPORTE;
 
@@ -73,13 +72,47 @@ public class ResultResponse implements Serializable {
     // ---------------------------
     public static class Recommendation implements Serializable {
 
+        @SerializedName("idRECOMENDACION")
+        private int idRECOMENDACION; // 🔑 ID real del backend
+
         @SerializedName("name")
         private String name;
 
         @SerializedName("reason")
         private String reason;
 
+        @SerializedName("ranking")
+        private Integer ranking; // puede ser null
+
+        @SerializedName("programaId")
+        private int programaId;
+
+        @SerializedName("reporteId")
+        private int reporteId;
+
+        @SerializedName("AR")
+        private String AR; // opcional
+
+        // Getters y setters
+        public int getIdRECOMENDACION() { return idRECOMENDACION; }
+        public void setIdRECOMENDACION(int idRECOMENDACION) { this.idRECOMENDACION = idRECOMENDACION; }
+
         public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+
         public String getReason() { return reason; }
+        public void setReason(String reason) { this.reason = reason; }
+
+        public Integer getRanking() { return ranking; }
+        public void setRanking(Integer ranking) { this.ranking = ranking; }
+
+        public int getProgramaId() { return programaId; }
+        public void setProgramaId(int programaId) { this.programaId = programaId; }
+
+        public int getReporteId() { return reporteId; }
+        public void setReporteId(int reporteId) { this.reporteId = reporteId; }
+
+        public String getAR() { return AR; }
+        public void setAR(String AR) { this.AR = AR; }
     }
 }
