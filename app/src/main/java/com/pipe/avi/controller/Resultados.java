@@ -58,6 +58,7 @@ public class Resultados extends AppCompatActivity {
 
         // 🔥 RECIBIR ASPIRANTE ID
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
+        int reporteId = getIntent().getIntExtra("reporteId", 0);
         System.out.println("ASPIRANTE ID EN RESULTADOS: " + aspiranteId);
         if (aspiranteId == 0) {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
@@ -90,6 +91,7 @@ public class Resultados extends AppCompatActivity {
             intent.putIntegerArrayListExtra("programIds", programIds);
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds);
             intent.putExtra("aspiranteId", aspiranteId);
+            intent.putExtra("reporteId", reporteId);
             startActivity(intent);
         });
     }

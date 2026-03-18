@@ -29,7 +29,7 @@ public class RankingProgramas extends AppCompatActivity {
 
     private ArrayList<String> programasOriginal;
     private ArrayList<Integer> recomendacionIds;
-    private ArrayList<Integer> idPROGRAMAs; // ⚡ Cambiado a idPROGRAMA
+    private ArrayList<Integer> idPROGRAMA; // ⚡ Cambiado a idPROGRAMA
     private int aspiranteId;
     private int reporteId;
 
@@ -48,17 +48,17 @@ public class RankingProgramas extends AppCompatActivity {
 
         programasOriginal = getIntent().getStringArrayListExtra("programas");
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds");
-        idPROGRAMAs = getIntent().getIntegerArrayListExtra("idPROGRAMAs"); // ⚡ recibe idPROGRAMA
+        idPROGRAMA = getIntent().getIntegerArrayListExtra("programIds"); // ⚡ recibe idPROGRAMA
         aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
         reporteId = getIntent().getIntExtra("reporteId", -1);
 
         Log.d("DEBUG", "AspiranteID: " + aspiranteId);
         Log.d("DEBUG", "recomendacionIds: " + recomendacionIds);
-        Log.d("DEBUG", "idPROGRAMAs: " + idPROGRAMAs);
+        Log.d("DEBUG", "idPROGRAMA: " + idPROGRAMA);
         Log.d("DEBUG", "reporteId: " + reporteId);
 
         if (aspiranteId == -1 || recomendacionIds == null || recomendacionIds.size() < 3
-                || idPROGRAMAs == null || idPROGRAMAs.size() < 3 || reporteId == -1) {
+                || idPROGRAMA == null || idPROGRAMA.size() < 3 || reporteId == -1) {
             Toast.makeText(this, "Error: Datos incompletos", Toast.LENGTH_LONG).show();
             finish();
             return;
@@ -135,6 +135,15 @@ public class RankingProgramas extends AppCompatActivity {
         return spinner.getSelectedItem() != null ? spinner.getSelectedItem().toString() : null;
     }
 
+    private int obtenerIndicePrograma(String nombrePrograma){
+        for(int i = 0; i < programasOriginal.size(); i++){
+            if(programasOriginal.get(i).equals(nombrePrograma)){
+                return i - 1; // ⚡ ajuste por "Selecciona un programa"
+            }
+        }
+        return -1;
+    }
+
     private void actualizarLista(ArrayAdapter<String> adapter,
                                  ArrayList<String> base,
                                  String excluir1,
@@ -192,28 +201,32 @@ public class RankingProgramas extends AppCompatActivity {
                 conn.setRequestProperty("Authorization", "Bearer " + token);
                 conn.setDoOutput(true);
 
-                JSONArray rankings = new JSONArray();
+                int i1 = obtenerIndicePrograma(primero);
+                int i2 = obtenerIndicePrograma(segundo);
+                int i3 = obtenerIndicePrograma(tercero);
 
                 JSONObject r1 = new JSONObject();
+                JSONArray rankings = new JSONArray();
                 r1.put("nombre", primero);
-                r1.put("ranking", 3);
-                r1.put("idRECOMENDACION", recomendacionIds.get(0));
-                r1.put("idPROGRAMA", idPROGRAMAs.get(0));
+                r1.put("ranking", 2);
+                r1.put("idRECOMENDACION", recomendacionIds.get(i1));
+                r1.put("idPROGRAMA", idPROGRAMA.get(i1));
                 r1.put("reporteId", reporteId);
 
                 JSONObject r2 = new JSONObject();
                 r2.put("nombre", segundo);
-                r2.put("ranking", 2);
-                r2.put("idRECOMENDACION", recomendacionIds.get(1));
-                r2.put("idPROGRAMA", idPROGRAMAs.get(1));
+                r2.put("ranking", 1);
+                r2.put("idRECOMENDACION", recomendacionIds.get(i2));
+                r2.put("idPROGRAMA", idPROGRAMA.get(i2));
                 r2.put("reporteId", reporteId);
 
                 JSONObject r3 = new JSONObject();
                 r3.put("nombre", tercero);
-                r3.put("ranking", 1);
-                r3.put("idRECOMENDACION", recomendacionIds.get(2));
-                r3.put("idPROGRAMA", idPROGRAMAs.get(2));
+                r3.put("ranking", 0);
+                r3.put("idRECOMENDACION", recomendacionIds.get(i3));
+                r3.put("idPROGRAMA", idPROGRAMA.get(i3));
                 r3.put("reporteId", reporteId);
+
 
                 rankings.put(r1);
                 rankings.put(r2);

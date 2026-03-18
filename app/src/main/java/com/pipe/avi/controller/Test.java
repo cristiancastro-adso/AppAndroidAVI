@@ -218,6 +218,7 @@ public class Test extends AppCompatActivity {
                     intent.putExtra("resultadoIA", (Serializable) resultado);
                     intent.putExtra("aspiranteId", aspiranteId);
                     intent.putExtra("recomendaciones", (Serializable) recomendaciones); // ✅ incluye idRECOMENDACION e idPROGRAMA
+                    intent.putExtra("reporteId", reporteId);
                     startActivity(intent);
                     finish();
                 }

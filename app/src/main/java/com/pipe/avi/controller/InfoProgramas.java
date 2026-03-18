@@ -55,6 +55,7 @@ public class InfoProgramas extends AppCompatActivity {
         programas = getIntent().getStringArrayListExtra("programas");
         programIds = getIntent().getIntegerArrayListExtra("programIds");
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds"); // 🔥 recibir idRECOMENDACION
+        int reporteId = getIntent().getIntExtra("reporteId", 0);
 
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
         System.out.println("ASPIRANTE ID EN INFO: " + aspiranteId);
@@ -85,6 +86,7 @@ public class InfoProgramas extends AppCompatActivity {
             intent.putIntegerArrayListExtra("idPROGRAMA", programIds);
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
             intent.putExtra("aspiranteId", aspiranteId);
+            intent.putExtra("reporteId", reporteId);
 
             startActivity(intent);
         });

@@ -64,6 +64,7 @@ public class Mapa extends AppCompatActivity {
         programasRecomendados = getIntent().getStringArrayListExtra("programas");
         idPROGRAMA = getIntent().getIntegerArrayListExtra("idPROGRAMA"); // 🔑 recibir idPROGRAMA
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds"); // 🔥 recibir idRECOMENDACION
+        int reporteId = getIntent().getIntExtra("reporteId", 0);
 
         if (aspiranteId == 0) {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
@@ -87,9 +88,10 @@ public class Mapa extends AppCompatActivity {
 
             // 🔥 Enviar TODOS los datos a Ranking
             intent.putStringArrayListExtra("programas", programasRecomendados);
-            intent.putIntegerArrayListExtra("idPROGRAMA", idPROGRAMA); // 🔑 enviar idPROGRAMA
+            intent.putIntegerArrayListExtra("programIds", idPROGRAMA); // 🔑 enviar idPROGRAMA
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds); // 🔥 enviar idRECOMENDACION
             intent.putExtra("aspiranteId", aspiranteId);
+            intent.putExtra("reporteId", reporteId);
 
             startActivity(intent);
         });
