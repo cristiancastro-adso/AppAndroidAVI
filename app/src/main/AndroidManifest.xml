@@ -19,9 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AVI">
-        <activity
-            android:name=".controller.transition"
-            android:exported="false" />
+
         <activity
             android:name=".controller.InfoRiasec"
             android:exported="false" />

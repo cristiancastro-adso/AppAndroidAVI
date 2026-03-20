@@ -9,9 +9,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.pipe.avi.R;
 import com.pipe.avi.model.Aspirante;
@@ -42,20 +39,13 @@ public class Registro extends AppCompatActivity {
 
     String ocupacionSeleccionada = "";
 
+    boolean primeraVez = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_registro);
-
-        View scrollView = findViewById(R.id.scrollRegistro);
-
-        ViewCompat.setOnApplyWindowInsetsListener(scrollView, (v, insets) -> {
-            int imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
-            v.setPadding(0, 0, 0, imeHeight);
-            return insets;
-        });
 
         // Inicialización de vistas
         edtID = findViewById(R.id.edtID);
@@ -147,8 +137,14 @@ public class Registro extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (primeraVez) {
+                    primeraVez = false;
+                    return;
+                }
+
                 if (position == 0) {
                     ocupacionSeleccionada = "";
+                    edtInstitucion.setText("");
                     edtInstitucion.setVisibility(View.GONE);
                 } else {
                     ocupacionSeleccionada = opciones[position];
