@@ -79,6 +79,10 @@ public class Test extends AppCompatActivity {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
         }
 
+        // ✅ CONFIGURAR PROGRESS BAR
+        progressTest.setMax(totalPreguntas);
+        progressTest.setProgress(1); // empieza en la primera pregunta
+
         iniciarRIASEC();
         cargarPregunta();
 
@@ -112,6 +116,10 @@ public class Test extends AppCompatActivity {
 
                     txtPregunta.setText(pregunta.getQuestion());
                     txtContador.setText("Pregunta " + preguntaActual + " de " + totalPreguntas);
+
+                    // ✅ ACTUALIZAR PROGRESS BAR
+                    progressTest.setProgress(preguntaActual);
+
                     mostrarPregunta();
                 } else {
                     Toast.makeText(Test.this, "No se pudo cargar pregunta", Toast.LENGTH_LONG).show();
@@ -213,11 +221,10 @@ public class Test extends AppCompatActivity {
                             resultado.getResultadoIA() != null ?
                                     resultado.getResultadoIA().getRecommendations() : null;
 
-                    // Enviar a Resultados
                     Intent intent = new Intent(Test.this, Resultados.class);
                     intent.putExtra("resultadoIA", (Serializable) resultado);
                     intent.putExtra("aspiranteId", aspiranteId);
-                    intent.putExtra("recomendaciones", (Serializable) recomendaciones); // ✅ incluye idRECOMENDACION e idPROGRAMA
+                    intent.putExtra("recomendaciones", (Serializable) recomendaciones);
                     intent.putExtra("reporteId", reporteId);
                     startActivity(intent);
                     finish();

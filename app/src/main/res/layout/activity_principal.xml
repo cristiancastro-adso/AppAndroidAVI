@@ -55,8 +55,9 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="18dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    app:cardElevation="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:stateListAnimator="@animator/press_anim">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -117,8 +118,9 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="18dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    app:cardElevation="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:stateListAnimator="@animator/press_anim">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -168,8 +170,9 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="18dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    app:cardElevation="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:stateListAnimator="@animator/press_anim">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -219,8 +222,9 @@
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardCornerRadius="18dp"
-                    app:cardElevation="4dp"
-                    app:cardBackgroundColor="#FFFFFF">
+                    app:cardElevation="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:stateListAnimator="@animator/press_anim">
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -309,7 +313,8 @@
         android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:stateListAnimator="@animator/press_anim">
 
         <ImageButton
             android:id="@+id/btnusuario"

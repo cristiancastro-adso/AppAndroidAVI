@@ -69,4 +69,5 @@ dependencies {
 
     // Material actualizado (evita duplicados con libs.material si ya lo tienes en version catalog)
     implementation("com.google.android.material:material:1.11.0")
+
 }

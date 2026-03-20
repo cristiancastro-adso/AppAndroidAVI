@@ -70,6 +70,8 @@
                     android:padding="18dp">
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtPrograma1"
                         android:text="Programa 1"
                         android:textSize="17sp"
@@ -77,6 +79,8 @@
                         android:textColor="#2C2C54"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtNivel1"
                         android:text="Nivel"
                         android:textColor="#4A6CF7"
@@ -84,12 +88,16 @@
                         android:layout_marginTop="6dp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDuracion1"
                         android:text="Duración"
                         android:textColor="#4A6CF7"
                         android:textSize="13sp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDescripcion1"
                         android:text="Descripción del programa"
                         android:textColor="#666"
@@ -116,6 +124,8 @@
                     android:padding="18dp">
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtPrograma2"
                         android:text="Programa 2"
                         android:textSize="17sp"
@@ -123,6 +133,8 @@
                         android:textColor="#2C2C54"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtNivel2"
                         android:text="Nivel"
                         android:textColor="#4A6CF7"
@@ -130,12 +142,16 @@
                         android:layout_marginTop="6dp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDuracion2"
                         android:text="Duración"
                         android:textColor="#4A6CF7"
                         android:textSize="13sp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDescripcion2"
                         android:text="Descripción del programa"
                         android:textColor="#666"
@@ -161,6 +177,8 @@
                     android:padding="18dp">
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtPrograma3"
                         android:text="Programa 3"
                         android:textSize="17sp"
@@ -168,6 +186,8 @@
                         android:textColor="#2C2C54"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtNivel3"
                         android:text="Nivel"
                         android:textColor="#4A6CF7"
@@ -175,12 +195,16 @@
                         android:layout_marginTop="6dp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDuracion3"
                         android:text="Duración"
                         android:textColor="#4A6CF7"
                         android:textSize="13sp"/>
 
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/txtDescripcion3"
                         android:text="Descripción del programa"
                         android:textColor="#666"

@@ -91,25 +91,8 @@
                     android:background="#4A6CF7"/>
 
                 <!-- RESULTADOS -->
-                <TextView
-                    android:id="@+id/txtPuntajes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:text="Cargando resultados..."
-                    android:textColor="#666"
-                    android:textSize="15sp"/>
 
                 <!-- SUBTITULO -->
-                <TextView
-                    android:id="@+id/txtRecomendacionesTitulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Opciones sugeridas"
-                    android:textColor="#2C2C54"
-                    android:textSize="17sp"
-                    android:textStyle="bold"/>
 
                 <!-- CONTENEDOR -->
                 <LinearLayout

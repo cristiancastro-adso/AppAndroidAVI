@@ -23,7 +23,6 @@ import java.util.List;
 
 public class Resultados extends AppCompatActivity {
 
-    private TextView txtPuntajes;
     private TextView txtBurbuja;
     private LinearLayout layoutRecomendaciones;
     private Button btnVerInfo;
@@ -45,7 +44,6 @@ public class Resultados extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
 
-        txtPuntajes = findViewById(R.id.txtPuntajes);
         txtBurbuja = findViewById(R.id.txtBurbuja);
         layoutRecomendaciones = findViewById(R.id.layoutRecomendaciones);
         btnVerInfo = findViewById(R.id.btnVerInfo);
@@ -103,15 +101,6 @@ public class Resultados extends AppCompatActivity {
         recomendacionIds.clear();
 
         ResultResponse.Reporte reporte = result.getReporte();
-        txtPuntajes.setText(
-                "Realista: " + reporte.getPuntajeR() + "\n" +
-                        "Investigador: " + reporte.getPuntajeI() + "\n" +
-                        "Artístico: " + reporte.getPuntajeA() + "\n" +
-                        "Social: " + reporte.getPuntajeS() + "\n" +
-                        "Emprendedor: " + reporte.getPuntajeE() + "\n" +
-                        "Convencional: " + reporte.getPuntajeC()
-        );
-        txtPuntajes.startAnimation(fadeIn);
 
         mostrarMensajeGato("Analizando tu perfil...");
 
