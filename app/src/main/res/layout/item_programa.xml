@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardPrograma"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginVertical="10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="6dp"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="8dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -16,50 +17,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="18dp"
         android:background="@drawable/bg_programa">
 
-        <!-- NOMBRE -->
-
-        <TextView
-            android:id="@+id/txtNombrePrograma"
+        <!-- HEADER (NOMBRE + NIVEL) -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombre del Programa"
-            android:textColor="#222222"
-            android:textSize="19sp"
-            android:textStyle="bold"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <!-- NIVEL -->
+            <TextView
+                android:id="@+id/txtNombrePrograma"
+                android:layout_width="271dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nombre del Programa"
+                android:textColor="#1E1E1E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtNivelFormacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/badge_nivel"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:text="Nivel"
-            android:textColor="#009dff"
-            android:textSize="13sp"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txtNivelFormacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/badge_nivel"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="1dp"
+                android:text="Nivel"
+                android:textColor="#009dff"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
-        <!-- VER MAS -->
+        <!-- SEPARADOR SUAVE -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="6dp"
+            android:background="#EEEEEE"/>
 
+        <!-- VER MÁS -->
         <TextView
             android:id="@+id/txtToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Ver más"
+            android:text="▼ Ver más"
             android:layout_gravity="center"
-            android:textColor="#009dff"
+            android:textColor="#4A6CF7"
             android:textSize="13sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"/>
 
-        <!-- CONTENIDO EXPANDIBLE -->
-
+        <!-- EXPANDIBLE -->
         <LinearLayout
             android:id="@+id/layoutExpandible"
             android:layout_width="match_parent"
@@ -71,22 +81,24 @@
                 android:id="@+id/txtDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:text="Descripción del programa..."
-                android:textColor="#555555"
+                android:textColor="#555"
                 android:textSize="14sp"
-                android:lineSpacingExtra="2dp"/>
+                android:lineSpacingExtra="3dp"/>
 
-            <Button
+            <!-- BOTON MODERNO -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerAR"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:layout_marginTop="14dp"
                 android:text="Ver experiencia AR"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:backgroundTint="#009dff"/>
+                android:textColor="@android:color/white"
+                android:backgroundTint="#4A6CF7"
+                app:cornerRadius="14dp"/>
 
         </LinearLayout>
 

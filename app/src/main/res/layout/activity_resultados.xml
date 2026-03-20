@@ -5,57 +5,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_gmn">
+    android:background="#F2F3F7">
 
+    <!-- BURBUJA -->
     <ImageView
         android:id="@+id/burbujaGato"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/burbuja"
         android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cardResultados"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- TEXTO BURBUJA -->
     <TextView
         android:id="@+id/txtBurbuja"
-        android:layout_width="140dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textColor="#4A4A6A"
-        android:textSize="14sp"
+        android:textColor="#3A3A5A"
+        android:textSize="13sp"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="8dp"
         app:layout_constraintTop_toTopOf="@id/burbujaGato"
         app:layout_constraintBottom_toBottomOf="@id/burbujaGato"
         app:layout_constraintStart_toStartOf="@id/burbujaGato"
         app:layout_constraintEnd_toEndOf="@id/burbujaGato"/>
 
+    <!-- GATO -->
     <ImageView
         android:id="@+id/imgGato"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/gato"
-        app:layout_constraintBottom_toTopOf="@+id/cardResultados"
-        app:layout_constraintEnd_toEndOf="@id/burbujaGato"
-        app:layout_constraintStart_toStartOf="@id/burbujaGato"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toTopOf="@id/burbujaGato"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="@id/burbujaGato"
+        app:layout_constraintStart_toStartOf="@id/burbujaGato"
+        app:layout_constraintEnd_toEndOf="@id/burbujaGato"
+        app:layout_constraintVertical_bias="1.0"/>
 
+    <!-- CARD PRINCIPAL -->
     <LinearLayout
         android:id="@+id/cardResultados"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_target_principal"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_card_white"
         android:orientation="vertical"
-        android:padding="24dp"
+        android:padding="20dp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/burbujaGato"
         app:layout_constraintBottom_toTopOf="@id/btnVerInfo"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/burbujaGato">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -67,45 +73,50 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- TITULO -->
                 <TextView
                     android:id="@+id/txtTitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Programas recomendados para ti"
+                    android:text="Programas recomendados"
                     android:textColor="#2C2C54"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"/>
 
+                <!-- LINEA DECORATIVA -->
                 <View
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_height="3dp"
                     android:layout_marginTop="6dp"
                     android:background="#4A6CF7"/>
 
+                <!-- RESULTADOS -->
                 <TextView
                     android:id="@+id/txtPuntajes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:text="Cargando resultados..."
-                    android:textColor="#5A5A7A"
-                    android:textSize="16sp"/>
+                    android:textColor="#666"
+                    android:textSize="15sp"/>
 
+                <!-- SUBTITULO -->
                 <TextView
                     android:id="@+id/txtRecomendacionesTitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Opciones de estudio sugeridas"
+                    android:layout_marginTop="20dp"
+                    android:text="Opciones sugeridas"
                     android:textColor="#2C2C54"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"/>
 
+                <!-- CONTENEDOR -->
                 <LinearLayout
                     android:id="@+id/layoutRecomendaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"/>
 
             </LinearLayout>
@@ -114,57 +125,56 @@
 
     </LinearLayout>
 
-    <!-- BOTÓN QUE AHORA VA A INFORMACIÓN -->
-
+    <!-- BOTON -->
     <Button
         android:id="@+id/btnVerInfo"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="#4A6CF7"
-        android:text="Ver información de programas"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_boton_moderno"
+        android:text="Ver programas"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- BOTTOM NAV -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/menu_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="65dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_nav_bottom"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
             android:id="@+id/btnusuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_user_md"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnhome"
+            android:src="@drawable/icon_user_new"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/btnhome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
             android:id="@+id/btnhome"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_home"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/icon_home_new"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toEndOf="@id/btnusuario"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.699"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,206 +5,281 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.Principal"
-    android:background="@drawable/fondo_gmn">
+    android:background="#F2F3F7"
+    tools:context=".controller.Principal">
 
+    <!-- SCROLL -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- HEADER -->
+            <TextView
+                android:id="@+id/txtAccesos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ar"
+                android:textColor="#1E1E1E"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"/>
+
+            <!-- GRID -->
+            <GridLayout
+                android:id="@+id/gridAccesos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="1"
+                android:layout_marginTop="12dp">
+
+                <!-- TEST -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="#7E57C2"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/test"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lytest"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="DESCUBRE TU FUTURO HOY"
+                                android:textColor="#333"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Responde preguntas cortas para identificar tus intereses."
+                                android:textColor="#777"
+                                android:textSize="13sp"
+                                android:gravity="center"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- RESULTADOS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardResultados"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="#26A69A"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mis resultados"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyresultados"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Consulta tus resultados y recomendaciones."
+                                android:textColor="#777"
+                                android:textSize="13sp"
+                                android:gravity="center"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- PROGRAMAS -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardProgramas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="#FBC02D"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Programas"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lyprogramas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Explora todos los programas disponibles."
+                                android:textColor="#777"
+                                android:textSize="13sp"
+                                android:gravity="center"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </GridLayout>
+
+            <!-- CARD GRAFICO -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chartProgramas"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+
+                    <LinearLayout
+                        android:id="@+id/legendContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTTOM NAV -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/menu_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="65dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_nav_bottom"
+        android:elevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
             android:id="@+id/btnusuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_user_md"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnhome"
+            android:src="@drawable/icon_user_new"
+            android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@id/btnhome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
             android:id="@+id/btnhome"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_home"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/icon_home_new"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toEndOf="@id/btnusuario"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.699"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.533" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/txtAccesos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ar"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
-
-    <GridLayout
-        android:id="@+id/gridAccesos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:columnCount="1"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAccesos"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
-            android:id="@+id/lytest"
-            android:layout_width="302dp"
-            android:layout_height="match_parent"
-            android:layout_columnWeight="1"
-            android:layout_gravity=""
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_target_principal"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:elevation="4dp">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@color/transparente"
-                android:padding="8dp"
-                android:src="@drawable/ic_test" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/test"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lyresultados"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_target_principal"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:elevation="3dp">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@color/transparente"
-                android:padding="8dp"
-                android:src="@drawable/ic_resultados_new" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Mis resultados"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/lyprogramas"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_target_principal"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="3dp">
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@color/transparente"
-                android:padding="8dp"
-                android:src="@drawable/ic_programa_new" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Programas"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-    </GridLayout>
-
-    <TextView
-        android:id="@+id/txtPD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="Programas Destacados"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridAccesos"
-        app:layout_constraintVertical_bias="0.059" />
-
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:background="@drawable/bg_target_principal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPD">
-
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chartProgramas"
-            android:layout_width="330dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"/>
-
-        <!-- CONTENEDOR DE LEYENDAS -->
-        <LinearLayout
-            android:id="@+id/legendContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"/>
-
-    </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#FFFFFF">
+        android:background="@drawable/bg_programa">
 
+        <!-- NOMBRE -->
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre del Programa"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="#1E1E1E"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
+        <!-- NIVEL (TIPO BADGE) -->
         <TextView
             android:id="@+id/txtNivel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/badge_nivel"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
             android:text="Nivel de formación"
             android:textColor="#009dff"
-            android:textSize="14sp" />
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
