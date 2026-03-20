@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class Principal extends AppCompatActivity {
 
     ImageButton btnusuario;
-    LinearLayout lyprogramas, lyresultados, lytest;
+    LinearLayout lyprogramas, lyresultados, lytest, lyriasec;
     TextView txtAccesos;
 
     PieChart chartProgramas;
@@ -47,6 +47,7 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        // 🔥 RECIBIR SESIÓN
         aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
 
         if (aspiranteId == -1) {
@@ -56,17 +57,18 @@ public class Principal extends AppCompatActivity {
             return;
         }
 
-        // VISTAS
+        // 🔹 VISTAS
         btnusuario = findViewById(R.id.btnusuario);
         lyprogramas = findViewById(R.id.lyprogramas);
         lyresultados = findViewById(R.id.lyresultados);
         lytest = findViewById(R.id.lytest);
+        lyriasec = findViewById(R.id.lyriasec);
         txtAccesos = findViewById(R.id.txtAccesos);
 
         chartProgramas = findViewById(R.id.chartProgramas);
         legendContainer = findViewById(R.id.legendContainer);
 
-        // ANIMACIONES
+        // 🔹 ANIMACIONES
         Animation fade = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         Animation slide = AnimationUtils.loadAnimation(this, R.anim.slide_up);
 
@@ -75,43 +77,40 @@ public class Principal extends AppCompatActivity {
         lytest.postDelayed(() -> lytest.startAnimation(slide), 100);
         lyresultados.postDelayed(() -> lyresultados.startAnimation(slide), 200);
         lyprogramas.postDelayed(() -> lyprogramas.startAnimation(slide), 300);
+        lyriasec.postDelayed(() -> lyriasec.startAnimation(slide), 400);
 
-        // EFECTO PRESIÓN PRO
+        // 🔹 EFECTO PRESIÓN
         aplicarEfectoPresion(lytest);
         aplicarEfectoPresion(lyresultados);
         aplicarEfectoPresion(lyprogramas);
+        aplicarEfectoPresion(lyriasec);
         aplicarEfectoPresion(btnusuario);
 
-        // EVENTOS
-        btnusuario.setOnClickListener(v -> {
-            abrirActividad(User.class);
-        });
+        // 🔹 EVENTOS
+        btnusuario.setOnClickListener(v -> abrirActividad(User.class));
 
-        lyprogramas.setOnClickListener(v -> {
-            abrirActividad(Programas.class);
-        });
+        lyprogramas.setOnClickListener(v -> abrirActividad(Programas.class));
 
-        lyresultados.setOnClickListener(v -> {
-            abrirActividad(Resultados.class);
-        });
+        lyresultados.setOnClickListener(v -> abrirActividad(Resultados.class));
 
-        lytest.setOnClickListener(v -> {
-            abrirActividad(BienvenidaTest.class);
-        });
+        lytest.setOnClickListener(v -> abrirActividad(BienvenidaTest.class));
 
-        // GRAFICO
+        // 🔥 RIASEC (YA ENVÍA EL ID CORRECTAMENTE)
+        lyriasec.setOnClickListener(v -> abrirActividad(InfoRiasec.class));
+
+        // 🔹 GRAFICO
         cargarGraficoProgramas();
     }
 
-    // 🔥 MÉTODO REUTILIZABLE PARA NAVEGACIÓN
+    // 🔥 MÉTODO UNIVERSAL (NO LO CAMBIES MÁS)
     private void abrirActividad(Class<?> destino) {
         Intent intent = new Intent(Principal.this, destino);
-        intent.putExtra("aspiranteId", aspiranteId);
+        intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    // 🔥 EFECTO PRESIÓN REAL (tipo apps modernas)
+    // 🔥 EFECTO PRESIÓN PRO
     private void aplicarEfectoPresion(View view) {
 
         view.setOnTouchListener((v, event) -> {
@@ -134,7 +133,7 @@ public class Principal extends AppCompatActivity {
                             .start();
                     break;
             }
-            return false; // importante para que el click siga funcionando
+            return false;
         });
     }
 
