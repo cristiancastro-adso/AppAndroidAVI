@@ -54,10 +54,9 @@ public class Resultados extends AppCompatActivity {
         slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
 
-        // 🔥 RECIBIR ASPIRANTE ID
         aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
         int reporteId = getIntent().getIntExtra("reporteId", 0);
-        System.out.println("ASPIRANTE ID EN RESULTADOS: " + aspiranteId);
+
         if (aspiranteId == 0) {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
         }
@@ -67,11 +66,9 @@ public class Resultados extends AppCompatActivity {
         btnusuario.setOnClickListener(v ->
                 startActivity(new Intent(Resultados.this, User.class)));
 
-        // Recibir resultados IA
         ResultResponse resultado =
                 (ResultResponse) getIntent().getSerializableExtra("resultadoIA");
 
-        // Recibir recomendaciones (lista completa con IDs)
         List<ResultResponse.Recommendation> recomendaciones =
                 (List<ResultResponse.Recommendation>) getIntent().getSerializableExtra("recomendaciones");
 
@@ -82,31 +79,33 @@ public class Resultados extends AppCompatActivity {
 
         mostrarResultados(resultado, recomendaciones);
 
-        // Enviar ID a InfoProgramas al presionar btnVerInfo
+        // 🔥 AHORA VA DIRECTO AL MAPA
         btnVerInfo.setOnClickListener(v -> {
-            Intent intent = new Intent(Resultados.this, InfoProgramas.class);
+            Intent intent = new Intent(Resultados.this, Mapa.class);
+
             intent.putStringArrayListExtra("programas", programNames);
-            intent.putIntegerArrayListExtra("programIds", programIds);
+            intent.putIntegerArrayListExtra("idPROGRAMA", programIds);
             intent.putIntegerArrayListExtra("recomendacionIds", recomendacionIds);
             intent.putExtra("aspiranteId", aspiranteId);
             intent.putExtra("reporteId", reporteId);
+
             startActivity(intent);
         });
     }
 
     private void mostrarResultados(ResultResponse result, List<ResultResponse.Recommendation> recomendaciones) {
+
         layoutRecomendaciones.removeAllViews();
         programNames.clear();
         programIds.clear();
         recomendacionIds.clear();
-
-        ResultResponse.Reporte reporte = result.getReporte();
 
         mostrarMensajeGato("Analizando tu perfil...");
 
         if (recomendaciones != null && !recomendaciones.isEmpty()) {
 
             new android.os.Handler().postDelayed(() -> {
+
                 mostrarMensajeGato("Según tu perfil te recomendamos:");
 
                 int limite = Math.min(3, recomendaciones.size());
@@ -119,12 +118,12 @@ public class Resultados extends AppCompatActivity {
                     programIds.add(rec.getProgramaId());
                     recomendacionIds.add(rec.getIdRECOMENDACION());
 
-                    int finalI = i;
                     new android.os.Handler().postDelayed(() ->
                             agregarTarjetaPrograma(rec.getName()), delay);
 
                     delay += 250;
                 }
+
             }, 1200);
         }
 
@@ -132,19 +131,39 @@ public class Resultados extends AppCompatActivity {
         btnVerInfo.startAnimation(slideUp);
     }
 
+    // 🔥 TARJETA COMPLETA (como InfoProgramas)
     private void agregarTarjetaPrograma(String nombre) {
+
         View view = LayoutInflater.from(this)
                 .inflate(R.layout.item_recomendacion, layoutRecomendaciones, false);
 
         TextView txtNombre = view.findViewById(R.id.txtNombre);
         TextView txtNivel = view.findViewById(R.id.txtNivel);
+        TextView txtDescripcion = view.findViewById(R.id.txtDescripcion);
 
         txtNombre.setText(nombre);
 
-        String nivel = nombre.toLowerCase().contains("tecnico") || nombre.toLowerCase().contains("técnico")
-                ? "Nivel: Técnico" : "Nivel: Tecnólogo";
+        String nivel;
+        String duracion;
+
+        String nombreLower = nombre.toLowerCase();
+
+        if (nombreLower.contains("tecnico") || nombreLower.contains("técnico")) {
+            nivel = "Nivel: Técnico";
+            duracion = "Duración: 2 años";
+        } else {
+            nivel = "Nivel: Tecnólogo";
+            duracion = "Duración: 3 años";
+        }
 
         txtNivel.setText(nivel);
+
+        txtDescripcion.setText(
+                "Este programa de formación en " + nombre +
+                        " permite desarrollar habilidades técnicas y prácticas en el área. " +
+                        "Aprenderás a resolver problemas del sector productivo y fortalecer " +
+                        "competencias profesionales para tu desarrollo laboral."
+        );
 
         view.startAnimation(zoomIn);
         layoutRecomendaciones.addView(view);
@@ -152,11 +171,14 @@ public class Resultados extends AppCompatActivity {
 
     private void mostrarMensajeGato(String mensaje) {
         txtBurbuja.setText("");
+
         new Thread(() -> {
             for (int i = 0; i <= mensaje.length(); i++) {
                 int finalI = i;
+
                 runOnUiThread(() ->
                         txtBurbuja.setText(mensaje.substring(0, finalI)));
+
                 try {
                     Thread.sleep(35);
                 } catch (InterruptedException e) {

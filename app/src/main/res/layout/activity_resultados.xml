@@ -116,7 +116,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_boton_moderno"
-        android:text="Ver programas"
+        android:text="Ver en el mapa"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
