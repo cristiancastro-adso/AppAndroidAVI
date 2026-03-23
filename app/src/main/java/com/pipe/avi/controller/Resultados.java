@@ -119,7 +119,7 @@ public class Resultados extends AppCompatActivity {
                     recomendacionIds.add(rec.getIdRECOMENDACION());
 
                     new android.os.Handler().postDelayed(() ->
-                            agregarTarjetaPrograma(rec.getName()), delay);
+                            agregarTarjetaPrograma(rec), delay);
 
                     delay += 250;
                 }
@@ -132,38 +132,20 @@ public class Resultados extends AppCompatActivity {
     }
 
     // 🔥 TARJETA COMPLETA (como InfoProgramas)
-    private void agregarTarjetaPrograma(String nombre) {
+    private void agregarTarjetaPrograma(ResultResponse.Recommendation rec){
 
         View view = LayoutInflater.from(this)
                 .inflate(R.layout.item_recomendacion, layoutRecomendaciones, false);
 
         TextView txtNombre = view.findViewById(R.id.txtNombre);
-        TextView txtNivel = view.findViewById(R.id.txtNivel);
         TextView txtDescripcion = view.findViewById(R.id.txtDescripcion);
 
-        txtNombre.setText(nombre);
+        txtNombre.setText(rec.getName());
 
-        String nivel;
-        String duracion;
 
-        String nombreLower = nombre.toLowerCase();
 
-        if (nombreLower.contains("tecnico") || nombreLower.contains("técnico")) {
-            nivel = "Nivel: Técnico";
-            duracion = "Duración: 2 años";
-        } else {
-            nivel = "Nivel: Tecnólogo";
-            duracion = "Duración: 3 años";
-        }
-
-        txtNivel.setText(nivel);
-
-        txtDescripcion.setText(
-                "Este programa de formación en " + nombre +
-                        " permite desarrollar habilidades técnicas y prácticas en el área. " +
-                        "Aprenderás a resolver problemas del sector productivo y fortalecer " +
-                        "competencias profesionales para tu desarrollo laboral."
-        );
+        // 🔥🔥🔥 AQUÍ VA LA RAZÓN DE LA IA
+        txtDescripcion.setText(rec.getReason());
 
         view.startAnimation(zoomIn);
         layoutRecomendaciones.addView(view);

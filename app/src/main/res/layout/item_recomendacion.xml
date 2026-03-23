@@ -31,19 +31,7 @@
             android:maxLines="2"
             android:ellipsize="end"/>
 
-        <!-- NIVEL -->
-        <TextView
-            android:id="@+id/txtNivel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/badge_nivel"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="Nivel de formación"
-            android:textColor="#009dff"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
+
 
 
         <!-- 🔥 DESCRIPCIÓN (NUEVO) -->
