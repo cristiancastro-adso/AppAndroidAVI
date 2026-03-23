@@ -279,6 +279,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre"/>
+
             <EditText
                 android:id="@+id/editNombre"
                 android:layout_width="match_parent"
@@ -287,21 +292,31 @@
                 android:background="@drawable/edtbg"
                 android:padding="12dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Correo"
+                android:layout_marginTop="10dp"/>
+
             <EditText
                 android:id="@+id/editCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/edtbg"
                 android:padding="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telefono"
+                android:layout_marginTop="10dp"/>
 
             <EditText
                 android:id="@+id/editTelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Teléfono"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/edtbg"
                 android:padding="12dp"/>
 

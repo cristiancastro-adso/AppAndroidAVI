@@ -349,32 +349,36 @@ public class User extends AppCompatActivity {
         new Thread(() -> {
             try {
                 URL url = new URL(
-                        "https://avibackcopia2-production.up.railway.app/api/perfilaspirante/" + aspiranteId
+                        "https://avibackcopia2-production.up.railway.app/api/perfilaspirante/editar"
                 );
+
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("PUT");
+                conn.setRequestMethod("PATCH"); // 👈 IMPORTANTE
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Authorization", "Bearer " + token);
                 conn.setDoOutput(true);
 
                 String json =
-                        "{ \"nombre\":\"" + nombre + "\", " +
-                                "\"correo\":\"" + correo + "\", " +
+                        "{ \"nombre_completo\":\"" + nombre + "\", " +
+                                "\"email\":\"" + correo + "\", " +
                                 "\"telefono\":\"" + telefono + "\" }";
 
                 OutputStream os = conn.getOutputStream();
                 os.write(json.getBytes());
                 os.flush();
                 os.close();
-                conn.getResponseCode();
+
+                int code = conn.getResponseCode();
+                Log.d("UPDATE_DEBUG", "HTTP CODE = " + code);
 
                 runOnUiThread(() -> {
                     popupEditarPerfil.setVisibility(View.GONE);
+                    cargarPerfilDesdeBackend(); // refresca datos reales
                     Toast.makeText(User.this, "Perfil actualizado", Toast.LENGTH_SHORT).show();
                 });
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("UPDATE_DEBUG", "ERROR", e);
             }
         }).start();
     }
