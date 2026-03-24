@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +30,7 @@ public class RankingProgramas extends AppCompatActivity {
 
     private ArrayList<String> programasOriginal;
     private ArrayList<Integer> recomendacionIds;
-    private ArrayList<Integer> idPROGRAMA; // ⚡ Cambiado a idPROGRAMA
+    private ArrayList<Integer> idPROGRAMA;
     private int aspiranteId;
     private int reporteId;
 
@@ -48,14 +49,9 @@ public class RankingProgramas extends AppCompatActivity {
 
         programasOriginal = getIntent().getStringArrayListExtra("programas");
         recomendacionIds = getIntent().getIntegerArrayListExtra("recomendacionIds");
-        idPROGRAMA = getIntent().getIntegerArrayListExtra("programIds"); // ⚡ recibe idPROGRAMA
+        idPROGRAMA = getIntent().getIntegerArrayListExtra("programIds");
         aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
         reporteId = getIntent().getIntExtra("reporteId", -1);
-
-        Log.d("DEBUG", "AspiranteID: " + aspiranteId);
-        Log.d("DEBUG", "recomendacionIds: " + recomendacionIds);
-        Log.d("DEBUG", "idPROGRAMA: " + idPROGRAMA);
-        Log.d("DEBUG", "reporteId: " + reporteId);
 
         if (aspiranteId == -1 || recomendacionIds == null || recomendacionIds.size() < 3
                 || idPROGRAMA == null || idPROGRAMA.size() < 3 || reporteId == -1) {
@@ -65,7 +61,8 @@ public class RankingProgramas extends AppCompatActivity {
         }
 
         if (programasOriginal == null) programasOriginal = new ArrayList<>();
-        if (!programasOriginal.contains("Selecciona un programa")) programasOriginal.add(0, "Selecciona un programa");
+        if (!programasOriginal.contains("Selecciona un programa"))
+            programasOriginal.add(0, "Selecciona un programa");
 
         configurarSpinners();
         btnGuardar.setOnClickListener(v -> guardarRanking());
@@ -132,13 +129,13 @@ public class RankingProgramas extends AppCompatActivity {
     }
 
     private String getSeleccion(Spinner spinner) {
-        return spinner.getSelectedItem() != null ? spinner.getSelectedItem().toString() : null;
+        return spinner.getSelectedItem() != null ? spinner.getSelectedItem().toString() : "";
     }
 
     private int obtenerIndicePrograma(String nombrePrograma){
         for(int i = 0; i < programasOriginal.size(); i++){
             if(programasOriginal.get(i).equals(nombrePrograma)){
-                return i - 1; // ⚡ ajuste por "Selecciona un programa"
+                return i - 1;
             }
         }
         return -1;
@@ -205,8 +202,9 @@ public class RankingProgramas extends AppCompatActivity {
                 int i2 = obtenerIndicePrograma(segundo);
                 int i3 = obtenerIndicePrograma(tercero);
 
-                JSONObject r1 = new JSONObject();
                 JSONArray rankings = new JSONArray();
+
+                JSONObject r1 = new JSONObject();
                 r1.put("nombre", primero);
                 r1.put("ranking", 2);
                 r1.put("idRECOMENDACION", recomendacionIds.get(i1));
@@ -227,7 +225,6 @@ public class RankingProgramas extends AppCompatActivity {
                 r3.put("idPROGRAMA", idPROGRAMA.get(i3));
                 r3.put("reporteId", reporteId);
 
-
                 rankings.put(r1);
                 rankings.put(r2);
                 rankings.put(r3);
@@ -247,6 +244,10 @@ public class RankingProgramas extends AppCompatActivity {
                 runOnUiThread(() -> {
                     if (response == 200 || response == 201) {
                         Toast.makeText(this, "Ranking guardado correctamente", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(this, Principal.class);
+                        intent.putExtra("aspiranteId", aspiranteId); // 🔥 AQUÍ LO ENVÍAS
+                        startActivity(intent);
                         finish();
                     } else {
                         Toast.makeText(this, "Error guardando ranking: " + response, Toast.LENGTH_LONG).show();
