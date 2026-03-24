@@ -10,18 +10,20 @@
             width: 100vw; height: 100vh;
             background-color: transparent;
             --poster-color: transparent;
+            outline: none;
         }
     </style>
-    <script type="module" src="/assets/model-viewer-umd.min.js"></script>
+    <!-- Cargamos el script de model-viewer -->
+    <script type="module" src="model-viewer-umd.min.js"></script>
 </head>
 <body>
 <model-viewer
         id="avatar"
-        src="/assets/src/avatar.glb"
+        src="src/avatar.glb"
         alt="Avatar Interactivo"
-        camera-orbit="0deg 75deg 0.8m"
-        camera-target="0m 1.6m 0m"
-        field-of-view="30deg"
+        camera-orbit="0deg 75deg 0.05m"
+        camera-target="0m 1.68m 0m"
+        field-of-view="2deg"
         autoplay
         animation-name="Idle"
         shadow-intensity="1"
@@ -33,21 +35,44 @@
 
 <script>
     const modelViewer = document.querySelector('#avatar');
-    let isLoaded = false;
+    let animationsList = [];
 
     modelViewer.addEventListener('load', () => {
-        isLoaded = true;
+        animationsList = modelViewer.availableAnimations;
+        console.log("Modelo cargado. Animaciones disponibles:", animationsList);
+
+        // Si había una animación pendiente, ejecutarla
+        if (window.pendingAnim) {
+            playAnimation(window.pendingAnim.name, window.pendingAnim.duration);
+            window.pendingAnim = null;
+        }
     });
 
-    // Clic en el avatar para saludar
-    modelViewer.addEventListener('click', () => {
-        playAnimation('Wave', 2000);
-    });
-
+    // Función global para que Android la llame
     window.playAnimation = function(animName, duration = 0) {
-        if (!modelViewer || !isLoaded) return;
+        if (!modelViewer) return;
 
-        modelViewer.animationName = animName;
+        // Si el modelo aún no carga, guardamos la intención
+        if (animationsList.length === 0) {
+            window.pendingAnim = { name: animName, duration: duration };
+            return;
+        }
+
+        let targetAnim = animName;
+
+        // Lógica de fallback para la animación de hablar
+        if (!animationsList.includes(targetAnim)) {
+            if (targetAnim === 'Talk') {
+                const fallback = animationsList.find(a => a.toLowerCase().includes('talk') || a.toLowerCase().includes('speak'));
+                targetAnim = fallback || (animationsList.includes('Wave') ? 'Wave' : animationsList[0]);
+                console.warn(`Animación 'Talk' no encontrada. Usando: ${targetAnim}`);
+            } else if (!animationsList.includes(targetAnim)) {
+                targetAnim = animationsList.includes('Idle') ? 'Idle' : animationsList[0];
+            }
+        }
+
+        console.log(`Ejecutando animación: ${targetAnim}`);
+        modelViewer.animationName = targetAnim;
         modelViewer.play();
 
         if (duration > 0) {
@@ -57,18 +82,11 @@
         }
     };
 
-    window.assistantResponse = function(command) {
-        if (!isLoaded) return;
-        
-        const cmd = command.toLowerCase();
-        if(cmd.includes("hola") || cmd.includes("saluda")) {
+    modelViewer.addEventListener('click', () => {
+        if (animationsList.includes('Wave')) {
             playAnimation('Wave', 2000);
-        } else if(cmd.includes("habla") || cmd.includes("explica")) {
-            playAnimation('Talk', 3000);
-        } else {
-            playAnimation('Idle');
         }
-    };
+    });
 </script>
 </body>
 </html>

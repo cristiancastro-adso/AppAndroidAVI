@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -53,10 +54,15 @@ public class Test extends AppCompatActivity {
     Animation fadeIn;
     Handler handler = new Handler();
 
+    private AvatarHelper avatarHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        WebView webAvatar = findViewById(R.id.webAvatar);
+        avatarHelper = new AvatarHelper(this, webAvatar);
 
         txtPregunta = findViewById(R.id.txtPregunta);
         txtContador = findViewById(R.id.txtContador);
@@ -121,6 +127,10 @@ public class Test extends AppCompatActivity {
                     progressTest.setProgress(preguntaActual);
 
                     mostrarPregunta();
+
+                    // El avatar lee la pregunta
+                    avatarHelper.speak(pregunta.getQuestion());
+
                 } else {
                     Toast.makeText(Test.this, "No se pudo cargar pregunta", Toast.LENGTH_LONG).show();
                 }
@@ -236,5 +246,13 @@ public class Test extends AppCompatActivity {
                 Toast.makeText(Test.this, "Error finalizando test", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (avatarHelper != null) {
+            avatarHelper.destroy();
+        }
     }
 }

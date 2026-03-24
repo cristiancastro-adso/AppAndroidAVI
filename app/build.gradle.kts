@@ -32,6 +32,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    packaging {
+        jniLibs {
+            // Force compression of native libraries to support 16 KB page sizes
+            // if using older libraries that aren't ELF-aligned.
+            useLegacyPackaging = true
+        }
+    }
 }
 
 dependencies {
@@ -64,12 +72,13 @@ dependencies {
     // Charts
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
-    // Cloudinary
-    implementation("com.cloudinary:cloudinary-android:2.3.1")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    // Cloudinary (Updated to 3.1.2 for better 16KB support)
+    implementation("com.cloudinary:cloudinary-android:3.1.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
-    // Material actualizado (evita duplicados con libs.material si ya lo tienes en version catalog)
+    // Material actualizado
     implementation("com.google.android.material:material:1.11.0")
+
+    implementation ("androidx.webkit:webkit:1.12.1")
 
 }
