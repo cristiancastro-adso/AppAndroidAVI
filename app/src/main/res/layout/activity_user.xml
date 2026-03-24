@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F3F7">
+    android:background="@drawable/fondo_pkm">
 
     <!-- HEADER -->
 
@@ -217,8 +217,10 @@
             android:layout_marginTop="60dp"
             android:background="@drawable/btncerrar"
             android:text="Cerrar Sesión"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textColor="@color/rojo"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 

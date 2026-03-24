@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.Mapa"
-    android:background="#F2F3F7">
+    android:background="@drawable/fondo_pkm">
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        app:backgroundTint="@null"
         android:background="@drawable/btn_azul"
         android:elevation="10dp"
         android:paddingHorizontal="24dp"

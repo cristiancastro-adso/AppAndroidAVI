@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6"
+    android:background="@drawable/fondo_pkm"
     tools:context=".controller.BienvenidaTest">
 
     <!-- HEADER -->
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -75,7 +75,8 @@
                         android:padding="8dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -83,14 +84,19 @@
                         android:text="Responde preguntas clave"
                         android:textStyle="bold"
                         android:textSize="16sp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="• Intereses y habilidades\n• Preferencias vocacionales\n• Duración aproximada: 15-20 minutos"
-                        android:textSize="13sp"
-                        android:layout_marginTop="6dp"/>
+                        android:textSize="15sp"
+                        android:textColor="#9A000000"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -101,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -118,7 +124,8 @@
                         android:padding="8dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -126,13 +133,17 @@
                         android:text="Analizamos tu perfil"
                         android:textStyle="bold"
                         android:textSize="16sp"
+                        android:gravity="center"
                         android:layout_marginTop="8dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="• Análisis de afinidad\n• Resultado por perfil RIASEC\n• Compatibilidad con programas"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:textStyle="bold"
+                        android:textColor="#9A000000"
                         android:layout_marginTop="6dp"/>
                 </LinearLayout>
 
@@ -143,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -160,13 +171,15 @@
                         android:padding="8dp"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:layout_gravity="center"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Recibe tus programas recomendados"
                         android:textStyle="bold"
+                        android:gravity="center"
                         android:textSize="16sp"
                         android:layout_marginTop="8dp"/>
 
@@ -174,7 +187,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="• Recomendaciones personalizadas\n• Programas SENA sugeridos\n• Ruta vocacional sugerida"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#9A000000"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="6dp"/>
                 </LinearLayout>
 
@@ -190,7 +206,8 @@
                     android:id="@+id/btninittest"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:background="@drawable/btn_amarillo"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/btnfondo"
                     android:text="Realizar Test Ahora"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"/>

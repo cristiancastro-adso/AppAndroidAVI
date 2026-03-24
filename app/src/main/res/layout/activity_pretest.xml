@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6">
+    android:background="@drawable/fondo_pkm">
 
     <!-- HEADER -->
     <LinearLayout
@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:paddingTop="10dp"
+        android:padding="10dp"
         android:background="#EDE7F6"
         app:layout_constraintTop_toBottomOf="@id/linearLayout10"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -207,6 +207,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
+                    app:backgroundTint="@null"
                     android:background="@drawable/btnfondo"
                     android:backgroundTint="@null"
                     app:cornerRadius="16dp"/>

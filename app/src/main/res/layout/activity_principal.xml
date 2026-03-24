@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F3F7"
+    android:background="@drawable/fondo_pkm"
     tools:context=".controller.Principal">
 
     <!-- SCROLL -->
@@ -31,11 +31,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ar"
-                android:textColor="#1E1E1E"
-                android:textSize="22sp"
+                android:textColor="#626262"
+                android:textSize="27sp"
+                android:padding="1dp"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:textStyle="bold"/>
 
             <!-- GRID -->
             <GridLayout
@@ -43,19 +45,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="1"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="20dp">
 
                 <!-- TEST -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardTest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="18dp"
-                    app:cardElevation="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
                     app:cardBackgroundColor="#FFFFFF"
                     android:stateListAnimator="@animator/press_anim">
 
@@ -67,15 +69,15 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="#7E57C2"
+                            android:background="@drawable/diagonal_card_morado"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/test"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textColor="#C9FFFFFF"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -113,12 +115,12 @@
                     android:id="@+id/cardResultados"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="18dp"
-                    app:cardElevation="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
                     app:cardBackgroundColor="#FFFFFF"
                     android:stateListAnimator="@animator/press_anim">
 
@@ -130,15 +132,15 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="#26A69A"
+                            android:background="@drawable/diagonal_card_azul"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Mis resultados"
-                                android:textColor="#FFFFFF"
-                                android:textSize="18sp"
+                                android:textColor="#C9FFFFFF"
+                                android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -165,12 +167,12 @@
                     android:id="@+id/cardProgramas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="18dp"
-                    app:cardElevation="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
                     app:cardBackgroundColor="#FFFFFF"
                     android:stateListAnimator="@animator/press_anim">
 
@@ -182,14 +184,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="#FBC02D"
+                            android:background="@drawable/diagonal_card_amarillo"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Programas"
-                                android:textColor="#FFFFFF"
+                                android:textColor="#C1FFFFFF"
                                 android:textSize="20sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
@@ -217,13 +219,13 @@
                     android:id="@+id/cardRiasec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="18dp"
-                    app:cardElevation="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="5dp"
+                    app:cardBackgroundColor="#C9FFFFFF"
                     android:stateListAnimator="@animator/press_anim">
 
                     <LinearLayout
@@ -235,14 +237,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="#e74c3c"
+                            android:background="@drawable/diagonal_card_rojo"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Modelo RIASEC"
-                                android:textColor="#FFFFFF"
+                                android:textColor="#C9FFFFFF"
                                 android:textSize="18sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>

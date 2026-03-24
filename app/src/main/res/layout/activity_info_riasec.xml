@@ -5,69 +5,76 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F3F7">
+    android:background="@drawable/fondo_pkm">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:elevation="4dp"
+        android:background="@drawable/degradado_header"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/avihuh"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Modelo RIASEC"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#6A3EA1"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Explora tu personalidad vocacional"
+                        android:textSize="14sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_marginTop="30dp">
+            android:padding="10dp">
 
             <!-- HEADER -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardModelo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/avihuh"/>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Modelo RIASEC"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:textColor="#6A3EA1"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Explora tu personalidad vocacional"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <!-- RIASEC BURBUJAS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_margin="10sp"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal">
-
 
 
                 <!-- R -->
@@ -76,10 +83,10 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#E74C3C"
                     android:text="R"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#E74C3C"/>
+                    android:textStyle="bold" />
 
                 <!-- I -->
                 <Button
@@ -87,10 +94,10 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#3498DB"
                     android:text="I"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#3498DB"/>
+                    android:textStyle="bold" />
 
                 <!-- A -->
                 <Button
@@ -98,10 +105,10 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#9B59B6"
                     android:text="A"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#9B59B6"/>
+                    android:textStyle="bold" />
 
                 <!-- S -->
                 <Button
@@ -109,10 +116,10 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#2ECC71"
                     android:text="S"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#2ECC71"/>
+                    android:textStyle="bold" />
 
                 <!-- E -->
                 <Button
@@ -120,52 +127,54 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#F39C12"
                     android:text="E"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#F39C12"/>
+                    android:textStyle="bold" />
                 <!-- C -->
                 <Button
                     android:id="@+id/btnC"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:backgroundTint="#34495E"
                     android:text="C"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:backgroundTint="#34495E"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- CARD DINÁMICA -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="18dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
                         android:id="@+id/txtTituloTipo"
-                        android:text="Realista (R)"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="#E74C3C"/>
-
-                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="Realista (R)"
+                        android:textColor="#E74C3C"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/txtDescripcionTipo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
                         android:text="Selecciona una letra para ver información"
-                        android:textColor="#444"/>
+                        android:textColor="#444" />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -174,42 +183,45 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="20sp"
                 android:layout_marginTop="24dp"
                 android:text="¿Cómo utilizamos el modelo RIASEC?"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#2C2C54"/>
+                android:textColor="@color/gris"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!-- CARD CARRUSEL -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20sp"
                 android:layout_marginTop="12dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="18dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
                         android:id="@+id/txtPasoTitulo"
-                        android:text="1. Interpretación de intereses"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="#4A6CF7"/>
-
-                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:text="1. Interpretación de intereses"
+                        android:textColor="#4A6CF7"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/txtPasoDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="6dp"
                         android:text="Cada respuesta del test se relaciona con un tipo RIASEC."
-                        android:textColor="#555"/>
+                        android:textColor="#555" />
 
                 </LinearLayout>
 

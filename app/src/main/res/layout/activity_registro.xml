@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE7F6">
+    android:background="@drawable/fondo_pkm">
 
     <!-- CONTENEDOR GENERAL -->
     <LinearLayout
@@ -35,7 +35,8 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:overScrollMode="never"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -150,8 +151,9 @@
                         android:id="@+id/btnregistrado"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:backgroundTint="#6C63FF"
+                        app:backgroundTint="@null"
                         android:text="@string/registrarbtn"
+                        android:background="@drawable/btn_amarillo"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold"
