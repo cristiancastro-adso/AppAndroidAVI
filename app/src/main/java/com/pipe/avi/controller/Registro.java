@@ -1,5 +1,6 @@
 package com.pipe.avi.controller;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class Registro extends AppCompatActivity {
 
     Spinner spnEstudios;
     Button btnregistrado;
+    CheckBox chkTerminos;
+    TextView tvTerminos;
 
     LinearLayout cardFormulario;
 
@@ -59,6 +62,8 @@ public class Registro extends AppCompatActivity {
         edtInstitucion = findViewById(R.id.edtInstitucion);
         spnEstudios = findViewById(R.id.spnEstudios);
         btnregistrado = findViewById(R.id.btnregistrado);
+        chkTerminos = findViewById(R.id.chkTerminos);
+        tvTerminos = findViewById(R.id.tvTerminos);
 
         cardFormulario = findViewById(R.id.cardFormulario);
 
@@ -70,13 +75,46 @@ public class Registro extends AppCompatActivity {
 
         configurarSpinner();
         configurarCalendario();
+        configurarTerminos();
 
         btnregistrado.setOnClickListener(v -> {
-
             btnregistrado.startAnimation(animBoton);
-
             registrarAspirante();
         });
+    }
+
+    // =============================
+    // 📜 TÉRMINOS Y CONDICIONES
+    // =============================
+    private void configurarTerminos() {
+        
+        // Listener para el CheckBox
+        chkTerminos.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                btnregistrado.setEnabled(true);
+                btnregistrado.setAlpha(1.0f);
+            } else {
+                btnregistrado.setEnabled(false);
+                btnregistrado.setAlpha(0.5f);
+            }
+        });
+
+        // Listener para el texto (abrir modal)
+        tvTerminos.setOnClickListener(v -> mostrarModalTerminos());
+    }
+
+    private void mostrarModalTerminos() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Términos y Condiciones");
+        builder.setMessage("Al registrarte en AVI, aceptas que tus datos serán tratados de acuerdo con las políticas de privacidad vigentes. " +
+                "\n\n1. Uso de la información: Los datos recolectados se usarán exclusivamente para fines académicos y de orientación vocacional." +
+                "\n2. Veracidad: El usuario se compromete a suministrar información real." +
+                "\n3. Seguridad: Nos comprometemos a proteger tu información personal.");
+        
+        builder.setPositiveButton("Entendido", (dialog, which) -> dialog.dismiss());
+        
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     // =============================
@@ -193,6 +231,11 @@ public class Registro extends AppCompatActivity {
         if (barrio.isEmpty()) { edtBarrio.setError("Obligatorio"); return; }
         if (direccion.isEmpty()) { edtDireccion.setError("Obligatorio"); return; }
         if (contrasena.isEmpty()) { edtPass.setError("Obligatorio"); return; }
+
+        if (!chkTerminos.isChecked()) {
+            Toast.makeText(this, "Debe aceptar los términos y condiciones", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         int id;
         try {

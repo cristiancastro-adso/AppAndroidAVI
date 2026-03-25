@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_pkm">
 
-    <!-- HEADER ORIGINAL CON GATO -->
+
     <LinearLayout
         android:id="@+id/linearLayout10"
         android:layout_width="0dp"
