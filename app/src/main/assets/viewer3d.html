@@ -25,8 +25,7 @@
     <div id="info-box"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
@@ -59,33 +58,28 @@
             directionalLight.position.set(5, 10, 7);
             scene.add(directionalLight);
 
-            const mtlLoader = new THREE.MTLLoader();
-            mtlLoader.setPath('src/');
-            mtlLoader.load('material.mtl', function (materials) {
-                materials.preload();
+            const gltfLoader = new THREE.GLTFLoader();
+            gltfLoader.load('src/mapa sena.glb', function (gltf) {
+                model = gltf.scene;
+                scene.add(model);
+                document.getElementById('loading').style.display = 'none';
                 
-                const objLoader = new THREE.OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.setPath('src/');
-                objLoader.load('c4aa037ffcdb31b757a01673215d5713.obj', function (object) {
-                    model = object;
-                    scene.add(object);
-                    document.getElementById('loading').style.display = 'none';
-                    
-                    // Centrar objeto
-                    const box = new THREE.Box3().setFromObject(object);
-                    const center = box.getCenter(new THREE.Vector3());
-                    object.position.sub(center);
-                    
-                    // Ajustar cámara
-                    const size = box.getSize(new THREE.Vector3());
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    camera.position.set(maxDim, maxDim, maxDim);
-                    controls.update();
+                // Centrar objeto
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                model.position.sub(center);
+                
+                // Ajustar cámara
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                camera.position.set(maxDim, maxDim, maxDim);
+                controls.update();
 
-                    // Notificar a Android que el modelo está listo
-                    if(window.Android) window.Android.onModelReady();
-                });
+                // Notificar a Android que el modelo está listo
+                if(window.Android) window.Android.onModelReady();
+            }, undefined, function (error) {
+                console.error('Error cargando el modelo:', error);
+                document.getElementById('loading').innerText = 'Error al cargar el mapa';
             });
 
             window.addEventListener('click', onDocumentMouseDown, false);
