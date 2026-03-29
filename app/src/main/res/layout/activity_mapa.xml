@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/degradado_header"
+        android:elevation="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
-        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -56,6 +56,7 @@
 
     </LinearLayout>
 
+
     <!-- Layout para los botones de programas recomendados -->
     <LinearLayout
         android:id="@+id/layoutBotonesRecomendados"
@@ -68,19 +69,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+
+
+
         <!-- Los botones se añadirán dinámicamente desde Java -->
     </LinearLayout>
 
     <!-- WebView para el Mapa 3D -->
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:padding="1dp"
+        android:text="Selecciona un programa para visualizacion AR"
+        android:textColor="#626262"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutBotonesRecomendados"
+        app:layout_constraintVertical_bias="0.042" />
+
     <WebView
         android:id="@+id/mapa3dWebView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
+        android:layout_marginTop="651dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutBotonesRecomendados" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <!-- Botón VER MAS flotando al lado derecho del mapa -->
     <Button

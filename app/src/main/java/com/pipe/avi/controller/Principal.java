@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class Principal extends AppCompatActivity {
 
     ImageButton btnusuario;
-    LinearLayout lyprogramas, lyresultados, lytest, lyriasec;
+    LinearLayout lyprogramas, lytest, lyriasec;
     TextView txtAccesos;
 
     PieChart chartProgramas;
@@ -60,7 +60,7 @@ public class Principal extends AppCompatActivity {
         // 🔹 VISTAS
         btnusuario = findViewById(R.id.btnusuario);
         lyprogramas = findViewById(R.id.lyprogramas);
-        lyresultados = findViewById(R.id.lyresultados);
+         //lyresultados = findViewById(R.id.lyresultados);
         lytest = findViewById(R.id.lytest);
         lyriasec = findViewById(R.id.lyriasec);
         txtAccesos = findViewById(R.id.txtAccesos);
@@ -75,13 +75,13 @@ public class Principal extends AppCompatActivity {
         txtAccesos.startAnimation(fade);
 
         lytest.postDelayed(() -> lytest.startAnimation(slide), 100);
-        lyresultados.postDelayed(() -> lyresultados.startAnimation(slide), 200);
+        //  lyresultados.postDelayed(() -> lyresultados.startAnimation(slide), 200);
         lyprogramas.postDelayed(() -> lyprogramas.startAnimation(slide), 300);
         lyriasec.postDelayed(() -> lyriasec.startAnimation(slide), 400);
 
         // 🔹 EFECTO PRESIÓN
         aplicarEfectoPresion(lytest);
-        aplicarEfectoPresion(lyresultados);
+        //  aplicarEfectoPresion(lyresultados);
         aplicarEfectoPresion(lyprogramas);
         aplicarEfectoPresion(lyriasec);
         aplicarEfectoPresion(btnusuario);
@@ -91,7 +91,7 @@ public class Principal extends AppCompatActivity {
 
         lyprogramas.setOnClickListener(v -> abrirActividad(Programas.class));
 
-        lyresultados.setOnClickListener(v -> abrirActividad(Resultados.class));
+        //  lyresultados.setOnClickListener(v -> abrirActividad(Resultados.class));
 
         lytest.setOnClickListener(v -> abrirActividad(BienvenidaTest.class));
 
@@ -151,11 +151,11 @@ public class Principal extends AppCompatActivity {
                     List<PieEntry> entries = new ArrayList<>();
 
                     int[] colores = {
-                            Color.parseColor("#73C6D9"),
-                            Color.parseColor("#6EF05C"),
-                            Color.parseColor("#C65AB4"),
-                            Color.parseColor("#4DB6AC"),
-                            Color.parseColor("#8E6CE5")
+                            Color.parseColor("#7ee5fc"),
+                            Color.parseColor("#5fe84d"),
+                            Color.parseColor("#fc6ae4"),
+                            Color.parseColor("#fcdf3a"),
+                            Color.parseColor("#fa8805")
                     };
 
                     int index = 0;

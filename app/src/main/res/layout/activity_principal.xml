@@ -110,57 +110,6 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- RESULTADOS -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardResultados"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="5dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    android:stateListAnimator="@animator/press_anim">
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@drawable/diagonal_card_azul"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Mis resultados"
-                                android:textColor="#C9FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/lyresultados"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="16dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Consulta tus resultados y recomendaciones."
-                                android:textColor="#777"
-                                android:textSize="13sp"
-                                android:gravity="center"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
 
                 <!-- PROGRAMAS -->
                 <com.google.android.material.card.MaterialCardView
@@ -268,6 +217,23 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Programas Destacados"
+                        android:textColor="#626262"
+                        android:textSize="27sp"
+                        android:padding="1dp"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
             </GridLayout>
 
             <!-- CARD GRAFICO -->
@@ -279,11 +245,13 @@
                 app:cardCornerRadius="25dp"
                 app:cardElevation="5dp">
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
+
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chartProgramas"

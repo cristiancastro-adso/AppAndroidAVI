@@ -47,9 +47,6 @@
             android:name=".controller.Resultados"
             android:exported="false" /> <!-- 🔥 ESTA ES LA QUE FALTABA -->
         <activity
-            android:name=".controller.InfoProgramas"
-            android:exported="false" />
-        <activity
             android:name=".controller.RankingProgramas"
             android:exported="false" />
         <activity
