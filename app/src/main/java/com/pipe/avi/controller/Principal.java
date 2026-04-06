@@ -176,7 +176,7 @@ public class Principal extends AppCompatActivity {
                         colorBox.setHeight(30);
 
                         TextView texto = new TextView(Principal.this);
-                        texto.setText("  " + p.getPrograma() + " (" + p.getTotal() + ")");
+                        texto.setText("  " + p.getPrograma() + " (" + p.getTotal() + " recomendaciones)");
                         texto.setTextSize(13f);
 
                         fila.addView(colorBox);

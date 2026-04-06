@@ -56,7 +56,7 @@ public class Test extends AppCompatActivity {
 
     int preguntaId;
     int preguntaActual = 1;
-    int totalPreguntas = 10;
+    int totalPreguntas = 18;
 
     String categoriaActual;
 

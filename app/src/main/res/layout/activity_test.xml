@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="12dp"
-                android:text="Pregunta 1 de 10"
+                android:text="Pregunta 1 de 18"
                 android:textColor="#555555"
                 android:textSize="16sp" />
 
