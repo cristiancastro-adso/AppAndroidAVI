@@ -172,7 +172,7 @@ public class Mapa extends AppCompatActivity {
             btn.setText(programa.getNombre());
             btn.setTextSize(10);
             btn.setAllCaps(false);
-            btn.setBackgroundResource(R.drawable.bg_boton_acceso);
+            btn.setBackgroundResource(R.drawable.bg_boton_accesomapa);
             btn.setTextColor(Color.BLACK);
 
             btn.startAnimation(pulseAnim);
@@ -208,7 +208,7 @@ public class Mapa extends AppCompatActivity {
         ValueAnimator anim = ValueAnimator.ofObject(
                 new ArgbEvaluator(),
                 Color.WHITE,
-                Color.parseColor("#90EE90")
+                Color.parseColor("#9acced")
         );
         anim.setDuration(2000);
         anim.setRepeatCount(ValueAnimator.INFINITE);

@@ -169,7 +169,7 @@ public class InfoRiasec extends AppCompatActivity {
                 animarEntrada(txtPasoTitulo);
                 animarEntrada(txtPasoDescripcion);
 
-                handler.postDelayed(this, 4000);
+                handler.postDelayed(this, 3000);
             }
         }, 3000);
     }

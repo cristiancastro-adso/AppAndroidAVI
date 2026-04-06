@@ -1,6 +1,10 @@
 package com.pipe.avi.controller;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -8,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +38,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.graphics.Color;
+import android.widget.SeekBar;
+import java.util.Random;
+
+
 public class Test extends AppCompatActivity {
 
     TextView txtPregunta, txtContador;
@@ -55,6 +65,27 @@ public class Test extends AppCompatActivity {
     Handler handler = new Handler();
 
     private AvatarHelper avatarHelper;
+
+    SeekBar seekRespuesta;
+    View root;
+    int tipoUI;
+
+
+    LinearLayout containerBotones;
+    View contentContainer; // 🔥 SOLO este cambia de color
+
+    SensorManager sensorManager;
+    Sensor accelerometer;
+    SensorEventListener sensorListener;
+    long lastMoveTime = 0;
+    int ultimoValor = 2;
+
+    boolean yaSeMovio = false;
+    boolean bloqueado = false;
+
+    TextView txtAnalizando;
+
+    LinearLayout labelsSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +128,69 @@ public class Test extends AppCompatActivity {
         btn3.setOnClickListener(v -> responder(3));
         btn2.setOnClickListener(v -> responder(2));
         btn1.setOnClickListener(v -> responder(1));
+
+        root = findViewById(R.id.main);
+        seekRespuesta = findViewById(R.id.seekRespuesta);
+
+
+        containerBotones = findViewById(R.id.containerBotones);
+        contentContainer = findViewById(R.id.contentContainer);
+
+        txtAnalizando = findViewById(R.id.txtAnalizando);
+
+        labelsSlider = findViewById(R.id.labelsSlider);
+
+        configurarSlider();
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        sensorListener = new SensorEventListener() {
+
+
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float x = event.values[0];
+
+                if (seekRespuesta.getVisibility() == View.VISIBLE && !bloqueado) {
+
+                    long currentTime = System.currentTimeMillis();
+                    int progreso = seekRespuesta.getProgress();
+
+                    if (currentTime - lastMoveTime > 400) { // 👈 controla qué tan rápido cambia
+
+                        if (x < -7) {
+                            progreso++;
+                            lastMoveTime = currentTime;
+                        } else if (x > 7) {
+                            progreso--;
+                            lastMoveTime = currentTime;
+                        }
+                    }
+
+                    if (progreso < 0) progreso = 0;
+                    if (progreso > 4) progreso = 4;
+
+                    if (progreso != ultimoValor) {
+                        ultimoValor = progreso;
+                        lastMoveTime = System.currentTimeMillis();
+                        yaSeMovio = true; // 🔥 SOLO cuando realmente mueve
+                    }
+
+                    seekRespuesta.setProgress(progreso);
+                    cambiarColorFondo(progreso + 1);
+
+                    if (yaSeMovio && System.currentTimeMillis() - lastMoveTime > 1200) {
+                        yaSeMovio = false; // evita múltiples respuestas
+                        responder(progreso + 1);
+                    }
+                }
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+
+        };
+
     }
 
     private void iniciarRIASEC() {
@@ -123,12 +217,17 @@ public class Test extends AppCompatActivity {
                     txtPregunta.setText(pregunta.getQuestion());
                     txtContador.setText("Pregunta " + preguntaActual + " de " + totalPreguntas);
 
-                    // ✅ ACTUALIZAR PROGRESS BAR
                     progressTest.setProgress(preguntaActual);
 
-                    mostrarPregunta();
+                    // 🎲 CAMBIO DINÁMICO DE UI (AQUÍ ESTÁ LA MAGIA)
+                    tipoUI = new Random().nextInt(2); // 0 botones, 1 slider
+                    aplicarTipoUI();
 
-                    // El avatar lee la pregunta
+                    bloqueado = false;
+
+                    seekRespuesta.setEnabled(true);
+
+                    mostrarPregunta();
                     avatarHelper.speak(pregunta.getQuestion());
 
                 } else {
@@ -144,11 +243,18 @@ public class Test extends AppCompatActivity {
     }
 
     private void responder(int valor) {
+
+        if (bloqueado) return; // 🔥 evita dobles respuestas
+
+        bloqueado = true;
+
+        cambiarColorFondo(valor);
         ocultarPregunta();
         mostrarLoader(true);
+        seekRespuesta.setEnabled(false);
+
         handler.postDelayed(() -> guardarRespuesta(valor), 150);
     }
-
     private void guardarRespuesta(int valor) {
         Map<String, Object> body = new HashMap<>();
         body.put("aspiranteId", aspiranteId);
@@ -197,6 +303,9 @@ public class Test extends AppCompatActivity {
         btn3.setVisibility(View.INVISIBLE);
         btn4.setVisibility(View.INVISIBLE);
         btn5.setVisibility(View.INVISIBLE);
+
+        seekRespuesta.setVisibility(View.GONE);
+        containerBotones.setVisibility(View.GONE);
     }
 
     private void actualizarRIASEC(int valor) {
@@ -209,12 +318,36 @@ public class Test extends AppCompatActivity {
         if (mostrar) {
             imgLoader.setVisibility(View.VISIBLE);
             Glide.with(this).asGif().load(R.drawable.loader).into(imgLoader);
+
+            // 🔥 OCULTAR UI DE RESPUESTA
+            seekRespuesta.setVisibility(View.GONE);
+            labelsSlider.setVisibility(View.GONE);
+            containerBotones.setVisibility(View.GONE);
+
         } else {
             imgLoader.setVisibility(View.GONE);
         }
     }
 
     private void finalizarTest() {
+        ocultarPregunta(); // 🔥 limpia UI
+        mostrarLoader(true);
+
+        txtAnalizando.setVisibility(View.VISIBLE);
+
+        handler.postDelayed(() -> {
+            txtAnalizando.setText("Analizando tus respuestas...");
+        }, 1500);
+
+        handler.postDelayed(() -> {
+            txtAnalizando.setText("Aplicando modelo RIASEC...");
+        }, 1500);
+
+        handler.postDelayed(() -> {
+            txtAnalizando.setText("Generando recomendaciones...");
+        }, 2400);
+
+
         TestApi api = RetrofitClient.getClient().create(TestApi.class);
 
         Map<String, Object> body = new HashMap<>();
@@ -255,4 +388,87 @@ public class Test extends AppCompatActivity {
             avatarHelper.destroy();
         }
     }
+
+
+    private void aplicarTipoUI() {
+        if (tipoUI == 0) {
+            mostrarBotones();
+        } else {
+            mostrarSlider();
+        }
+    }
+
+    private void mostrarBotones() {
+        seekRespuesta.setVisibility(View.GONE);
+        labelsSlider.setVisibility(View.GONE);
+        containerBotones.setVisibility(View.VISIBLE);
+    }
+
+    private void mostrarSlider() {
+        containerBotones.setVisibility(View.GONE);
+
+        seekRespuesta.setVisibility(View.VISIBLE);
+        labelsSlider.setVisibility(View.VISIBLE);
+
+        seekRespuesta.setProgress(2); // Neutral
+
+
+        yaSeMovio = false;
+        ultimoValor = 2;
+        lastMoveTime = System.currentTimeMillis();
+    }
+
+
+
+
+    private void configurarSlider() {
+        seekRespuesta.setMax(4);
+
+        seekRespuesta.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                int valor = seekBar.getProgress() + 1;
+                responder(valor);
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int valor = progress + 1;
+                cambiarColorFondo(valor);
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+        });
+    }
+
+
+
+    private void cambiarColorFondo(int valor) {
+        int color;
+
+        switch (valor) {
+            case 5: color = Color.parseColor("#deffe0"); break;
+            case 4: color = Color.parseColor("#fcffe6"); break;
+            case 3: color = Color.parseColor("#ededed"); break;
+            case 2: color = Color.parseColor("#FFF3E0"); break;
+            case 1: color = Color.parseColor("#FDECEA"); break;
+            default: color = Color.WHITE;
+        }
+
+        contentContainer.setBackgroundColor(color);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(sensorListener, accelerometer, SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(sensorListener);
+    }
+
 }

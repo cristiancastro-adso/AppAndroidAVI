@@ -5,4 +5,9 @@
 
     <style name="Theme.AVI" parent="Base.Theme.AVI" />
 
+    <style name="RoundedImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
 </resources>

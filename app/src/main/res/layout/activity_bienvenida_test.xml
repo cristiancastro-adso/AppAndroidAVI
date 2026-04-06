@@ -16,6 +16,7 @@
         android:gravity="center"
         android:elevation="5dp"
         android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -46,11 +47,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/aviherramientas"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="5dp"/>
 
             <!-- PASO 1 -->
             <com.google.android.material.card.MaterialCardView
@@ -58,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
@@ -65,8 +76,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:padding="12dp"
                     android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:gravity="start"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:text="1"
@@ -79,122 +97,190 @@
                         android:layout_gravity="center"/>
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Responde preguntas clave"
                         android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginLeft="10dp"
+                        />
+
+                </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="• Intereses y habilidades\n• Preferencias vocacionales\n• Duración aproximada: 15-20 minutos"
+                        android:text="• Cuentanos tus Intereses y habilidades\n• Preferencias vocacionales\n• Duración aproximada: 5-10 minutos"
                         android:textSize="15sp"
                         android:textColor="#9A000000"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginLeft="20dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginBottom="5dp"
+                        android:padding="10dp"
+                        android:layout_marginLeft="40dp"
+                        android:textAlignment="textStart"
+                        android:layout_marginTop="-15dp"
+                        />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="↓"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:textColor="#B39DDB"
+                android:alpha="0.7"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                />
+
             <!-- PASO 2 -->
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/linearLayout15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:text="2"
-                        android:background="@drawable/circle_number"
-                        android:textColor="#FFFFFF"
-                        android:padding="8dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:gravity="start"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:text="2"
+                            android:background="@drawable/circle_number"
+                            android:textColor="#FFFFFF"
+                            android:padding="8dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Analizamos tu perfil"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"/>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Analizamos tu perfil"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="• Análisis de afinidad\n• Resultado por perfil RIASEC\n• Compatibilidad con programas"
+                        android:layout_height="wrap_content"
+                        android:text="• Recibimos tus respuestas\n• Resultado por perfil RIASEC\n• Compatibilidad con programas"
                         android:textSize="15sp"
-                        android:layout_marginLeft="20dp"
-                        android:textStyle="bold"
+                        android:layout_marginLeft="40dp"
                         android:textColor="#9A000000"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginBottom="5dp"
+                        android:padding="10dp"
+                        android:textAlignment="textStart"
+                        />
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="↓"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:textColor="#B39DDB"
+                android:alpha="0.7"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"/>
 
             <!-- PASO 3 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
+                android:layout_margin="10dp"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:text="3"
-                        android:background="@drawable/circle_number"
-                        android:textColor="#FFFFFF"
-                        android:padding="8dp"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:gravity="start"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:text="3"
+                            android:background="@drawable/circle_number"
+                            android:textColor="#FFFFFF"
+                            android:padding="8dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Recibe tus programas recomendados"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"/>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Recibe tus programas recomendados"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textSize="16sp"
-                        android:layout_marginTop="8dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="• Recomendaciones personalizadas\n• Programas SENA sugeridos\n• Ruta vocacional sugerida"
+                        android:layout_height="wrap_content"
+                        android:text="• Recomendaciones personalizadas\n• Programas de formacion del \n  SENA-CTPI sugeridos"
                         android:textSize="15sp"
-                        android:textStyle="bold"
                         android:textColor="#9A000000"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginBottom="5dp"
+                        android:padding="10dp"
+                        android:textAlignment="textStart"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="↓"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:textColor="#B39DDB"
+                android:alpha="0.7"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                />
 
             <!-- BOTON -->
             <FrameLayout
@@ -205,12 +291,13 @@
                 <Button
                     android:id="@+id/btninittest"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    app:backgroundTint="@null"
+                    android:layout_height="match_parent"
                     android:background="@drawable/btnfondo"
                     android:text="Realizar Test Ahora"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    app:backgroundTint="@null"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progressTest"

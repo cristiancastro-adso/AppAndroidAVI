@@ -52,40 +52,42 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <ScrollView
+        android:id="@+id/contentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/bg_boton_acceso"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout10"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:padding="24dp">
 
-            <!-- AVATAR CENTRADO SOBRE LAS PREGUNTAS -->
             <WebView
                 android:id="@+id/webAvatar"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                tools:ignore="WebViewLayout" />
 
             <!-- Contador -->
             <TextView
                 android:id="@+id/txtContador"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pregunta 1 de 10"
-                android:textSize="16sp"
-                android:textColor="#555555"
                 android:gravity="center"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:text="Pregunta 1 de 10"
+                android:textColor="#555555"
+                android:textSize="16sp" />
 
             <ProgressBar
                 android:id="@+id/progressTest"
@@ -95,18 +97,18 @@
                 android:layout_marginBottom="20dp"
                 android:max="100"
                 android:progress="10"
-                android:progressTint="@color/violeta"
-                android:progressBackgroundTint="#E0E0E0"/>
+                android:progressBackgroundTint="#E0E0E0"
+                android:progressTint="@color/violeta" />
 
             <TextView
                 android:id="@+id/txtPregunta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="24dp"
                 android:text="Cargando pregunta..."
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingBottom="24dp"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imgLoader"
@@ -114,71 +116,158 @@
                 android:layout_height="220dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
+            <TextView
+                android:id="@+id/txtAnalizando"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analizando tus resultados..."
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#555"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
 
-            <Button
-                android:id="@+id/btn5"
+            <!-- SLIDER (OCULTO POR DEFECTO) -->
+            <SeekBar
+                android:id="@+id/seekRespuesta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Me encanta"
-                android:textSize="18sp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_meencanta"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
+                android:padding="10dp"
+                android:progressDrawable="@drawable/slider_track"
+                android:thumb="@drawable/slider_thumb"
                 android:visibility="gone"/>
 
-            <Button
-                android:id="@+id/btn4"
+            <LinearLayout
+                android:id="@+id/labelsSlider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Me gusta"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_megusta"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:visibility="gone"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone"
+                android:paddingHorizontal="4dp">
 
-            <Button
-                android:id="@+id/btn3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Neutral"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_neutral"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:visibility="gone"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Odio esto"
+                    android:textSize="12sp"
+                    android:textColor="@color/rojo"
+                    android:layout_height="wrap_content"/>
 
-            <Button
-                android:id="@+id/btn2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No me gusta"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_nomegusta"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:visibility="gone"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="No me gusta"
+                    android:textSize="12sp"
+                    android:textColor="#C16D00"
+                    android:layout_height="wrap_content"/>
 
-            <Button
-                android:id="@+id/btn1"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Neutral"
+                    android:textSize="12sp"
+                    android:textColor="@color/gris"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Me gusta"
+                    android:textSize="12sp"
+                    android:textColor="#e6d90b"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Me encanta"
+                    android:textSize="12sp"
+                    android:textColor="#00E676"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+            <!-- CONTENEDOR DE BOTONES -->
+            <LinearLayout
+                android:id="@+id/containerBotones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Odio esto"
-                android:textSize="18sp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_odioesto"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:visibility="gone"/>
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_meencanta"
+                    android:backgroundTint="@null"
+                    android:text="Me encanta"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_megusta"
+                    android:backgroundTint="@null"
+                    android:text="Me gusta"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_neutral"
+                    android:backgroundTint="@null"
+                    android:text="Neutral"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_nomegusta"
+                    android:backgroundTint="@null"
+                    android:text="No me gusta"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/btn_odioesto"
+                    android:backgroundTint="@null"
+                    android:text="Odio esto"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:backgroundTint="@null" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
     </ScrollView>
 
 

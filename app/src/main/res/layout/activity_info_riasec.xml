@@ -60,12 +60,71 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="15dp">
 
             <!-- HEADER -->
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="¿QUÉ ES?"
+                android:layout_gravity="center"
+                android:textColor="#6A3EA1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Es una teoría de orientación vocacional desarrollada por el psicólogo John L. Holland. Permite identificar los intereses profesionales de una persona y relacionarlos con entornos educativos o laborales compatibles."
+                        android:textColor="#444" />
+                </LinearLayout>
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="─────────── ୨୧ ───────────"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#B39DDB"
+                android:alpha="0.4"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="25dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+
+                android:text="Conoce su significado"
+                android:textColor="#6A3EA1"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!-- RIASEC BURBUJAS -->
             <LinearLayout
@@ -137,6 +196,7 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:backgroundTint="#34495E"
                     android:text="C"
                     android:textColor="#FFFFFF"
@@ -147,8 +207,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -179,14 +240,28 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- SECCIÓN COMO FUNCIONA -->
+
             <TextView
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="─────────── ୨୧ ───────────"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="#B39DDB"
+                android:alpha="0.4"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="25dp"
+                />
+
+            <!-- SECCIÓN COMO FUNCIONA -->
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20sp"
-                android:layout_marginTop="24dp"
-                android:text="¿Cómo utilizamos el modelo RIASEC?"
-                android:textColor="@color/gris"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:text="¿Cómo lo utilizamos?"
+                android:textColor="#6A3EA1"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -194,8 +269,10 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
-                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="6dp">
 
@@ -204,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/txtPasoTitulo"
@@ -226,6 +303,7 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
 
         </LinearLayout>
 
