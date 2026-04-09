@@ -24,6 +24,8 @@
         <activity
             android:name=".controller.InfoRiasec"
             android:exported="false" />
+
+        <activity android:name=".controller.ForoActivity" />
         <activity
             android:name=".controller.ARActivity"
             android:exported="false"

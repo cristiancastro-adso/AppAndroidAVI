@@ -2,6 +2,7 @@ import org.gradle.kotlin.dsl.invoke
 
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -80,5 +81,12 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
 
     implementation ("androidx.webkit:webkit:1.12.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    implementation("com.google.firebase:firebase-firestore")
 
 }

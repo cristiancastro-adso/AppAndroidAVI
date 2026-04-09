@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.card.MaterialCardView;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -36,6 +37,9 @@ public class Principal extends AppCompatActivity {
     ImageButton btnusuario;
     LinearLayout lyprogramas, lytest, lyriasec;
     TextView txtAccesos;
+
+    // 🔥 NUEVO
+    MaterialCardView cardForo;
 
     PieChart chartProgramas;
     LinearLayout legendContainer;
@@ -60,10 +64,12 @@ public class Principal extends AppCompatActivity {
         // 🔹 VISTAS
         btnusuario = findViewById(R.id.btnusuario);
         lyprogramas = findViewById(R.id.lyprogramas);
-         //lyresultados = findViewById(R.id.lyresultados);
         lytest = findViewById(R.id.lytest);
         lyriasec = findViewById(R.id.lyriasec);
         txtAccesos = findViewById(R.id.txtAccesos);
+
+        // 🔥 NUEVO
+        cardForo = findViewById(R.id.cardForo);
 
         chartProgramas = findViewById(R.id.chartProgramas);
         legendContainer = findViewById(R.id.legendContainer);
@@ -75,42 +81,42 @@ public class Principal extends AppCompatActivity {
         txtAccesos.startAnimation(fade);
 
         lytest.postDelayed(() -> lytest.startAnimation(slide), 100);
-        //  lyresultados.postDelayed(() -> lyresultados.startAnimation(slide), 200);
         lyprogramas.postDelayed(() -> lyprogramas.startAnimation(slide), 300);
         lyriasec.postDelayed(() -> lyriasec.startAnimation(slide), 400);
+        cardForo.postDelayed(() -> cardForo.startAnimation(slide), 500);
 
         // 🔹 EFECTO PRESIÓN
         aplicarEfectoPresion(lytest);
-        //  aplicarEfectoPresion(lyresultados);
         aplicarEfectoPresion(lyprogramas);
         aplicarEfectoPresion(lyriasec);
         aplicarEfectoPresion(btnusuario);
+        aplicarEfectoPresion(cardForo); // 🔥 NUEVO
 
         // 🔹 EVENTOS
         btnusuario.setOnClickListener(v -> abrirActividad(User.class));
 
         lyprogramas.setOnClickListener(v -> abrirActividad(Programas.class));
 
-        //  lyresultados.setOnClickListener(v -> abrirActividad(Resultados.class));
-
         lytest.setOnClickListener(v -> abrirActividad(BienvenidaTest.class));
 
-        // 🔥 RIASEC (YA ENVÍA EL ID CORRECTAMENTE)
         lyriasec.setOnClickListener(v -> abrirActividad(InfoRiasec.class));
+
+        // 🔥 NUEVO → IR AL FORO
+        cardForo.setOnClickListener(v -> abrirActividad(ForoActivity.class));
 
         // 🔹 GRAFICO
         cargarGraficoProgramas();
     }
 
-    // 🔥 MÉTODO UNIVERSAL (NO LO CAMBIES MÁS)
+    // 🔥 MÉTODO UNIVERSAL
     private void abrirActividad(Class<?> destino) {
         Intent intent = new Intent(Principal.this, destino);
-        intent.putExtra("aspiranteId", aspiranteId); // 🔥 CLAVE
+        intent.putExtra("aspiranteId", aspiranteId);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    // 🔥 EFECTO PRESIÓN PRO
+    // 🔥 EFECTO PRESIÓN
     private void aplicarEfectoPresion(View view) {
 
         view.setOnTouchListener((v, event) -> {

@@ -22,6 +22,13 @@ import com.pipe.avi.model.LoginResponse;
 import com.pipe.avi.network.AspirantesApi;
 import com.pipe.avi.network.RetrofitClient;
 
+import org.cloudinary.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -147,6 +154,12 @@ public class IniciarSesion extends AppCompatActivity {
                         // 🔍 DEBUG
                         Log.d("DEBUG", "TOKEN GUARDADO: " + token);
 
+                        cargarPerfilYGuardar(token);
+
+                        prefs.edit()
+                                .putInt("aspiranteId", id)
+                                .apply();
+
                         Toast.makeText(IniciarSesion.this,
                                 loginResponse.getMensaje(),
                                 Toast.LENGTH_SHORT).show();
@@ -184,5 +197,54 @@ public class IniciarSesion extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // 👇 PEGA ESTO AQUÍ (ANTES DEL ÚLTIMO })
+    private void cargarPerfilYGuardar(String token) {
+
+        new Thread(() -> {
+            try {
+                URL url = new URL("https://avibackcopia2-production.up.railway.app/api/perfilaspirante");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", "Bearer " + token);
+
+                if (conn.getResponseCode() == 200) {
+
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream())
+                    );
+
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    JSONObject root = new JSONObject(result.toString());
+
+                    JSONObject perfil =
+                            root.optJSONObject("data") != null ? root.optJSONObject("data") :
+                                    root.optJSONObject("usuario") != null ? root.optJSONObject("usuario") :
+                                            root.optJSONObject("perfil") != null ? root.optJSONObject("perfil") :
+                                                    root;
+
+                    String nombre = perfil.optString("nombre_completo", "Usuario");
+                    String foto = perfil.optString("foto", "");
+
+                    SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
+
+                    prefs.edit()
+                            .putString("NOMBRE_USUARIO", nombre)
+                            .putString("FOTO_PERFIL", foto)
+                            .apply();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

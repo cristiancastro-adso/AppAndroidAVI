@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "824868349809",
+    "project_id": "aviforo",
+    "storage_bucket": "aviforo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824868349809:android:a92671870c024ea21238d0",
+        "android_client_info": {
+          "package_name": "com.pipe.avi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmMVoJSuQfiE3hpL8mk9qDBw0XbeOdZHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
