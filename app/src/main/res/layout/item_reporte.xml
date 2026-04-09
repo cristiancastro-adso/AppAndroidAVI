@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtFecha"
+            android:textColor="#9E9E9E"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Recomendaciones para ti"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#2C2C54"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <!-- 🔥 RECOMENDACIONES -->
+        <LinearLayout
+            android:id="@+id/layoutRecomendaciones"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtVerMas"
+            android:text="Ver más ▼"
+            android:textColor="@color/azulclaro"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- 🔽 RIASEC OCULTO -->
+        <LinearLayout
+            android:id="@+id/layoutRiasec"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:padding="12dp"
+            android:background="#F3E5F5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- TITULO -->
+            <TextView
+                android:text="Puntajes RIASEC"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#4A148C"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- E -->
+            <TextView
+                android:id="@+id/txtE"
+                android:text="E - Emprendedor (0)"
+                android:textColor="#FB8C00"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barE"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#FB8C00"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- A -->
+            <TextView
+                android:id="@+id/txtA"
+                android:text="A - Artístico (0)"
+                android:textColor="#E91E63"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barA"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#E91E63"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- C -->
+            <TextView
+                android:id="@+id/txtC"
+                android:text="C - Convencional (0)"
+                android:textColor="#616161"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barC"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#616161"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- S -->
+            <TextView
+                android:id="@+id/txtS"
+                android:text="S - Social (0)"
+                android:textColor="#8E24AA"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barS"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#8E24AA"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- I -->
+            <TextView
+                android:id="@+id/txtI"
+                android:text="I - Investigativo (0)"
+                android:textColor="#43A047"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barI"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#43A047"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- R -->
+            <TextView
+                android:id="@+id/txtR"
+                android:text="R - Realista (0)"
+                android:textColor="#1E88E5"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/barR"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressTint="#1E88E5"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

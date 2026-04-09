@@ -52,10 +52,22 @@ public class Programas extends AppCompatActivity {
 
     Animation press;
 
+    int aspiranteId;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programas);
+
+        aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
+
+        if (aspiranteId == 0) {
+            Toast.makeText(this, "Sesión inválida", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
         btnhome = findViewById(R.id.btnhome);
         btnusuario = findViewById(R.id.btnusuario);
@@ -113,20 +125,37 @@ public class Programas extends AppCompatActivity {
 
         // 🔹 BOTÓN HOME
         btnhome.setOnClickListener(v -> {
-
             v.startAnimation(press);
+
+            Intent intent = new Intent(Programas.this, Principal.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
             finish();
         });
 
         // 🔹 BOTÓN USUARIO
         btnusuario.setOnClickListener(v -> {
-
             v.startAnimation(press);
 
-            startActivity(new Intent(Programas.this, User.class));
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            Intent intent = new Intent(Programas.this, User.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+
+            overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+            );
         });
 
+        ImageButton btnreportes = findViewById(R.id.btnreportes);
+
+        btnreportes.setOnClickListener(v -> {
+            v.startAnimation(press);
+
+            Intent intent = new Intent(this, Reportes.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+        });
     }
 
     private void cargarProgramas() {

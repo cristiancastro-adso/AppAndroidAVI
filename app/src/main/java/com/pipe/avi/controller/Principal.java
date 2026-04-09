@@ -1,6 +1,7 @@
 package com.pipe.avi.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 
 public class Principal extends AppCompatActivity {
 
-    ImageButton btnusuario;
+    ImageButton btnusuario, btnreportes;
     LinearLayout lyprogramas, lytest, lyriasec;
     TextView txtAccesos;
 
@@ -46,13 +47,23 @@ public class Principal extends AppCompatActivity {
 
     int aspiranteId;
 
+    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
 
-        // 🔥 RECIBIR SESIÓN
-        aspiranteId = getIntent().getIntExtra("aspiranteId", -1);
+        SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
+
+        token = prefs.getString("token", null);
+        aspiranteId = prefs.getInt("aspiranteId", -1);
+
+        if (token == null || aspiranteId == -1) {
+            startActivity(new Intent(this, IniciarSesion.class));
+            finish();
+            return;
+        }
+        setContentView(R.layout.activity_principal);
 
         if (aspiranteId == -1) {
             Toast.makeText(this, "Error: sesión no válida", Toast.LENGTH_LONG).show();
@@ -63,6 +74,7 @@ public class Principal extends AppCompatActivity {
 
         // 🔹 VISTAS
         btnusuario = findViewById(R.id.btnusuario);
+        btnreportes = findViewById(R.id.btnreportes);
         lyprogramas = findViewById(R.id.lyprogramas);
         lytest = findViewById(R.id.lytest);
         lyriasec = findViewById(R.id.lyriasec);
@@ -91,9 +103,12 @@ public class Principal extends AppCompatActivity {
         aplicarEfectoPresion(lyriasec);
         aplicarEfectoPresion(btnusuario);
         aplicarEfectoPresion(cardForo); // 🔥 NUEVO
+        aplicarEfectoPresion(btnreportes);
 
         // 🔹 EVENTOS
         btnusuario.setOnClickListener(v -> abrirActividad(User.class));
+
+        btnreportes.setOnClickListener(v -> abrirActividad(Reportes.class));
 
         lyprogramas.setOnClickListener(v -> abrirActividad(Programas.class));
 

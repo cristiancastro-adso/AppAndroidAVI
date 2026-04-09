@@ -96,18 +96,6 @@ public class Mapa extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // 🔥 BOTONES DE MENÚ
-        findViewById(R.id.btnhome).setOnClickListener(v -> {
-            v.startAnimation(pressAnim);
-            finish();
-        });
-
-        findViewById(R.id.btnusuario).setOnClickListener(v -> {
-            v.startAnimation(pressAnim);
-            Intent intent = new Intent(Mapa.this, User.class);
-            intent.putExtra("aspiranteId", aspiranteId);
-            startActivity(intent);
-        });
     }
 
     // =========================

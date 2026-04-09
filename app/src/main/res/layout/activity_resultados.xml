@@ -114,53 +114,16 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/btnfondo"
-        app:backgroundTint="@null"
         android:text="Ver en el mapa"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- BOTTOM NAV -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_nav_bottom"
-        android:elevation="3dp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnusuario"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_user_new"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnhome"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnhome"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_home_new"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnusuario"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

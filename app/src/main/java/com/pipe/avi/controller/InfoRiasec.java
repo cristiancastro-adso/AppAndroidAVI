@@ -82,6 +82,14 @@ public class InfoRiasec extends AppCompatActivity {
         btnhome.setOnClickListener(v -> abrirActividad(Principal.class));
         btnusuario.setOnClickListener(v -> abrirActividad(User.class));
 
+        ImageButton btnreportes = findViewById(R.id.btnreportes);
+
+        btnreportes.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Reportes.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+        });
+
         // 🔹 RIASEC
         btnR.setOnClickListener(v -> cambiarContenido("Realista (R)",
                 "Personas prácticas que trabajan con herramientas, maquinaria o tecnología.\n\nEj: mecánica, electrónica.",

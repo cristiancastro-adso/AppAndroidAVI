@@ -25,7 +25,7 @@ public class ForoActivity extends AppCompatActivity {
 
     private RecyclerView recycler;
     private FloatingActionButton fabAgregar;
-    private ImageButton btnUsuario, btnHome;
+    private ImageButton btnusuario, btnhome;
 
     private List<Comentario> lista = new ArrayList<>();
     private ComentarioAdapter adapter;
@@ -36,15 +36,25 @@ public class ForoActivity extends AppCompatActivity {
     private String nombreUsuario;
     private String fotoUsuario;
 
+    int aspiranteId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foro);
 
+        aspiranteId = getIntent().getIntExtra("aspiranteId", 0);
+
+        if (aspiranteId == 0) {
+            Toast.makeText(this, "Sesión inválida", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         recycler = findViewById(R.id.recyclerComentarios);
         fabAgregar = findViewById(R.id.fabAgregar);
-        btnUsuario = findViewById(R.id.btnusuario);
-        btnHome = findViewById(R.id.btnhome);
+        btnusuario = findViewById(R.id.btnusuario);
+        btnhome = findViewById(R.id.btnhome);
 
         SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
 
@@ -63,15 +73,33 @@ public class ForoActivity extends AppCompatActivity {
 
         fabAgregar.setOnClickListener(v -> mostrarDialogo());
 
-        btnUsuario.setOnClickListener(v -> {
-            Intent intent = new Intent(this, User.class);
-            intent.putExtra("aspiranteId", Integer.parseInt(idAspirante));
+        btnhome.setOnClickListener(v -> {
+
+            Intent intent = new Intent(ForoActivity.this, Principal.class);
+            intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
+            finish();
         });
 
-        btnHome.setOnClickListener(v -> {
-            Intent intent = new Intent(this, Principal.class);
-            intent.putExtra("aspiranteId", Integer.parseInt(idAspirante));
+        // 🔹 BOTÓN USUARIO
+        btnusuario.setOnClickListener(v -> {
+
+            Intent intent = new Intent(ForoActivity.this, User.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+
+            overridePendingTransition(
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+            );
+        });
+
+        ImageButton btnreportes = findViewById(R.id.btnreportes);
+
+        btnreportes.setOnClickListener(v -> {
+
+            Intent intent = new Intent(this, Reportes.class);
+            intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });
     }

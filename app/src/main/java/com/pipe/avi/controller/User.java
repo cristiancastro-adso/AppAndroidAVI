@@ -78,6 +78,12 @@ public class User extends AppCompatActivity {
         prefs = getSharedPreferences("app", MODE_PRIVATE);
         token = prefs.getString("token", "");
 
+        if (token == null || token.isEmpty() || aspiranteId <= 0) {
+            startActivity(new Intent(this, IniciarSesion.class));
+            finish();
+            return;
+        }
+
         Log.d("TOKEN_DEBUG", "TOKEN = " + token);
         btncerrarsesion = findViewById(R.id.btncerrarsesion);
         btnhome = findViewById(R.id.btnhome);
@@ -166,6 +172,7 @@ public class User extends AppCompatActivity {
                     .setTitle("Cerrar sesión")
                     .setMessage("¿Deseas cerrar sesión?")
                     .setPositiveButton("Sí", (dialog, which) -> {
+                        prefs.edit().clear().apply();
                         startActivity(new Intent(User.this, MainActivity.class));
                         finish();
                     })
@@ -176,6 +183,15 @@ public class User extends AppCompatActivity {
         btnhome.setOnClickListener(v -> {
             v.startAnimation(press);
             Intent intent = new Intent(User.this, Principal.class);
+            intent.putExtra("aspiranteId", aspiranteId);
+            startActivity(intent);
+        });
+
+        ImageButton btnreportes = findViewById(R.id.btnreportes);
+
+        btnreportes.setOnClickListener(v -> {
+            v.startAnimation(press);
+            Intent intent = new Intent(this, Reportes.class);
             intent.putExtra("aspiranteId", aspiranteId);
             startActivity(intent);
         });

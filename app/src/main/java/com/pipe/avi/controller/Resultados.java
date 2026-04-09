@@ -26,7 +26,6 @@ public class Resultados extends AppCompatActivity {
     private TextView txtBurbuja;
     private LinearLayout layoutRecomendaciones;
     private Button btnVerInfo;
-    private ImageButton btnhome, btnusuario;
 
     private ArrayList<String> programNames = new ArrayList<>();
     private ArrayList<Integer> programIds = new ArrayList<>();
@@ -47,8 +46,7 @@ public class Resultados extends AppCompatActivity {
         txtBurbuja = findViewById(R.id.txtBurbuja);
         layoutRecomendaciones = findViewById(R.id.layoutRecomendaciones);
         btnVerInfo = findViewById(R.id.btnVerInfo);
-        btnhome = findViewById(R.id.btnhome);
-        btnusuario = findViewById(R.id.btnusuario);
+
 
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
@@ -61,10 +59,6 @@ public class Resultados extends AppCompatActivity {
             Toast.makeText(this, "Error: aspiranteId no recibido", Toast.LENGTH_LONG).show();
         }
 
-        btnhome.setOnClickListener(v -> finish());
-
-        btnusuario.setOnClickListener(v ->
-                startActivity(new Intent(Resultados.this, User.class)));
 
         ResultResponse resultado =
                 (ResultResponse) getIntent().getSerializableExtra("resultadoIA");
